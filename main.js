@@ -122,7 +122,8 @@ main.init = function () {
 
     // Only setting up the background once at the start.
     util.setUpCanvas(g_ctx);
-
+	//music play
+	bgplay();
     console.log("kall í main init");
 
     this._requestNextIteration();

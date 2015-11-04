@@ -82,10 +82,10 @@ function gatherInputs() {
 function updateSimulation(du) {
 
     processDiagnostics();
-
+   if(gamestart ==true){
     bike1.update(du);
     bike2.update(du);
-
+}
 //    entityManager.update(du);
 
     // Prevent perpetual firing!
@@ -112,11 +112,14 @@ var KEY_0 = keyCode('0');
 var KEY_1 = keyCode('1');
 var KEY_2 = keyCode('2');
 
+var KEY_NEWGAME = 13;
+
 function processDiagnostics() {
+    if (eatKey(KEY_NEWGAME)) newtrongame();
 
     if (eatKey(KEY_MIXED))
         g_allowMixedActions = !g_allowMixedActions;
-
+		
     if (eatKey(KEY_GRAVITY)) g_useGravity = !g_useGravity;
 
     if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
@@ -143,6 +146,20 @@ function processDiagnostics() {
         });
 
 }
+//þarf svo að færa þetta á réttan stað
+var gamestart=false;
+//
+function newtrongame(ctx) {
+
+  util.setUpCanvas(g_ctx);
+	//music play
+	bgplay();
+gamestart=true;
+
+
+}
+
+
 
 
 // =================
@@ -161,9 +178,34 @@ function processDiagnostics() {
 
 function renderSimulation(ctx) {
 
+if(gamestart !=true){
+ctx.save();
+ctx.font = "120px serif";
+ctx.fillText("TRON", 200, 200);
+ctx.fillStyle ="green";
+ctx.fillText("TRON", 210, 200);
+ctx.restore();
+ctx.fillText("controls", 300, 300);
+ctx.fillText("w", 300, 320);
+ctx.fillText("a", 290, 330);
+ctx.fillText("d", 310, 330);
+ctx.fillText("s", 300, 340);
+
+ctx.fillText("press enter to start the game ",300 , 400);
+
+}
+else{
+
     bike1.render(ctx);
     bike2.render(ctx);
+	//status update
+ctx.fillText("lives * * *", 550, 50);
+ctx.fillText("level : 1", 50, 50);
 
+
+
+
+}
 //    entityManager.render(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
