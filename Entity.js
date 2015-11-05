@@ -67,7 +67,8 @@ Entity.prototype.findHitEntity = function () {
 // This is just little "convenience wrapper"
 Entity.prototype.isColliding = function (cx, cy) {
   //  return this.findHitEntity();
-
+  if(cx < 0 || cx > g_canvas.width || cy < 0 || cy > g_canvas.height)
+    return true;
 
 };
 

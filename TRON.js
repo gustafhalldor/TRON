@@ -82,10 +82,10 @@ function gatherInputs() {
 function updateSimulation(du) {
 
     processDiagnostics();
-   if(gamestart ==true){
-    bike1.update(du);
-    bike2.update(du);
-}
+    if(gamestart == true){
+      bike1.update(du);
+      bike2.update(du);
+  	}
 //    entityManager.update(du);
 
     // Prevent perpetual firing!
@@ -100,7 +100,6 @@ var g_useAveVel = true;
 var g_renderSpatialDebug = false;
 
 var KEY_MIXED   = keyCode('M');;
-var KEY_GRAVITY = keyCode('G');
 var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
 
@@ -112,15 +111,13 @@ var KEY_0 = keyCode('0');
 var KEY_1 = keyCode('1');
 var KEY_2 = keyCode('2');
 
-var KEY_NEWGAME = 13;
+var KEY_RETURN = 13;
 
 function processDiagnostics() {
-    if (eatKey(KEY_NEWGAME)) newtrongame();
+    if (eatKey(KEY_RETURN)) newTronGame();
 
     if (eatKey(KEY_MIXED))
         g_allowMixedActions = !g_allowMixedActions;
-		
-    if (eatKey(KEY_GRAVITY)) g_useGravity = !g_useGravity;
 
     if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
 
@@ -146,19 +143,23 @@ function processDiagnostics() {
         });
 
 }
-//þarf svo að færa þetta á réttan stað
+//ï¿½arf svo aï¿½ fï¿½ra ï¿½etta ï¿½ rï¿½ttan staï¿½
 var gamestart=false;
 //
-function newtrongame(ctx) {
+function newTronGame(ctx) {
 
   util.setUpCanvas(g_ctx);
 	//music play
 	bgplay();
-gamestart=true;
+  gamestart=true;
 
+};
 
-}
-
+function resetGame(ctx) {
+  bike1.reset();
+  bike2.reset();
+  util.setUpCanvas(ctx);
+};
 
 
 
