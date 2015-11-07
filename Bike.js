@@ -23,6 +23,11 @@ function Bike(descr) {
 
 Bike.prototype = new Entity();
 
+Bike.prototype.bikeSize = 4;
+Bike.prototype.speed = 1;
+Bike.prototype.speedBoost = 1;
+Bike.prototype.lives = 3;
+
 Bike.prototype.rememberResets = function () {
     // Remember my reset positions
     this.reset_cx = this.cx;
@@ -62,7 +67,14 @@ Bike.prototype.update = function (du) {
 
     var speed = this.speed;
 
-    if(this.isColliding(this.cx, this.cy)) console.log("KLESSTI Á!");
+    // Check collisions
+    if(this.isColliding(this.cx, this.cy)) {
+      this.lives -= 1;
+      TRON.resetGame(g_ctx);
+
+      //End game if either players' lives reach 0
+      if(this.lives === 0) main.gameOver();
+    }
 
     if(eatKey(this.GO_UP) && this.yVel != speed) {
       this.xVel = 0;
@@ -117,7 +129,7 @@ Bike.prototype.halt = function () {
 
 Bike.prototype.render = function (ctx) {
     ctx.fillStyle = this.Color;
-    ctx.fillRect(this.cx, this.cy, 4, 4);  //Skoða halfwidth og halfheight hérna
+    ctx.fillRect(this.cx, this.cy, this.bikeSize, this.bikeSize);  //Skoða halfwidth og halfheight hérna
 };
 
 // BIKE 1
@@ -131,10 +143,8 @@ var bike1 = new Bike({
     cx : 400,
     cy : 250,
     score : 0,
-    xVel : -2,
+    xVel : -1,
     yVel : 0,
-    speed : 2,
-    speedboost : 2,
     Color : "#FF69B4",
     GO_UP   : KEY_W,
     GO_DOWN : KEY_S,
@@ -153,10 +163,8 @@ var bike2 = new Bike({
     cx : 200,
     cy : 250,
     score : 0,
-    xVel : 2,
+    xVel : 1,
     yVel : 0,
-    speed : 2,
-    speedboost : 2,
     Color : "#00FFFF",
     GO_UP   : KEY_I,
     GO_DOWN : KEY_K,
