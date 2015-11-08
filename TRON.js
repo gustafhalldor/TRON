@@ -143,7 +143,7 @@ function processDiagnostics() {
         });
 
 }
-//�arf svo a� f�ra �etta � r�ttan sta�
+
 var gamestart=false;
 //
 function newTronGame(ctx) {
@@ -191,7 +191,7 @@ ctx.fillText("w", 300, 320);
 ctx.fillText("a", 290, 330);
 ctx.fillText("d", 310, 330);
 ctx.fillText("s", 300, 340);
-
+ctx.fillText("to pause the game press P", 100, 350);
 ctx.fillText("press enter to start the game ",300 , 400);
 
 }
