@@ -1,6 +1,6 @@
 // GENERIC RENDERING
 
-var g_doClear = false;
+var g_doClear = true;
 var g_doBox = false;
 var g_undoBox = false;
 var g_doFlipFlop = false;

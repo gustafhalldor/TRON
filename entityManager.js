@@ -2,9 +2,6 @@
 
 entityManager.js
 
-A module which handles arbitrary entity-management for "Asteroids"
-
-
 We create this module as a single global object, and initialise it
 with suitable 'data' and 'methods'.
 
@@ -27,39 +24,9 @@ var entityManager = {
 
 // "PRIVATE" DATA
 
-//_rocks   : [],
-_bullets : [],
-_ships   : [],
-
-//_bShowRocks : true,
+_bikes  : [],
 
 // "PRIVATE" METHODS
-
-_findNearestShip : function(posX, posY) {
-    var closestShip = null,
-        closestIndex = -1,
-        closestSq = 1000 * 1000;
-
-    for (var i = 0; i < this._ships.length; ++i) {
-
-        var thisShip = this._ships[i];
-        var shipPos = thisShip.getPos();
-        var distSq = util.wrappedDistSq(
-            shipPos.posX, shipPos.posY,
-            posX, posY,
-            g_canvas.width, g_canvas.height);
-
-        if (distSq < closestSq) {
-            closestShip = thisShip;
-            closestIndex = i;
-            closestSq = distSq;
-        }
-    }
-    return {
-        theShip : closestShip,
-        theIndex: closestIndex
-    };
-},
 
 _forEachOf: function(aCategory, fn) {
     for (var i = 0; i < aCategory.length; ++i) {
@@ -78,60 +45,62 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._bullets, this._ships];
+    this._categories = [this._bikes];
 },
 
 init: function() {
-  //  this._generateRocks();
-    //this._generateShip();
+    this.generateBike({
+        id : 1,
+        x : 200,
+        y : 250,
+        gridPos : spatialManager.getReserveGridPos(1,200,250),
+        score : 0,
+        xVel : 1,
+        yVel : 0,
+        Color : "#FF69B4",
+        GO_UP    : util.keyCode("W"),
+        GO_DOWN  : util.keyCode("S"),
+        GO_LEFT  : util.keyCode("A"),
+        GO_RIGHT : util.keyCode("D")
+    });
+
+    this.generateBike({
+        id : 2,
+        x : 400,
+        y : 250,
+        gridPos : spatialManager.getReserveGridPos(2,400,250),
+        score : 0,
+        xVel : -1,
+        yVel : 0,
+        Color : "#00FFFF",
+        GO_UP    : util.keyCode("I"),
+        GO_DOWN  : util.keyCode("K"),
+        GO_LEFT  : util.keyCode("J"),
+        GO_RIGHT : util.keyCode("L")
+    });
 },
 
-fireBullet: function(cx, cy, velX, velY, rotation) {
-    this._bullets.push(new Bullet({
-        cx   : cx,
-        cy   : cy,
-        velX : velX,
-        velY : velY,
-
-        rotation : rotation
-    }));
+generateBike : function(descr) {
+    this._bikes.push(new Bike(descr));
 },
 
-generateShip : function(descr) {
-    this._ships.push(new Bike(descr));
+resetBikes : function() {
+    this._forEachOf(this._bikes, Bike.prototype.reset);
 },
 
-killNearestShip : function(xPos, yPos) {
-    var theShip = this._findNearestShip(xPos, yPos).theShip;
-    if (theShip) {
-        theShip.kill();
-    }
+haltBikes : function() {
+    this._forEachOf(this._bikes, Bike.prototype.halt);
 },
 
-yoinkNearestShip : function(xPos, yPos) {
-    var theShip = this._findNearestShip(xPos, yPos).theShip;
-    if (theShip) {
-        theShip.setPos(xPos, yPos);
-    }
+generateGrid : function(descr) {
+    this._grid = new Grid(descr);
+    this._grid.resetArray(g_bikeWidthHeight);
 },
-
-resetShips: function() {
-    this._forEachOf(this._ships, Bike.prototype.reset);
-},
-
-haltShips: function() {
-    this._forEachOf(this._ships, Bike.prototype.halt);
-},
-
-//toggleRocks: function() {
-//    this._bShowRocks = !this._bShowRocks;
-//},
 
 update: function(du) {
+    for (var j = 0; j < this._categories.length; ++j) {
 
-    for (var c = 0; c < this._categories.length; ++c) {
-
-        var aCategory = this._categories[c];
+        var aCategory = this._categories[j];
         var i = 0;
 
         while (i < aCategory.length) {
@@ -148,30 +117,19 @@ update: function(du) {
             }
         }
     }
-
-//    if (this._rocks.length === 0) this._generateRocks();
-
 },
 
 render: function(ctx) {
 
-    for (var c = 0; c < this._categories.length; ++c) {
-
-        var aCategory = this._categories[c];
-
-        /*if (!this._bShowRocks &&
-            aCategory == this._rocks)
-            continue;
-        */
+    for (var j = 0; j < this._categories.length; ++j) {
+        var aCategory = this._categories[j];
         for (var i = 0; i < aCategory.length; ++i) {
-
             aCategory[i].render(ctx);
-
         }
     }
 }
 
-}
+};
 
 // Some deferred setup which needs the object to have been created first
 entityManager.deferredSetup();

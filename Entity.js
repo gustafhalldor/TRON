@@ -24,13 +24,6 @@ functions... shared data properties are potentially quite confusing.
 
 function Entity() {
 
-/*
-    // Diagnostics to check inheritance stuff
-    this._entityProperty = true;
-    console.dir(this);
-*/
-
-
 };
 
 Entity.prototype.setup = function (descr) {
@@ -44,35 +37,27 @@ Entity.prototype.setup = function (descr) {
   //  this._isDeadNow = false;
 };
 
-Entity.prototype.setPos = function (cx, cy) {
-    this.cx = cx;
-    this.cy = cy;
+Entity.prototype.setPos = function (x, y) {
+    this.x = x;
+    this.y = y;
 };
 
 Entity.prototype.getPos = function () {
-    return {posX : this.cx, posY : this.cy};
+    return {posX : this.x, posY : this.y};
 };
 
 Entity.prototype.kill = function () {
     this._isDeadNow = true;
 };
 
-Entity.prototype.findHitEntity = function () {
-    var pos = this.getPos();
-    return spatialManager.findEntityInRange(
-        pos.posX, pos.posY, this.getRadius()
-    );
-};
-
-// This is just little "convenience wrapper"
-Entity.prototype.isColliding = function (cx, cy) {
+Entity.prototype.isColliding = function (x, y) {
   //  return this.findHitEntity();
-  if(cx < 0 || cx > g_canvas.width || cy < 0 || cy > g_canvas.height)
+  if(x < 0 || x > g_canvas.width || y < 0 || y > g_canvas.height)
     return true;
 
 };
 
 Entity.prototype.wrapPosition = function () {
-    this.cx = util.wrapRange(this.cx, 0, g_canvas.width);
-    this.cy = util.wrapRange(this.cy, 0, g_canvas.height);
+    this.x = util.wrapRange(this.x, 0, g_canvas.width);
+    this.y = util.wrapRange(this.y, 0, g_canvas.height);
 };
