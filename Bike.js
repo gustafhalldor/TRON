@@ -23,58 +23,34 @@ function Bike(descr) {
 
 Bike.prototype = new Entity();
 
-Bike.prototype.bikeSize = 4;
+Bike.prototype.bikeSize = g_bikeWidthHeight;
 Bike.prototype.speed = 1;
 Bike.prototype.speedBoost = 1;
 Bike.prototype.lives = 3;
+Bike.prototype.tail = [];
+
 
 Bike.prototype.rememberResets = function () {
     // Remember my reset positions
-    this.reset_cx = this.cx;
-    this.reset_cy = this.cy;
+    this.reset_x = this.x;
+    this.reset_y = this.y;
 };
 
-// HACKED-IN AUDIO (no preloading)
-//Ship.prototype.warpSound = new Audio(
-//    "sounds/WarpDriveActive.ogg"
-//);
-
-
-Bike.prototype._updateWarp = function (du) {
-
-    var SHRINK_RATE = 3 / SECS_TO_NOMINALS;
-    this._scale += this._scaleDirn * SHRINK_RATE * du;
-
-    if (this._scale < 0.2) {
-
-        this._moveToASafePlace();
-        this.halt();
-        this._scaleDirn = 1;
-
-    } else if (this._scale > 1) {
-
-        this._scale = 1;
-        this._isWarping = false;
-
-        // Reregister me from my old posistion
-        // ...so that I can be collided with again
-        spatialManager.register(this);
-
-    }
-};
 
 Bike.prototype.update = function (du) {
 
     var speed = this.speed;
 
+    /*
     // Check collisions
-    if(this.isColliding(this.cx, this.cy)) {
+    if(this.isColliding(this.x, this.y)) {
       this.lives -= 1;
       TRON.resetGame(g_ctx);
 
       //End game if either players' lives reach 0
       if(this.lives === 0) main.gameOver();
     }
+    */
 
     if(eatKey(this.GO_UP) && this.yVel != speed) {
       this.xVel = 0;
@@ -96,27 +72,28 @@ Bike.prototype.update = function (du) {
       this.yVel = 0;
     }
 
-    this.cx += this.xVel;
-    this.cy += this.yVel;
 
-};
+    var nextGX = this.gridPos.x + this.xVel;
+    var nextGY = this.gridPos.y + this.yVel;
 
-Bike.prototype.computeThrustMag = function () {
+    var nextX = spatialManager.getPosInPixels(nextGX,nextGY).x;
+    var nextY = spatialManager.getPosInPixels(nextGX,nextGY).y;
 
-    var thrust = 0;
+    if (!spatialManager.isAvailable(nextGX,nextGY)) {
+        return this.crash();
+    };
 
-    if (keys[this.KEY_THRUST]) {
-        thrust += NOMINAL_THRUST;
-    }
-    if (keys[this.KEY_RETRO]) {
-        thrust += NOMINAL_RETRO;
-    }
+    this.tail.push(this.gridPos);
 
-    return thrust;
+    this.gridPos = spatialManager.getReserveGridPos(this.id,nextX,nextY);
+
+    this.x = nextX;
+    this.y = nextY;
+
 };
 
 Bike.prototype.reset = function () {
-    this.setPos(this.reset_cx, this.reset_cy);
+    this.setPos(this.reset_x, this.reset_y);
     this.rotation = this.reset_rotation;
 
     this.halt();
@@ -129,45 +106,28 @@ Bike.prototype.halt = function () {
 
 Bike.prototype.render = function (ctx) {
     ctx.fillStyle = this.Color;
-    ctx.fillRect(this.cx, this.cy, this.bikeSize, this.bikeSize);  //Skoða halfwidth og halfheight hérna
+
+    var x, y;
+
+    // Draws the tail
+    if (this.tail.length !== 0) {
+        for(var i = 0; i < this.tail.length; ++i) {
+            x = spatialManager.getPosInPixels(this.tail[i].x,this.tail[i].y).x;
+            y = spatialManager.getPosInPixels(this.tail[i].x,this.tail[i].y).y;
+
+            ctx.fillRect(x, y, this.bikeSize, this.bikeSize);
+        }
+    }
+
+    x = spatialManager.getPosInPixels(this.gridPos.x,this.gridPos.y).x;
+    y = spatialManager.getPosInPixels(this.gridPos.x,this.gridPos.y).y;
+    ctx.fillRect(x, y, this.bikeSize, this.bikeSize);  //Skoða halfwidth og halfheight hérna
 };
 
-// BIKE 1
+Bike.prototype.isColliding = function(nextX,nextY) {
+    return !spatialManager.isAvailable(nextX,nextY);
+};
 
-var KEY_W = 'W'.charCodeAt(0);
-var KEY_S = 'S'.charCodeAt(0);
-var KEY_A = 'A'.charCodeAt(0);
-var KEY_D = 'D'.charCodeAt(0);
-
-var bike1 = new Bike({
-    cx : 400,
-    cy : 250,
-    score : 0,
-    xVel : -1,
-    yVel : 0,
-    Color : "#FF69B4",
-    GO_UP   : KEY_W,
-    GO_DOWN : KEY_S,
-    GO_LEFT : KEY_A,
-    GO_RIGHT : KEY_D
-});
-
-// BIKE 2
-
-var KEY_I = 'I'.charCodeAt(0);
-var KEY_K = 'K'.charCodeAt(0);
-var KEY_J = 'J'.charCodeAt(0);
-var KEY_L = 'L'.charCodeAt(0);
-
-var bike2 = new Bike({
-    cx : 200,
-    cy : 250,
-    score : 0,
-    xVel : 1,
-    yVel : 0,
-    Color : "#00FFFF",
-    GO_UP   : KEY_I,
-    GO_DOWN : KEY_K,
-    GO_LEFT : KEY_J,
-    GO_RIGHT : KEY_L
-});
+Bike.prototype.crash = function() {
+    return entityManager.KILL_ME_NOW;
+};
