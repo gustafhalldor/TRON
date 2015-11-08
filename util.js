@@ -53,6 +53,9 @@ square: function(x) {
     return x*x;
 },
 
+keyCode: function(key) {
+    return key.charCodeAt(0);
+},
 
 // DISTANCES
 // =========
