@@ -2,8 +2,7 @@
 
 spatialManager.js
 
-A module which handles spatial lookup, as required for...
-e.g. general collision detection.
+A module which handles spatial lookup for collision.
 
 */
 
@@ -17,74 +16,57 @@ e.g. general collision detection.
 */
 
 var spatialManager = {
+  _gridArray : [],
+  _columns   : (Math.floor(g_canvas.width/g_bikeWidthHeight) + 2),
+  _rows      : (Math.floor(g_canvas.height/g_bikeWidthHeight) + 2),
 
-// "PRIVATE" DATA
-
-_nextSpatialID : 1, // make all valid IDs non-falsey (i.e. don't start at 0)
-
-_entities : [],
-
-// "PRIVATE" METHODS
-//
-// <none yet>
+  NotAvailable : -1,
 
 
-// PUBLIC METHODS
-
-getNewSpatialID : function() {
-
-    // TODO: YOUR STUFF HERE!
-
-    return this._nextSpatialID++;
-},
-
-register: function(entity) {
-    var pos = entity.getPos();
-    var spatialID = entity.getSpatialID();
-
-    // TODO: YOUR STUFF HERE!
-    entity.setPos(pos.posX, pos.posY);
-    this._entities[spatialID] = {posX: pos.posX, posY: pos.posY, radius: entity.getRadius(), entity: entity};
-
-},
-
-unregister: function(entity) {
-    var spatialID = entity.getSpatialID();
-
-    // TODO: YOUR STUFF HERE!
-    this._entities[spatialID] = {posX: null, posY: null, radius: null};
-},
-
-findEntityInRange: function(posX, posY, radius) {
-
-    // TODO: YOUR STUFF HERE!
-
-    var e, diffRadiiSq, sumRadiiSq, circleDist;
-
-    for(var i = 1; i < this._entities.length; i++) {
-      e = this._entities[i];
-
-      diffRadiiSq = util.square(e.radius - radius);
-      sumRadiiSq = util.square(e.radius + radius);
-      circleDist = util.distSq(e.posX, e.posY, posX, posY);
-
-      if(diffRadiiSq <= circleDist && circleDist <= sumRadiiSq) {
-        return e.entity;
+  resetArray : function() {
+    for (var j = 0; j < this._rows; j++) {
+      this._gridArray[j] = [];
+      for (var i = 0; i < this._columns; i++) {
+        if (i === 0 || i === this._columns - 1 || 
+          j === 0 || j === this._rows - 1) {
+          this._gridArray[j][i] = "outofbounds";
+        } else {
+          this._gridArray[j][i] = 0;
+        }
       }
     }
+  },
 
-},
+  getReserveGridPos : function(id,x,y) {
+    var i = this.getPosInArray(x,y).x;
+    var j = this.getPosInArray(x,y).y;
+    
+    if (j < 0 || j >= this._rows || i < 0 || i >= this._columns ||
+      this._gridArray[j][i] !== 0 ) return this.NotAvailable;
 
-render: function(ctx) {
-    var oldStyle = ctx.strokeStyle;
-    ctx.strokeStyle = "red";
+    this._gridArray[j][i] = id;
 
-    for (var ID in this._entities) {
-        var e = this._entities[ID];
-        util.strokeCircle(ctx, e.posX, e.posY, e.radius);
-    }
+    return {x : i, y : j};
+  },
 
-    ctx.strokeStyle = oldStyle;
-}
+  isAvailable : function(x,y) {
+    var i = this.getPosInArray(x,y).x;
+    var j = this.getPosInArray(x,y).y;
+    return 0 === this._gridArray[j][i];
+  },
 
-}
+  getPosInArray : function(x,y) {
+    var j = Math.floor((y/g_canvas.height)*this._gridArray.length) + 1;
+    var i = Math.floor((x/g_canvas.width)*this._gridArray[j].length) + 1;
+    return {x : i, y : j};
+  },
+
+  getPosInPixels : function (i,j) {
+    var x = (i - 1) / (this._gridArray[j].length - 1) * g_canvas.width;
+    var y = (j - 1) / (this._gridArray.length - 1) * g_canvas.height;
+    return {x : x, y : y};
+  }
+
+};
+
+spatialManager.resetArray();
