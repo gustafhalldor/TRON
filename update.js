@@ -22,7 +22,11 @@ function update(dt) {
     
     // Get out if skipping (e.g. due to pause-mode)
     //
-    if (shouldSkipUpdate()) return;
+    if (shouldSkipUpdate()) 
+	{
+	pausescreen();
+	return;
+	}
 
     // Remember this for later
     //
@@ -56,8 +60,57 @@ var KEY_STEP  = 'O'.charCodeAt(0);
 var g_isUpdatePaused = false;
 
 function shouldSkipUpdate() {
-    if (eatKey(KEY_PAUSE)) {
+    if (eatKey(KEY_PAUSE) && gamestart) {
         g_isUpdatePaused = !g_isUpdatePaused;
+		pausestore();
     }
     return g_isUpdatePaused && !eatKey(KEY_STEP);    
 }
+//store the image while the game is in pause
+var tempimagedate;
+function pausestore() {
+     if(g_isUpdatePaused)
+{
+tempimagedate=ctx.getImageData(0,0,600,600);
+}
+else
+{
+ctx.putImageData(tempimagedate,0,0);
+}
+	 
+}
+
+
+function pausescreen() {
+ctx.save();
+    ctx.font = "120px serif";
+    ctx.fillText("TRON", 200, 200);
+    ctx.fillStyle ="green";
+    ctx.fillText("TRON", 210, 200);
+	ctx.fillStyle ="gold";
+	util.fillBox(ctx,190,200,300,200,"black");
+	ctx.fillText("pause", 200, 270);
+	
+	
+    ctx.restore();
+	ctx.save();
+	ctx.font = "60px serif";
+	ctx.fillStyle ="red";
+	util.fillBox(ctx,10,450,600,100,"black");
+	ctx.fillText("to resume play press P", 10, 500);
+	ctx.restore();
+	ctx.fillText("controls", 300, 300);
+    ctx.fillText("w", 300, 320);
+    ctx.fillText("a", 290, 330);
+    ctx.fillText("d", 310, 330);
+    ctx.fillText("s", 300, 340);
+	 
+}
+
+
+
+
+
+
+
+
