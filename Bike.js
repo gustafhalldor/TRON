@@ -109,6 +109,7 @@ Bike.prototype.render = function (ctx) {
 
     var x, y;
 
+    /*
     // Draws the tail
     if (this.tail.length !== 0) {
         for(var i = 0; i < this.tail.length; ++i) {
@@ -118,6 +119,7 @@ Bike.prototype.render = function (ctx) {
             ctx.fillRect(x, y, this.bikeSize, this.bikeSize);
         }
     }
+    */
 
     x = spatialManager.getPosInPixels(this.gridPos.x,this.gridPos.y).x;
     y = spatialManager.getPosInPixels(this.gridPos.x,this.gridPos.y).y;
