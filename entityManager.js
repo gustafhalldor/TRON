@@ -61,7 +61,8 @@ init: function() {
         GO_UP    : util.keyCode("W"),
         GO_DOWN  : util.keyCode("S"),
         GO_LEFT  : util.keyCode("A"),
-        GO_RIGHT : util.keyCode("D")
+        GO_RIGHT : util.keyCode("D"),
+        bot: false
     });
 
     this.generateBike({
@@ -76,7 +77,8 @@ init: function() {
         GO_UP    : util.keyCode("I"),
         GO_DOWN  : util.keyCode("K"),
         GO_LEFT  : util.keyCode("J"),
-        GO_RIGHT : util.keyCode("L")
+        GO_RIGHT : util.keyCode("L"),
+        bot: true
     });
 },
 
