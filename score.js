@@ -30,7 +30,7 @@ localStorage.setItem("score10", JSON.stringify(score10));
 function scoreload(numer) {
 
   var loder = "score"+numer;
-  return localStorage.getItem(loder);
+  return JSON.parse(localStorage.getItem(loder));
 
 }
 
