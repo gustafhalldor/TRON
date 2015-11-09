@@ -80,6 +80,7 @@ function resetGame(ctx) {
 function renderSimulation(ctx) {
 
     if (gamestart !=true) {
+	    drawscore();
         ctx.save();
         ctx.font = "120px serif";
         ctx.fillText("TRON", 200, 200);
@@ -102,6 +103,20 @@ function renderSimulation(ctx) {
         ctx.fillText("level : 1", 50, 50);
     }
 }
+
+function drawscore() {
+	var a=1;
+	var l;
+	while(a  < 11){
+	l= scoreload(a);
+	ctx.fillText(a+".", 50, a*20);
+	ctx.fillText(l.name, 100, a*20,40);
+	ctx.fillText(l.score, 150, a*20);
+	a++;
+	}
+   
+}
+
 
 
 // =============
@@ -126,6 +141,8 @@ function preloadDone() {
     entityManager.init();
 
     main.init();
+	
+	scoreint();
 }
 
 // Kick it off
