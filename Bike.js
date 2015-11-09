@@ -29,6 +29,7 @@ Bike.prototype.speedBoost = 1;
 Bike.prototype.lives = 3;
 Bike.prototype.tail = [];
 
+// All possible directions
 Bike.prototype.directions = [
     { x : 0, y : -1},
     { x : 0, y : 1},
@@ -45,14 +46,21 @@ Bike.prototype.rememberResets = function () {
 Bike.prototype.updateBot = function(du, currX, currY) {
     if(!this.bot)
         return;
+
+    // Shuffle directions array to get more random choices of direction
+    this.directions = util.shuffle(this.directions);
+    
     var nextGX = currX + this.xVel;
     var nextGY = currY + this.yVel;
+    
+    // If current direction is not available, find other direction
     if(!spatialManager.isAvailable(nextGX, nextGY)) {
         for(var direction in this.directions) {
             var dirX = this.directions[direction].x;
             var dirY = this.directions[direction].y;
+            
+            // Find next available direction from the directions array
             if(spatialManager.isAvailable(dirX + currX, dirY + currY)) {
-                console.log("X: " + dirX + "  Y: " + dirY);
                 this.xVel = dirX;
                 this.yVel = dirY;
                 break;
