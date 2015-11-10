@@ -118,6 +118,7 @@ Bike.prototype.update = function (du) {
 
     if (this.isColliding(nextGX,nextGY)) {
         this.lives -= 1;
+		textlive=this.lives;
         if(this.lives === 0){ 
 		 main.gameOver();}
 		 else{
