@@ -86,19 +86,7 @@ function renderSimulation(ctx) {
 
     if (gamestart !=true) {
 	    drawscore();
-        ctx.save();
-        ctx.font = "120px serif";
-        ctx.fillText("TRON", 200, 200);
-        ctx.fillStyle ="green";
-        ctx.fillText("TRON", 210, 200);
-        ctx.restore();
-        ctx.fillText("controls", 300, 300);
-        ctx.fillText("w", 300, 320);
-        ctx.fillText("a", 290, 330);
-        ctx.fillText("d", 310, 330);
-        ctx.fillText("s", 300, 340);
-
-        ctx.fillText("press enter to start the game ",300 ,400);
+        drawintroscreen();
 
     } else {
         entityManager.render(ctx);
@@ -122,6 +110,59 @@ function drawscore() {
 	}
 
 }
+
+function drawintroscreen() {
+  ctx.save();
+        ctx.font = "120px serif";
+        ctx.fillText("TRON", 200, 200);
+        ctx.fillStyle ="green";
+        ctx.fillText("TRON", 210, 200);
+        ctx.restore();
+        ctx.fillText("controls", 300, 300);
+        ctx.fillText("w", 300, 320);
+        ctx.fillText("a", 290, 330);
+        ctx.fillText("d", 310, 330);
+        ctx.fillText("s", 300, 340);
+
+        ctx.fillText("press enter to start the game ",300 ,400);
+		 ctx.save();
+		ctx.fillStyle ="blue";
+		ctx.fillRect(340,480,110,40); 
+		ctx.restore();
+		 ctx.save();
+		ctx.fillStyle ="blue";
+		ctx.fillRect(460,480,100,40); 
+		ctx.restore();
+		 ctx.save();
+		ctx.fillStyle ="blue";
+		ctx.fillRect(200,480,130,40); 
+		ctx.restore();
+		
+		 ctx.save();
+		ctx.fillStyle ="blue";
+	    ctx.fillRect(70,480,120,40); 
+		ctx.fillStyle ="green";
+		ctx.font = "25px aria";
+		ctx.fillText("normal play", 200, 510);
+		ctx.restore();
+		ctx.save();
+		ctx.fillStyle ="green";
+		ctx.font = "25px aria";
+		ctx.fillText("multiplayer", 70, 510);
+	    ctx.restore();
+		ctx.save();
+		ctx.fillStyle ="green";
+		ctx.font = "25px aria";
+		ctx.fillText("speed run", 340, 510);
+	    ctx.restore();
+		ctx.save();
+		ctx.fillStyle ="green";
+		ctx.font = "25px aria";
+		ctx.fillText("level play", 460, 510);
+	    ctx.restore();
+
+}
+
 
 
 

@@ -15,6 +15,24 @@ ctx.fillText("level 1", 255, 100);
 }
 
 
+function gameovertext()
+{
+	
+   
+	ctx.save();
+	 ctx.font = "78px serif";
+	ctx.fillStyle ="gold";
+ctx.fillText("game  over", 250, 100);
+	ctx.fillStyle ="silver";
+ctx.fillText("game  over", 255, 100);
+
+
+    ctx.restore();
+}
+
+
+
+
 
 
 var textlive=" * * *";
