@@ -4,10 +4,11 @@ function fansytext()
 	
    
 	ctx.save();
+	 ctx.font = "78px serif";
 	ctx.fillStyle ="gold";
-ctx.fillText("lives * * *", 550, 50);
+ctx.fillText("level 1", 250, 100);
 	ctx.fillStyle ="silver";
-ctx.fillText("lives * * *", 570, 50);
+ctx.fillText("level 1", 255, 100);
 
 
     ctx.restore();
@@ -16,16 +17,16 @@ ctx.fillText("lives * * *", 570, 50);
 
 
 
-
+var textlive=" * * *";
 function drawlives()
 {
-ctx.fillText("lives * * *", 550, 50);
+ctx.fillText("lives"+textlive, 550, 50);
 }
 
-
+var textlevel="1";
 function drawlevel()
 {
-ctx.fillText("level : 1", 50, 50);
+ctx.fillText("level : "+textlevel, 50, 50);
 }
 
 
