@@ -1,8 +1,8 @@
 ﻿//fansy text
 function fansytext()
 {
-	
-   
+
+
 	ctx.save();
 	 ctx.font = "78px serif";
 	ctx.fillStyle ="gold";
@@ -17,8 +17,8 @@ ctx.fillText("level 1", 255, 100);
 
 function gameovertext()
 {
-	
-   
+
+
 	ctx.save();
 	 ctx.font = "78px serif";
 	ctx.fillStyle ="gold";
@@ -31,14 +31,15 @@ ctx.fillText("game  over", 105, 200);
 }
 
 
-
-
-
-
-var textlive=" * * *";
+var textlive= 3;
 function drawlives()
 {
-ctx.fillText("lives"+textlive, 550, 50);
+	ctx.fillText("lives : ", 515, 50);
+
+	for(var i = 0, j = 550; i < textlive; i++) {
+		ctx.fillText("*", j, 50);
+		j = j + 15;
+	}
 }
 
 var textlevel="1";
@@ -46,5 +47,3 @@ function drawlevel()
 {
 ctx.fillText("level : "+textlevel, 50, 50);
 }
-
-
