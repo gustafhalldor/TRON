@@ -118,8 +118,10 @@ Bike.prototype.update = function (du) {
 
     if (this.isColliding(nextGX,nextGY)) {
         this.lives -= 1;
-        if(this.lives === 0) main.gameOver();
-        return resetGame(g_ctx);
+        if(this.lives === 0){ 
+		 main.gameOver();}
+		 else{
+        return resetGame(g_ctx);}
     };
 
     this.tail.push(this.gridPos);

@@ -75,6 +75,10 @@ main._isGameOver = false;
 main.gameOver = function () {
     this._isGameOver = true;
     console.log("gameOver: quitting...");
+	
+	gameovertext();
+	
+	
 };
 
 // Simple voluntary quit mechanism
