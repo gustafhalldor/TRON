@@ -78,17 +78,6 @@ Bike.prototype.update = function (du) {
 
     var speed = this.speed;
 
-    /*
-    // Check collisions
-    if(this.isColliding(this.x, this.y)) {
-      this.lives -= 1;
-      TRON.resetGame(g_ctx);
-
-      //End game if either players' lives reach 0
-      if(this.lives === 0) main.gameOver();
-    }
-    */
-
     if(eatKey(this.GO_UP) && this.yVel != speed && !this.bot) {
       this.xVel = 0;
       this.yVel = -speed;
@@ -118,11 +107,14 @@ Bike.prototype.update = function (du) {
 
     if (this.isColliding(nextGX,nextGY)) {
         this.lives -= 1;
-		textlive=this.lives;
-        if(this.lives === 0){ 
-		 main.gameOver();}
-		 else{
-        return resetGame(g_ctx);}
+		    textlive=this.lives;
+
+        if(this.lives === 0) {
+		        main.gameOver();
+        }
+		    else {
+            return resetGame(g_ctx);
+        }
     };
 
     this.tail.push(this.gridPos);
@@ -138,6 +130,7 @@ Bike.prototype.reset = function () {
     this.setPos(this.reset_x, this.reset_y);
     this.setVel(this.reset_velX, this.reset_velY);
     this.resetGridPos(this.reset_gridPos);
+    this.tail = [];
 };
 
 Bike.prototype.halt = function () {
