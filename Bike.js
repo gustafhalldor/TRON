@@ -41,6 +41,9 @@ Bike.prototype.rememberResets = function () {
     // Remember my reset positions
     this.reset_x = this.x;
     this.reset_y = this.y;
+    this.reset_velX = this.xVel;
+    this.reset_velY = this.yVel;
+    this.reset_gridPos = this.gridPos;
 };
 
 Bike.prototype.updateBot = function(du, currX, currY) {
@@ -115,7 +118,7 @@ Bike.prototype.update = function (du) {
 
     if (this.isColliding(nextGX,nextGY)) {
         this.lives -= 1;
-//        if(this.lives === 0) main.gameOver();
+        if(this.lives === 0) main.gameOver();
         return resetGame(g_ctx);
     };
 
@@ -130,8 +133,8 @@ Bike.prototype.update = function (du) {
 
 Bike.prototype.reset = function () {
     this.setPos(this.reset_x, this.reset_y);
-
-//    this.halt();
+    this.setVel(this.reset_velX, this.reset_velY);
+    this.resetGridPos(this.reset_gridPos);
 };
 
 Bike.prototype.halt = function () {

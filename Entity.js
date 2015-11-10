@@ -46,6 +46,15 @@ Entity.prototype.getPos = function () {
     return {posX : this.x, posY : this.y};
 };
 
+Entity.prototype.setVel = function (xvel, yvel) {
+    this.xVel = xvel;
+    this.yVel = yvel;
+};
+
+Entity.prototype.resetGridPos = function (pos) {
+    this.gridPos = pos;
+};
+
 Entity.prototype.kill = function () {
     this._isDeadNow = true;
 };
