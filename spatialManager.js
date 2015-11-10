@@ -50,9 +50,9 @@ var spatialManager = {
   },
 
   isAvailable : function(x,y) {
-    var i = this.getPosInArray(x,y).x;
-    var j = this.getPosInArray(x,y).y;
-    return 0 === this._gridArray[j][i];
+    // var i = this.getPosInArray(x,y).x;
+    // var j = this.getPosInArray(x,y).y;
+    return 0 === this._gridArray[y][x];
   },
 
   getPosInArray : function(x,y) {

@@ -45,6 +45,21 @@ randRange: function(min, max) {
     return (min + Math.random() * (max - min));
 },
 
+shuffle: function(arr) {
+    var length = arr.length;
+    var temp, index;
+    for(var i in arr) {
+        index = Math.floor(Math.random() * length);
+
+        length--;
+
+        temp = arr[length];
+        arr[length] = arr[index];
+        arr[index] = temp;
+    }
+    return arr;
+},
+
 
 // MISC
 // ====
