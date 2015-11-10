@@ -49,16 +49,16 @@ Bike.prototype.updateBot = function(du, currX, currY) {
 
     // Shuffle directions array to get more random choices of direction
     this.directions = util.shuffle(this.directions);
-    
+
     var nextGX = currX + this.xVel;
     var nextGY = currY + this.yVel;
-    
+
     // If current direction is not available, find other direction
     if(!spatialManager.isAvailable(nextGX, nextGY)) {
         for(var direction in this.directions) {
             var dirX = this.directions[direction].x;
             var dirY = this.directions[direction].y;
-            
+
             // Find next available direction from the directions array
             if(spatialManager.isAvailable(dirX + currX, dirY + currY)) {
                 this.xVel = dirX;
@@ -113,8 +113,10 @@ Bike.prototype.update = function (du) {
     var nextX = spatialManager.getPosInPixels(nextGX,nextGY).x;
     var nextY = spatialManager.getPosInPixels(nextGX,nextGY).y;
 
-    if (!spatialManager.isAvailable(nextGX,nextGY)) {
-        return this.crash();
+    if (this.isColliding(nextGX,nextGY)) {
+        this.lives -= 1;
+//        if(this.lives === 0) main.gameOver();
+        return resetGame(g_ctx);
     };
 
     this.tail.push(this.gridPos);
@@ -128,9 +130,8 @@ Bike.prototype.update = function (du) {
 
 Bike.prototype.reset = function () {
     this.setPos(this.reset_x, this.reset_y);
-    this.rotation = this.reset_rotation;
 
-    this.halt();
+//    this.halt();
 };
 
 Bike.prototype.halt = function () {

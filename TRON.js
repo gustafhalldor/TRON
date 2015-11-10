@@ -65,6 +65,7 @@ function newTronGame(ctx) {
 };
 
 function resetGame(ctx) {
+    spatialManager.resetArray();
     entityManager.resetBikes();
     util.setUpCanvas(ctx);
 };
@@ -114,7 +115,7 @@ function drawscore() {
 	ctx.fillText(l.score, 150, a*20);
 	a++;
 	}
-   
+
 }
 
 
@@ -141,7 +142,7 @@ function preloadDone() {
     entityManager.init();
 
     main.init();
-	
+
 	scoreint();
 }
 
