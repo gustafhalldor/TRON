@@ -45,7 +45,7 @@ var KEY_RESET = keyCode('R');
 var KEY_RETURN = 13;
 
 function processDiagnostics() {
-    if (eatKey(KEY_RETURN)) newTronGame();
+    if (eatKey(KEY_RETURN) &&gamestart == false) newTronGame();
 
     if (eatKey(KEY_HALT)) entityManager.haltBikes();
 
@@ -100,8 +100,9 @@ function renderSimulation(ctx) {
         entityManager.render(ctx);
 
         //status update
-        ctx.fillText("lives * * *", 550, 50);
-        ctx.fillText("level : 1", 50, 50);
+		// fansytext(); will be used to anocae the level at start
+       drawlives();
+	   drawlevel();
     }
 }
 
@@ -110,9 +111,9 @@ function drawscore() {
 	var l;
 	while(a  < 11){
 	l= scoreload(a);
-	ctx.fillText(a+".", 50, a*20);
-	ctx.fillText(l.name, 100, a*20,40);
-	ctx.fillText(l.score, 150, a*20);
+	ctx.fillText(a+".", 50, (a*20)+200);
+	ctx.fillText(l.name, 100, (a*20)+200,40);
+	ctx.fillText(l.score, 150, (a*20)+200);
 	a++;
 	}
 
