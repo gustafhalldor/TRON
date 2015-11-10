@@ -130,16 +130,16 @@ function drawintroscreen() {
 		ctx.fillRect(340,480,110,40); 
 		ctx.restore();
 		 ctx.save();
-		ctx.fillStyle ="blue";
+		ctx.fillStyle ="silver";
 		ctx.fillRect(460,480,100,40); 
 		ctx.restore();
 		 ctx.save();
-		ctx.fillStyle ="blue";
+		ctx.fillStyle ="summer";
 		ctx.fillRect(200,480,130,40); 
 		ctx.restore();
 		
 		 ctx.save();
-		ctx.fillStyle ="blue";
+		ctx.fillStyle ="#ff00ff";
 	    ctx.fillRect(70,480,120,40); 
 		ctx.fillStyle ="green";
 		ctx.font = "25px aria";

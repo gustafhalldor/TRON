@@ -22,9 +22,9 @@ function gameovertext()
 	ctx.save();
 	 ctx.font = "78px serif";
 	ctx.fillStyle ="gold";
-ctx.fillText("game  over", 250, 100);
+ctx.fillText("game  over", 100, 200);
 	ctx.fillStyle ="silver";
-ctx.fillText("game  over", 255, 100);
+ctx.fillText("game  over", 105, 200);
 
 
     ctx.restore();
