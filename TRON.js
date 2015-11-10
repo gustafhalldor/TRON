@@ -41,7 +41,7 @@ function updateSimulation(du) {
 
 var KEY_HALT  = keyCode('H');
 var KEY_RESET = keyCode('R');
-
+var KEY_STOPPAUSESC = keyCode('U');
 var KEY_RETURN = 13;
 
 function processDiagnostics() {
@@ -50,6 +50,10 @@ function processDiagnostics() {
     if (eatKey(KEY_HALT)) entityManager.haltBikes();
 
     if (eatKey(KEY_RESET)) entityManager.resetBikes();
+	
+	if (eatKey(KEY_STOPPAUSESC)) notshowpausescreen=!notshowpausescreen;
+	
+	
 }
 
 //�arf svo a� f�ra �etta � r�ttan sta�

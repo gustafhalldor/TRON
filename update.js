@@ -16,7 +16,7 @@ var g_prevUpdateDu = null;
 // Track odds and evens for diagnostic / illustrative purposes
 //
 var g_isUpdateOdd = false;
-
+var notshowpausescreen =false;
 
 function update(dt) {
     
@@ -24,7 +24,8 @@ function update(dt) {
     //
     if (shouldSkipUpdate()) 
 	{
-	pausescreen();
+	if(notshowpausescreen==false){
+	pausescreen();}
 	return;
 	}
 
