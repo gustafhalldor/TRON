@@ -45,9 +45,16 @@ var KEY_STOPPAUSESC = keyCode('U');
 var KEY_RETURN = 13;
 
 function processDiagnostics() {
-    if (eatKey(KEY_RETURN) &&gamestart == false) newTronGame();
+    if (eatKey(KEY_RETURN)) {
 	
-	 if (eatKey(KEY_RETURN) &&main._isGameOver  == true) alert("kake");
+	      if (gamestart == false) {newTronGame();}
+	
+		 if (main._isGameOver  == true) {alert("kake");}
+	
+	
+	}
+	
+	
 
     if (eatKey(KEY_HALT)) entityManager.haltBikes();
 
@@ -66,7 +73,7 @@ function newTronGame(ctx) {
     util.setUpCanvas(g_ctx);
     //music play
     bgplay();
-    gamestart = true;
+    gamestart = !gamestart;
 
 };
 
