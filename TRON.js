@@ -31,7 +31,7 @@ function updateSimulation(du) {
 
     processDiagnostics();
 
-    if(gamestart == true){
+    if(gamestart == true &&main._isGameOver==false){
         entityManager.update(du);
     }
 
@@ -46,6 +46,8 @@ var KEY_RETURN = 13;
 
 function processDiagnostics() {
     if (eatKey(KEY_RETURN) &&gamestart == false) newTronGame();
+	
+	 if (eatKey(KEY_RETURN) &&main._isGameOver  == true) alert("kake");
 
     if (eatKey(KEY_HALT)) entityManager.haltBikes();
 
