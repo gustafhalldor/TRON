@@ -44,7 +44,8 @@ main.iter = function (frameTime) {
     this._debugRender(g_ctx);
 
     // Request the next iteration if needed
-    if (!this._isGameOver) this._requestNextIteration();
+ //if (!this._isGameOver) 
+ this._requestNextIteration();
 };
 
 main._updateClocks = function (frameTime) {
@@ -75,10 +76,7 @@ main._isGameOver = false;
 main.gameOver = function () {
     this._isGameOver = true;
     console.log("gameOver: quitting...");
-	
 	gameovertext();
-	
-	
 };
 
 // Simple voluntary quit mechanism
