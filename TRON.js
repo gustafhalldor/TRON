@@ -67,7 +67,8 @@ function processDiagnostics() {
 
 //�arf svo a� f�ra �etta � r�ttan sta�
 var gamestart = false;
-var playmode =1;
+//say what type of play it will be
+var playmode =2;
 
 function newTronGame(ctx) {
     entityManager.init();
