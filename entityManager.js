@@ -47,8 +47,12 @@ KILL_ME_NOW : -1,
 deferredSetup : function () {
     this._categories = [this._bikes];
 },
-
+//fjöldi hjóla í leika er ekki notaði í neit í augnablikinu
+//var numberofplayer :1,
 init: function() {
+
+//ég munn lýklegast einfalda þetta og búa til functon til að búa til eftir skilirðum en þetta dugar tilbirja með
+if(playmode==4){
     this.generateBike({
         id : 1,
         x : 200,
@@ -80,6 +84,98 @@ init: function() {
         GO_RIGHT : util.keyCode("L"),
         bot: true
     });
+	
+	 this.generateBike({
+        id : 3,
+        x : 400,
+        y : 400,
+        gridPos : spatialManager.getReserveGridPos(3,400,400),
+        score : 0,
+        xVel : -1,
+        yVel : 0,
+        Color : "#00FFFF",
+        GO_UP    : util.keyCode("m"),
+        GO_DOWN  : util.keyCode("q"),
+        GO_LEFT  : util.keyCode("r"),
+        GO_RIGHT : util.keyCode("p"),
+        bot: true
+    });
+	}
+	
+	if(playmode==1){
+    this.generateBike({
+        id : 1,
+        x : 200,
+        y : 250,
+        gridPos : spatialManager.getReserveGridPos(1,200,250),
+        score : 0,
+        xVel : 1,
+        yVel : 0,
+        Color : "#FF69B4",
+        GO_UP    : util.keyCode("W"),
+        GO_DOWN  : util.keyCode("S"),
+        GO_LEFT  : util.keyCode("A"),
+        GO_RIGHT : util.keyCode("D"),
+        bot: false
+    });
+
+    this.generateBike({
+        id : 2,
+        x : 400,
+        y : 250,
+        gridPos : spatialManager.getReserveGridPos(2,400,250),
+        score : 0,
+        xVel : -1,
+        yVel : 0,
+        Color : "#00FFFF",
+        GO_UP    : util.keyCode("I"),
+        GO_DOWN  : util.keyCode("K"),
+        GO_LEFT  : util.keyCode("J"),
+        GO_RIGHT : util.keyCode("L"),
+        bot: false
+    });
+	
+	
+	}
+	
+	if(playmode==2){
+    this.generateBike({
+        id : 1,
+        x : 200,
+        y : 250,
+        gridPos : spatialManager.getReserveGridPos(1,200,250),
+        score : 0,
+        xVel : 1,
+        yVel : 0,
+        Color : "#FF69B4",
+        GO_UP    : util.keyCode("W"),
+        GO_DOWN  : util.keyCode("S"),
+        GO_LEFT  : util.keyCode("A"),
+        GO_RIGHT : util.keyCode("D"),
+        bot: false
+    });
+
+    this.generateBike({
+        id : 2,
+        x : 400,
+        y : 250,
+        gridPos : spatialManager.getReserveGridPos(2,400,250),
+        score : 0,
+        xVel : -1,
+        yVel : 0,
+        Color : "#00FFFF",
+        GO_UP    : util.keyCode("I"),
+        GO_DOWN  : util.keyCode("K"),
+        GO_LEFT  : util.keyCode("J"),
+        GO_RIGHT : util.keyCode("L"),
+        bot: true
+    });
+	
+
+	}
+	
+	
+	
 },
 
 generateBike : function(descr) {
@@ -134,4 +230,4 @@ render: function(ctx) {
 };
 
 // Some deferred setup which needs the object to have been created first
-entityManager.deferredSetup();
+//entityManager.deferredSetup();

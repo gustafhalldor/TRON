@@ -38,7 +38,7 @@ function updateSimulation(du) {
 }
 
 // GAME-SPECIFIC DIAGNOSTICS
-
+var  KEY_CHANCEGAMEMODE  = keyCode('M');
 var KEY_HALT  = keyCode('H');
 var KEY_RESET = keyCode('R');
 var KEY_STOPPAUSESC = keyCode('U');
@@ -53,7 +53,7 @@ function processDiagnostics() {
 	
 	
 	}
-	
+	if (eatKey(KEY_CHANCEGAMEMODE)) gamemodechance();
 	
 
     if (eatKey(KEY_HALT)) entityManager.haltBikes();
@@ -67,20 +67,29 @@ function processDiagnostics() {
 
 //�arf svo a� f�ra �etta � r�ttan sta�
 var gamestart = false;
+var playmode =1;
 
 function newTronGame(ctx) {
-
+    entityManager.init();
     util.setUpCanvas(g_ctx);
     //music play
     bgplay();
     gamestart = !gamestart;
-
+  entityManager.deferredSetup();
 };
 
 function resetGame(ctx) {
+   // entityManager.init();
     spatialManager.resetArray();
     entityManager.resetBikes();
     util.setUpCanvas(ctx);
+};
+
+function gamemodechance() {
+
+   playmode=playmode+1;
+
+   if(playmode==5)playmode=1;
 };
 
 
@@ -127,12 +136,14 @@ function drawintroscreen() {
         ctx.fillStyle ="green";
         ctx.fillText("TRON", 210, 200);
         ctx.restore();
+		  ctx.save();
+		  ctx.font = "54px serif";
         ctx.fillText("controls", 300, 300);
         ctx.fillText("w", 300, 320);
         ctx.fillText("a", 290, 330);
         ctx.fillText("d", 310, 330);
         ctx.fillText("s", 300, 340);
-
+         ctx.restore();
         ctx.fillText("press enter to start the game ",300 ,400);
 		 ctx.save();
 		ctx.fillStyle ="blue";
@@ -169,7 +180,73 @@ function drawintroscreen() {
 		ctx.font = "25px aria";
 		ctx.fillText("level play", 460, 510);
 	    ctx.restore();
-
+		ctx.save();
+		ctx.font = "45px aria";
+        ctx.fillText("use m to chance playmode", 70, 560);
+		ctx.restore();
+		
+		if(playmode==1){
+		
+		ctx.save();
+		ctx.fillStyle ="#ff00ff";
+	    ctx.fillRect(250,420,120,40); 
+		 ctx.restore();
+		 ctx.save();
+		ctx.fillStyle ="green";
+		ctx.font = "25px aria";
+		ctx.fillText("multiplayer", 250, 440);
+	    ctx.restore();
+		 
+		 
+		}
+		
+		if(playmode==2){
+		
+		ctx.save();
+		ctx.fillStyle ="#summer";
+	    ctx.fillRect(250,420,120,40); 
+		 ctx.restore();
+		 ctx.save();
+		ctx.fillStyle ="green";
+		ctx.font = "25px aria";
+		ctx.fillText("normal play", 250, 440);
+	    ctx.restore();
+		 
+		
+		
+		}
+		
+		if(playmode==3){
+		
+		ctx.save();
+		ctx.fillStyle ="blue";
+	    ctx.fillRect(250,420,120,40); 
+		 ctx.restore();
+		 ctx.save();
+		ctx.fillStyle ="green";
+		ctx.font = "25px aria";
+		ctx.fillText("speed run", 250, 440);
+	    ctx.restore();
+		 
+		
+		}
+		
+		if(playmode==4){
+		
+		ctx.save();
+		ctx.fillStyle ="silver";
+	    ctx.fillRect(250,420,120,40); 
+		 ctx.restore();
+		 ctx.save();
+		ctx.fillStyle ="green";
+		ctx.font = "25px aria";
+		ctx.fillText("level play", 250, 440);
+	    ctx.restore();
+		 
+		
+		}
+		
+		
 }
 
 
@@ -194,7 +271,7 @@ var g_sprites = {};
 
 function preloadDone() {
 
-    entityManager.init();
+    //entityManager.init();
 
     main.init();
 
