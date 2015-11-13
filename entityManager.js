@@ -47,11 +47,11 @@ KILL_ME_NOW : -1,
 deferredSetup : function () {
     this._categories = [this._bikes];
 },
-//fjöldi hjóla í leika er ekki notaði í neit í augnablikinu
+//fjï¿½ldi hjï¿½la ï¿½ leika er ekki notaï¿½i ï¿½ neit ï¿½ augnablikinu
 //var numberofplayer :1,
 init: function() {
 
-//ég munn lýklegast einfalda þetta og búa til functon til að búa til eftir skilirðum en þetta dugar tilbirja með
+//ï¿½g munn lï¿½klegast einfalda ï¿½etta og bï¿½a til functon til aï¿½ bï¿½a til eftir skilirï¿½um en ï¿½etta dugar tilbirja meï¿½
 if(playmode==4){
     this.generateBike({
         id : 1,
@@ -84,7 +84,7 @@ if(playmode==4){
         GO_RIGHT : util.keyCode("L"),
         bot: true
     });
-	
+
 	 this.generateBike({
         id : 3,
         x : 400,
@@ -101,13 +101,14 @@ if(playmode==4){
         bot: true
     });
 	}
-	
+
 	if(playmode==1){
     this.generateBike({
         id : 1,
         x : 200,
         y : 250,
         gridPos : spatialManager.getReserveGridPos(1,200,250),
+        livePos : 20,
         score : 0,
         xVel : 1,
         yVel : 0,
@@ -124,6 +125,7 @@ if(playmode==4){
         x : 400,
         y : 250,
         gridPos : spatialManager.getReserveGridPos(2,400,250),
+        livePos : 40,
         score : 0,
         xVel : -1,
         yVel : 0,
@@ -134,16 +136,16 @@ if(playmode==4){
         GO_RIGHT : util.keyCode("L"),
         bot: false
     });
-	
-	
+
 	}
-	
+
 	if(playmode==2){
     this.generateBike({
         id : 1,
         x : 200,
         y : 250,
         gridPos : spatialManager.getReserveGridPos(1,200,250),
+        livePos : 20,
         score : 0,
         xVel : 1,
         yVel : 0,
@@ -160,6 +162,7 @@ if(playmode==4){
         x : 400,
         y : 250,
         gridPos : spatialManager.getReserveGridPos(2,400,250),
+        livePos : 40,
         score : 0,
         xVel : -1,
         yVel : 0,
@@ -170,12 +173,7 @@ if(playmode==4){
         GO_RIGHT : util.keyCode("L"),
         bot: true
     });
-	
-
 	}
-	
-	
-	
 },
 
 generateBike : function(descr) {

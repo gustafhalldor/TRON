@@ -31,38 +31,41 @@ function updateSimulation(du) {
 
     processDiagnostics();
 
-    if(gamestart == true &&main._isGameOver==false){
+    if(gamestart == true && main._isGameOver == false && g_continueGame == false){
         entityManager.update(du);
     }
 
 }
 
-// GAME-SPECIFIC DIAGNOSTICS
-var  KEY_CHANCEGAMEMODE  = keyCode('M');
+// GAME-SPECIFIC DIAGNOSTICS AND USEFUL KEYS
+var KEY_CHANGEGAMEMODE  = keyCode('M');
 var KEY_HALT  = keyCode('H');
 var KEY_RESET = keyCode('R');
+var KEY_CONTINUE = 32; //keycode for SPACEBAR
 var KEY_STOPPAUSESC = keyCode('U');
 var KEY_RETURN = 13;
 
 function processDiagnostics() {
     if (eatKey(KEY_RETURN)) {
-	
-	      if (gamestart == false) {newTronGame();}
-	
-		 if (main._isGameOver  == true) {alert("kake");}
-	
-	
+
+	    if (gamestart == false) {newTronGame();}
+
+		  if (main._isGameOver  == true) {alert("kake");}
 	}
-	if (eatKey(KEY_CHANCEGAMEMODE)) gamemodechance();
-	
 
-    if (eatKey(KEY_HALT)) entityManager.haltBikes();
+	if (eatKey(KEY_CHANGEGAMEMODE)) gamemodechange();
 
-    if (eatKey(KEY_RESET)) entityManager.resetBikes();
-	
+  if (eatKey(KEY_HALT)) g_haltBikes = !g_haltBikes;
+
+  if (eatKey(KEY_CONTINUE)) {
+    if (g_continueGame == true) g_continueGame = !g_continueGame;
+  }
+
+  if (eatKey(KEY_RESET)) entityManager.resetBikes();
+
 	if (eatKey(KEY_STOPPAUSESC)) notshowpausescreen=!notshowpausescreen;
-	
-	
+
+
 }
 
 //�arf svo a� f�ra �etta � r�ttan sta�
@@ -76,17 +79,19 @@ function newTronGame(ctx) {
     //music play
     bgplay();
     gamestart = !gamestart;
-  entityManager.deferredSetup();
+    entityManager.deferredSetup();
 };
 
 function resetGame(ctx) {
    // entityManager.init();
+
     spatialManager.resetArray();
     entityManager.resetBikes();
     util.setUpCanvas(ctx);
+    g_haltBikes = false;
 };
 
-function gamemodechance() {
+function gamemodechange() {
 
    playmode=playmode+1;
 
@@ -103,17 +108,30 @@ function gamemodechance() {
 
 function renderSimulation(ctx) {
 
-    if (gamestart !=true) {
-	    drawscore();
+    if (gamestart == false) {
+	      drawscore();
         drawintroscreen();
+    }
 
-    } else {
+    else if(g_continueGame == true) {
+        util.clearBackground(g_ctxbg);
+
+        g_ctxbg.save();
+        g_ctxbg.font = "16px serif";
+        g_ctxbg.fillStyle = "white";
+        g_ctxbg.fillText("PRESS SPACEBAR TO CONTINUE", 220, 30);
+        g_ctxbg.restore();
+
         entityManager.render(ctx);
+        drawlevel();
+    }
 
+    else {
+        util.clearBackground(g_ctxbg);
+        entityManager.render(ctx);
         //status update
 		// fansytext(); will be used to anocae the level at start
-       drawlives();
-	   drawlevel();
+	      drawlevel();
     }
 }
 
@@ -138,30 +156,44 @@ function drawintroscreen() {
         ctx.fillText("TRON", 210, 200);
         ctx.restore();
 		  ctx.save();
-		  ctx.font = "54px serif";
-        ctx.fillText("controls", 300, 300);
-        ctx.fillText("w", 300, 320);
-        ctx.fillText("a", 290, 330);
-        ctx.fillText("d", 310, 330);
-        ctx.fillText("s", 300, 340);
-         ctx.restore();
-        ctx.fillText("press enter to start the game ",300 ,400);
+		  ctx.font = "32px serif";
+        ctx.fillText("controls:", 215, 250);
+      ctx.font = "24px serif";
+      ctx.save();
+        ctx.fillStyle = "#FF69B4";
+        ctx.fillText("Player 1", 270, 280);
+        ctx.fillText("W", 300, 312);
+        ctx.fillText("A", 280, 335);
+        ctx.fillText("D", 330, 335);
+        ctx.fillText("S", 305, 360);
+        ctx.restore();
+        ctx.save();
+        ctx.fillStyle = "#00FFFF";
+        ctx.fillText("Player 2", 400, 280);
+        ctx.fillText("I", 430, 312);
+        ctx.fillText("J", 408, 335);
+        ctx.fillText("L", 450, 335);
+        ctx.fillText("K", 426, 360);
+        ctx.restore();
+        ctx.font = "24px serif";
+        ctx.fillText("press ENTER to start the game ", 260, 400);
+        ctx.restore();
 		 ctx.save();
 		ctx.fillStyle ="blue";
-		ctx.fillRect(340,480,110,40); 
+		ctx.fillRect(340,480,110,40);
 		ctx.restore();
 		 ctx.save();
 		ctx.fillStyle ="silver";
-		ctx.fillRect(460,480,100,40); 
+		ctx.fillRect(460,480,100,40);
 		ctx.restore();
 		 ctx.save();
 		ctx.fillStyle ="summer";
-		ctx.fillRect(200,480,130,40); 
+		ctx.fillRect(200,480,130,40);
 		ctx.restore();
-		
+
 		 ctx.save();
 		ctx.fillStyle ="#ff00ff";
-	    ctx.fillRect(70,480,120,40); 
+	    ctx.fillRect(70,480,120,40);
 		ctx.fillStyle ="green";
 		ctx.font = "25px aria";
 		ctx.fillText("normal play", 200, 510);
@@ -169,7 +201,7 @@ function drawintroscreen() {
 		ctx.save();
 		ctx.fillStyle ="green";
 		ctx.font = "25px aria";
-		ctx.fillText("multiplayer", 70, 510);
+		ctx.fillText("PvP", 110, 510);
 	    ctx.restore();
 		ctx.save();
 		ctx.fillStyle ="green";
@@ -183,71 +215,70 @@ function drawintroscreen() {
 	    ctx.restore();
 		ctx.save();
 		ctx.font = "45px aria";
-        ctx.fillText("use m to chance playmode", 70, 560);
+        ctx.fillText("use M to change playmode", 70, 560);
 		ctx.restore();
-		
+
 		if(playmode==1){
-		
+
 		ctx.save();
 		ctx.fillStyle ="#ff00ff";
-	    ctx.fillRect(250,420,120,40); 
+	    ctx.fillRect(250,420,120,40);
 		 ctx.restore();
 		 ctx.save();
 		ctx.fillStyle ="green";
 		ctx.font = "25px aria";
-		ctx.fillText("multiplayer", 250, 440);
+		ctx.fillText("PvP", 290, 450);
 	    ctx.restore();
-		 
-		 
+
 		}
-		
+
 		if(playmode==2){
-		
+
 		ctx.save();
 		ctx.fillStyle ="#summer";
-	    ctx.fillRect(250,420,120,40); 
+	    ctx.fillRect(250,420,120,40);
 		 ctx.restore();
 		 ctx.save();
 		ctx.fillStyle ="green";
 		ctx.font = "25px aria";
 		ctx.fillText("normal play", 250, 440);
 	    ctx.restore();
-		 
-		
-		
+
+
+
 		}
-		
+
 		if(playmode==3){
-		
+
 		ctx.save();
 		ctx.fillStyle ="blue";
-	    ctx.fillRect(250,420,120,40); 
+	    ctx.fillRect(250,420,120,40);
 		 ctx.restore();
 		 ctx.save();
 		ctx.fillStyle ="green";
 		ctx.font = "25px aria";
 		ctx.fillText("speed run", 250, 440);
 	    ctx.restore();
-		 
-		
+
+
 		}
-		
+
 		if(playmode==4){
-		
+
 		ctx.save();
 		ctx.fillStyle ="silver";
-	    ctx.fillRect(250,420,120,40); 
+	    ctx.fillRect(250,420,120,40);
 		 ctx.restore();
 		 ctx.save();
 		ctx.fillStyle ="green";
 		ctx.font = "25px aria";
 		ctx.fillText("level play", 250, 440);
 	    ctx.restore();
-		 
-		
+
+
 		}
-		
-		
+
+
 }
 
 

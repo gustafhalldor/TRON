@@ -74,6 +74,8 @@ Bike.prototype.updateBot = function(du, currX, currY) {
 
 Bike.prototype.update = function (du) {
 
+    if(g_haltBikes) return;
+
     this.updateBot(du, this.gridPos.x, this.gridPos.y);
 
     var speed = this.speed;
@@ -107,9 +109,10 @@ Bike.prototype.update = function (du) {
 
     if (this.isColliding(nextGX,nextGY)) {
         this.lives -= 1;
+        g_continueGame = true;
+
 		  //  alert(this.id + " "+this.lives);
 			fx("boom");
-		    textlive=this.lives;
 			var tems = "player numer "+ this.id + " lost";
 			gametextcolector.push(tems);
 
@@ -144,6 +147,8 @@ Bike.prototype.halt = function () {
 
 Bike.prototype.render = function (ctx) {
     ctx.fillStyle = this.Color;
+
+    drawlives(this.lives, this.livePos, this.Color);
 
     var x, y;
 
