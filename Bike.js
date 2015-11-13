@@ -107,7 +107,11 @@ Bike.prototype.update = function (du) {
 
     if (this.isColliding(nextGX,nextGY)) {
         this.lives -= 1;
+		  //  alert(this.id + " "+this.lives);
+			fx("boom");
 		    textlive=this.lives;
+			var tems = "player numer "+ this.id + " lost";
+			gametextcolector.push(tems);
 
         if(this.lives === 0) {
 		        main.gameOver();

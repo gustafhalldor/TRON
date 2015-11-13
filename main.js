@@ -61,8 +61,9 @@ main._iterCore = function (dt) {
 
     // Handle QUIT
     if (requestedQuit()) {
-        this.gameOver();
-        return;
+	//er ekki að gera eikkvað viti þanning að gerði það óvirkt
+    //    this.gameOver();
+    //    return;
     }
 
     gatherInputs();

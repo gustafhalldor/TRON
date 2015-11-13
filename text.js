@@ -1,4 +1,27 @@
 ﻿//fansy text
+//simple colector on who lost and won
+var gametextcolector = ["end"];
+
+
+function textlines(x,y)
+{
+var temptada =gametextcolector.pop();
+
+if(temptada=="end"){
+gametextcolector.push("end");
+return;
+}
+else{
+ ctx.save();
+		ctx.fillStyle ="gold";
+		ctx.fillText(temptada, x, y);
+		ctx.restore();
+    textlines(x,y+20);
+
+    ctx.restore();}
+}
+
+
 function fansytext()
 {
 
@@ -28,6 +51,13 @@ ctx.fillText("game  over", 105, 200);
 
 
     ctx.restore();
+	ctx.save();
+	ctx.fillStyle ="black";
+		ctx.fillRect(400,400,100,300); 
+        ctx.restore();
+		textlines(400,410);	
+	
+	
 }
 
 
