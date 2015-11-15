@@ -127,14 +127,14 @@ function renderSimulation(ctx) {
         g_ctxbg.fillStyle = "white";
         g_ctxbg.fillText("PRESS SPACEBAR TO CONTINUE", 220, 30);
         g_ctxbg.restore();
-
         entityManager.render(ctx);
         drawlevel();
+		
     }
 
     else if(g_startNewGame == true) {
         util.clearBackground(g_ctxbg);
-
+        fansytext();
         g_ctxbg.save();
         g_ctxbg.font = "16px serif";
         g_ctxbg.fillStyle = "white";
@@ -146,6 +146,7 @@ function renderSimulation(ctx) {
     }
 
     else {
+	 //  fansytext();// virkar en þarf laga útlitið
         util.clearBackground(g_ctxbg);
         entityManager.render(ctx);
         //status update

@@ -118,9 +118,11 @@ Bike.prototype.update = function (du) {
 
         if(this.lives === 0) {
             g_startNewGame = true;
-		        main.gameOver();
+			   round12=1;
+		        main.gameOver(this.id);
         }
 		    else {
+			round12++;
             g_continueGame = true;
             return resetGame(g_ctx);
         }
