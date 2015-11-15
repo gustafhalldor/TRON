@@ -73,10 +73,10 @@ main._iterCore = function (dt) {
 
 main._isGameOver = false;
 
-main.gameOver = function () {
+main.gameOver = function (a) {
     g_gameOver = true;
     g_continueGame = false;
-	  gameovertext();
+	  gameovertext(a);
 };
 
 // Simple voluntary quit mechanism
