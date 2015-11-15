@@ -53,27 +53,28 @@ ctx.fillText("game  over", 105, 200);
     ctx.restore();
 	ctx.save();
 	ctx.fillStyle ="black";
-		ctx.fillRect(400,400,100,300); 
+		ctx.fillRect(400,400,100,300);
         ctx.restore();
-		textlines(400,410);	
-	
-	
+		textlines(400,410);
+
+
 }
 
 
-var textlive= 3;
-function drawlives()
+function drawlives(lives, pos, color)
 {
-	ctx.fillText("lives : ", 515, 50);
+		g_ctxbg.font = "12px arial";
+		g_ctxbg.fillStyle = color;
+		g_ctxbg.fillText("LIVES : ", 555, pos);
 
-	for(var i = 0, j = 550; i < textlive; i++) {
-		ctx.fillText("*", j, 50);
-		j = j + 15;
-	}
+		for(var i = 0, j = 600; i < lives; i++) {
+				g_ctxbg.fillText("*", j, pos);
+				j = j + 15;
+		}
 }
 
 var textlevel="1";
 function drawlevel()
 {
-ctx.fillText("level : "+textlevel, 50, 50);
+g_ctxbg.fillText("level : "+textlevel, 70, 30);
 }

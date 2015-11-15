@@ -74,10 +74,9 @@ main._iterCore = function (dt) {
 main._isGameOver = false;
 
 main.gameOver = function () {
-    this._isGameOver = true;
-    console.log("gameOver: quitting...");
-	gameovertext();
-	//this._requestNextIteration();
+    g_gameOver = true;
+    g_continueGame = false;
+	  gameovertext();
 };
 
 // Simple voluntary quit mechanism
@@ -125,9 +124,8 @@ main.init = function () {
 
     // Only setting up the background once at the start.
     util.setUpCanvas(g_ctx);
-	//music play
-	bgplay();
-    console.log("kall í main init");
+  	//music play
+  	bgplay();
 
     this._requestNextIteration();
 };
