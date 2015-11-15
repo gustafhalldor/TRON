@@ -184,6 +184,10 @@ resetBikes : function() {
     this._forEachOf(this._bikes, Bike.prototype.reset);
 },
 
+resetLives : function() {
+    this._forEachOf(this._bikes, Bike.prototype.resetLives);
+},
+
 haltBikes : function() {
     this._forEachOf(this._bikes, Bike.prototype.halt);
 },

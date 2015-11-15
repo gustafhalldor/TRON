@@ -109,7 +109,7 @@ Bike.prototype.update = function (du) {
 
     if (this.isColliding(nextGX,nextGY)) {
         this.lives -= 1;
-        g_continueGame = true;
+
 
 		  //  alert(this.id + " "+this.lives);
 			fx("boom");
@@ -117,9 +117,11 @@ Bike.prototype.update = function (du) {
 			gametextcolector.push(tems);
 
         if(this.lives === 0) {
+            g_startNewGame = true;
 		        main.gameOver();
         }
 		    else {
+            g_continueGame = true;
             return resetGame(g_ctx);
         }
     };
@@ -138,6 +140,10 @@ Bike.prototype.reset = function () {
     this.setVel(this.reset_velX, this.reset_velY);
     this.resetGridPos(this.reset_gridPos);
     this.tail = [];
+};
+
+Bike.prototype.resetLives = function () {
+    this.lives = 3;
 };
 
 Bike.prototype.halt = function () {
@@ -171,8 +177,4 @@ Bike.prototype.render = function (ctx) {
 
 Bike.prototype.isColliding = function(nextX,nextY) {
     return !spatialManager.isAvailable(nextX,nextY);
-};
-
-Bike.prototype.crash = function() {
-    return entityManager.KILL_ME_NOW;
 };

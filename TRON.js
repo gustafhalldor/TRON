@@ -31,10 +31,9 @@ function updateSimulation(du) {
 
     processDiagnostics();
 
-    if(gamestart == true && main._isGameOver == false && g_continueGame == false){
+    if(gamestart == true && g_gameOver == false && g_continueGame == false && g_startNewGame == false){
         entityManager.update(du);
     }
-
 }
 
 // GAME-SPECIFIC DIAGNOSTICS AND USEFUL KEYS
@@ -47,10 +46,7 @@ var KEY_RETURN = 13;
 
 function processDiagnostics() {
     if (eatKey(KEY_RETURN)) {
-
 	    if (gamestart == false) {newTronGame();}
-
-		  if (main._isGameOver  == true) {alert("kake");}
 	}
 
 	if (eatKey(KEY_CHANGEGAMEMODE)) gamemodechange();
@@ -58,13 +54,20 @@ function processDiagnostics() {
   if (eatKey(KEY_HALT)) g_haltBikes = !g_haltBikes;
 
   if (eatKey(KEY_CONTINUE)) {
-    if (g_continueGame == true) g_continueGame = !g_continueGame;
+    if (g_continueGame == true) g_continueGame = false;
+    if (g_startNewGame == true) {
+      util.clearBackground(g_ctxbg);
+      util.setUpCanvas(g_ctx);
+      g_continueGame = false;
+      g_gameOver = false;
+      gamestart = false;
+      entityManager.resetLives();
+    }
   }
 
   if (eatKey(KEY_RESET)) entityManager.resetBikes();
 
 	if (eatKey(KEY_STOPPAUSESC)) notshowpausescreen=!notshowpausescreen;
-
 
 }
 
@@ -74,17 +77,21 @@ var gamestart = false;
 var playmode =2;
 
 function newTronGame(ctx) {
-    entityManager.init();
+    if(gamestart == false && g_startNewGame == false) {
+        entityManager.init();
+        entityManager.deferredSetup();
+    }
+
+    spatialManager.resetArray();
+    entityManager.resetBikes();
     util.setUpCanvas(g_ctx);
     //music play
     bgplay();
     gamestart = !gamestart;
-    entityManager.deferredSetup();
+    g_startNewGame = false;
 };
 
 function resetGame(ctx) {
-   // entityManager.init();
-
     spatialManager.resetArray();
     entityManager.resetBikes();
     util.setUpCanvas(ctx);
@@ -97,7 +104,6 @@ function gamemodechange() {
 
    if(playmode==5)playmode=1;
 };
-
 
 
 // =================
@@ -126,11 +132,24 @@ function renderSimulation(ctx) {
         drawlevel();
     }
 
+    else if(g_startNewGame == true) {
+        util.clearBackground(g_ctxbg);
+
+        g_ctxbg.save();
+        g_ctxbg.font = "16px serif";
+        g_ctxbg.fillStyle = "white";
+        g_ctxbg.fillText("PRESS SPACEBAR TO CONTINUE TO MAIN MENU", 165, 30);
+        g_ctxbg.restore();
+
+        entityManager.render(ctx);
+        drawlevel();
+    }
+
     else {
         util.clearBackground(g_ctxbg);
         entityManager.render(ctx);
         //status update
-		// fansytext(); will be used to anocae the level at start
+		    // fansytext(); will be used to anocae the level at start
 	      drawlevel();
     }
 }
@@ -280,8 +299,6 @@ function drawintroscreen() {
 
 
 }
-
-
 
 
 // =============

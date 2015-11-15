@@ -65,9 +65,9 @@ function drawlives(lives, pos, color)
 {
 		g_ctxbg.font = "12px arial";
 		g_ctxbg.fillStyle = color;
-		g_ctxbg.fillText("LIVES : ", 515, pos);
+		g_ctxbg.fillText("LIVES : ", 555, pos);
 
-		for(var i = 0, j = 560; i < lives; i++) {
+		for(var i = 0, j = 600; i < lives; i++) {
 				g_ctxbg.fillText("*", j, pos);
 				j = j + 15;
 		}
