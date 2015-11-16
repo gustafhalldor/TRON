@@ -73,7 +73,8 @@ Bike.prototype.updateBot = function(du, currX, currY) {
         this.randomDirection(currX, currY);
     }
     else {
-        if(Math.random() <= 0.005) {
+        // At certain odds set random direction
+        if(Math.random() < 0.005) {
             this.randomDirection(currX, currY);
         }
     }
