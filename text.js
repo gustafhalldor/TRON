@@ -29,11 +29,13 @@ ctx.save();
 ctx.font = "78px serif";
 if(playmode==2){
 	ctx.fillStyle ="gold";
-ctx.fillText("round "+round12, 250, 100);
+	ctx.textAlign = "center";
+ctx.fillText("round "+round12, g_canvas.width/2, 100);
 }
 
 if(playmode==1){
-ctx.fillText("round "+round12, 250, 100);
+	ctx.textAlign = "center";
+ctx.fillText("round "+round12, g_canvas.width/2, 100);
 
 }
 //speedmode
@@ -65,9 +67,10 @@ function gameovertext(to)
 	ctx.save();
 	 ctx.font = "78px serif";
 	ctx.fillStyle ="gold";
-ctx.fillText("game  over", 100, 200);
+	ctx.textAlign = "center";
+ctx.fillText("game  over", g_canvas.width/2-2, 200);
 	ctx.fillStyle ="silver";
-ctx.fillText("game  over", 105, 200);
+ctx.fillText("game  over", g_canvas.width/2+2, 200);
 
 
     ctx.restore();
@@ -86,9 +89,10 @@ ctx.fillText("game  over", 105, 200);
 			ctx.save();
 	 ctx.font = "78px serif";
 	ctx.fillStyle ="gold";
-ctx.fillText("player "+templayer +" has WON", 10, 350);
+	ctx.textAlign = "center";
+ctx.fillText("player "+templayer +" has WON", g_canvas.width/2-2, 350);
 	ctx.fillStyle ="silver";
-ctx.fillText("player "+templayer +" has WON", 13, 350);
+ctx.fillText("player "+templayer +" has WON", g_canvas.width/2+2, 350);
 
 
     ctx.restore();
