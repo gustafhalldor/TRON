@@ -72,6 +72,7 @@ if(i==2){genbott=true;
         score : 0,
         xVel : 1,
         yVel : 0,
+		livePos : 15*i,
         Color :  nextlv[0].color[(i-1)].cl,
         GO_UP    : util.keyCode("W"),
         GO_DOWN  : util.keyCode("S"),
