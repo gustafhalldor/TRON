@@ -46,6 +46,18 @@ Bike.prototype.rememberResets = function () {
     this.reset_gridPos = this.gridPos;
 };
 
+Bike.prototype.randomDirection = function(currX, currY) {
+    for(var direction in this.directions) {
+        var dirX = this.directions[direction].x;
+        var dirY = this.directions[direction].y;
+        if(spatialManager.isAvailable(dirX + currX, dirY + currY)) {
+            this.xVel = dirX;
+            this.yVel = dirY;
+            break;
+        }
+    }
+},
+
 Bike.prototype.updateBot = function(du, currX, currY) {
     if(!this.bot)
         return;
@@ -58,16 +70,11 @@ Bike.prototype.updateBot = function(du, currX, currY) {
 
     // If current direction is not available, find other direction
     if(!spatialManager.isAvailable(nextGX, nextGY)) {
-        for(var direction in this.directions) {
-            var dirX = this.directions[direction].x;
-            var dirY = this.directions[direction].y;
-
-            // Find next available direction from the directions array
-            if(spatialManager.isAvailable(dirX + currX, dirY + currY)) {
-                this.xVel = dirX;
-                this.yVel = dirY;
-                break;
-            }
+        this.randomDirection(currX, currY);
+    }
+    else {
+        if(Math.random() <= 0.005) {
+            this.randomDirection(currX, currY);
         }
     }
 };
