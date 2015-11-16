@@ -110,7 +110,6 @@ Bike.prototype.update = function (du) {
     if (this.isColliding(nextGX,nextGY)) {
         this.lives -= 1;
 
-
 		  //  alert(this.id + " "+this.lives);
 			fx("boom");
 			var tems = "player numer "+ this.id + " lost";
@@ -118,11 +117,11 @@ Bike.prototype.update = function (du) {
 
         if(this.lives === 0) {
             g_startNewGame = true;
-			   round12=1;
+			      round12=1;
 		        main.gameOver(this.id);
         }
 		    else {
-			round12++;
+			      round12++;
             g_continueGame = true;
             return resetGame(g_ctx);
         }

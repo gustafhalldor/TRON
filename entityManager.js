@@ -197,6 +197,10 @@ generateGrid : function(descr) {
     this._grid.resetArray(g_bikeWidthHeight);
 },
 
+killBikes : function() {
+    this._bikes = [];
+},
+
 update: function(du) {
     for (var j = 0; j < this._categories.length; ++j) {
 
