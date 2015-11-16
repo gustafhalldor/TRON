@@ -53,6 +53,42 @@ init: function() {
 
 //�g munn l�klegast einfalda �etta og b�a til functon til a� b�a til eftir skilir�um en �etta dugar tilbirja me�
 if(playmode==4){
+var genbott =false;
+
+var nextlv = getnextlv();
+var i=0;
+while(i!=nextlv[0].level.numerofplayer)
+{
+i++;
+if(i==2){genbott=true;
+}
+
+
+ this.generateBike({
+        id : i,
+        x : nextlv[0].xy[(i-1)].x,
+        y : nextlv[0].xy[(i-1)].y,
+        gridPos : spatialManager.getReserveGridPos(1,nextlv[0].xy[(i-1)].x,nextlv[0].xy[(i-1)].y),
+        score : 0,
+        xVel : 1,
+        yVel : 0,
+        Color :  nextlv[0].color[(i-1)].cl,
+        GO_UP    : util.keyCode("W"),
+        GO_DOWN  : util.keyCode("S"),
+        GO_LEFT  : util.keyCode("A"),
+        GO_RIGHT : util.keyCode("D"),
+        bot: genbott
+    });
+
+
+
+
+
+}
+
+
+
+/*
     this.generateBike({
         id : 1,
         x : 200,
@@ -99,7 +135,7 @@ if(playmode==4){
         GO_LEFT  : util.keyCode("r"),
         GO_RIGHT : util.keyCode("p"),
         bot: true
-    });
+    }); */
 	}
 
 	if(playmode==1){

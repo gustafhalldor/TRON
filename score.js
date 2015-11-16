@@ -1,4 +1,8 @@
-﻿function scoreint() {
+﻿
+
+
+
+function scoreint() {
 //set some intale data
 if(localStorage.getItem("score1")==null){
 
@@ -59,7 +63,11 @@ setscore(temp.name,temp.score,(numer+1));
 //fyrst come fyrst serve so if they have same score then they will rank lower
 }
 
+function scorecalculate(lv) {
 
+return lv * 1000;
+
+}
 
 
 
