@@ -61,7 +61,7 @@ function processDiagnostics() {
       g_continueGame = false;
       g_gameOver = false;
       gamestart = false;
-      entityManager.resetLives();
+      entityManager.killBikes();
     }
   }
 
@@ -77,13 +77,10 @@ var gamestart = false;
 var playmode =2;
 
 function newTronGame(ctx) {
-    if(gamestart == false && g_startNewGame == false) {
-        entityManager.init();
-        entityManager.deferredSetup();
-    }
+    entityManager.deferredSetup();
+    entityManager.init();
 
     spatialManager.resetArray();
-    entityManager.resetBikes();
     util.setUpCanvas(g_ctx);
     //music play
     bgplay();
@@ -129,7 +126,7 @@ function renderSimulation(ctx) {
         g_ctxbg.restore();
         entityManager.render(ctx);
         drawlevel();
-		
+
     }
 
     else if(g_startNewGame == true) {
