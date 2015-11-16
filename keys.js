@@ -5,6 +5,7 @@
 var keys = [];
 
 function handleKeydown(evt) {
+	if(evt.keyCode === 32) evt.preventDefault();
     keys[evt.keyCode] = true;
 }
 
