@@ -56,12 +56,15 @@ function processDiagnostics() {
   if (eatKey(KEY_CONTINUE)) {
     if (g_continueGame == true) g_continueGame = false;
     if (g_startNewGame == true) {
-      util.clearBackground(g_ctxbg);
-      util.setUpCanvas(g_ctx);
-      g_continueGame = false;
-      g_gameOver = false;
-      gamestart = false;
-      entityManager.killBikes();
+        util.clearBackground(g_ctxbg);
+        util.setUpCanvas(g_ctx);
+        g_continueGame = false;
+        g_gameOver = false;
+        gamestart = false;
+        entityManager.killBikes();
+        if (playmode == 4) {
+            levelnow = 1;
+        }
     }
   }
 

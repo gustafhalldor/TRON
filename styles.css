@@ -1,0 +1,48 @@
+#canvas {
+  margin: auto;
+  width: 50%;
+  padding: 1em;
+  position: relative;
+}
+
+#background {
+  position: absolute;
+}
+
+#myCanvas {
+  position: absolute;
+  border: 50px solid black
+}
+
+span {
+  font-weight: bold;
+}
+
+p {
+  font-size: 20px;
+  position: relative;
+  top: 690px;
+}
+
+/* Shows lives and level below the canvas
+
+#canvas {
+  margin: auto;
+  width: 50%;
+  padding: 1em;
+  position: relative;
+}
+
+#background {
+  position: relative;
+}
+
+#myCanvas {
+  position: relative;
+  border: 50px solid black
+}
+
+p {
+  font-size: 18px;
+  position: relative;
+}
