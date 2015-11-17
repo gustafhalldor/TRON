@@ -165,13 +165,46 @@ function drawscore() {
 
 }
 
+// Pos : {x: X, y: Y}
+// Draw double text with 
+function drawDoubleText(text, color, font, x, y) {
+	ctx.save();
+	ctx.textAlign = "center";
+	ctx.textBaseline = "middle";
+	ctx.font = font;
+	ctx.fillText(text, x-3, y);
+	ctx.fillStyle = color;
+	ctx.fillText(text, x+3, y);
+	ctx.restore();
+}
+
+// Draw text with center at (x,y)
+function drawText(text, color, font, x, y) {
+	ctx.save();
+	ctx.textAlign = "center";
+	ctx.textBaseline = "middle";
+	ctx.font = font;
+	ctx.fillStyle = color;
+	ctx.fillText(text, x, y);
+	ctx.restore();
+}
+
+// Draw box with center at (x,y) and text centered inside box
+function drawTextInCenteredBox(text, fontColor, fontStyle, boxColor, x, y, width, height) {
+	ctx.save();
+	ctx.fillStyle = boxColor;
+	ctx.fillRect(x-width/2, y-height/2, width, height);
+	ctx.fillStyle = fontColor;
+	ctx.font = fontStyle;
+	ctx.textAlign = "center";
+	ctx.textBaseline = "middle";
+	ctx.fillText(text, x, y);
+	ctx.restore();
+}
+
 function drawintroscreen() {
-  ctx.save();
-        ctx.font = "120px serif";
-        ctx.fillText("TRON", 200, 200);
-        ctx.fillStyle ="green";
-        ctx.fillText("TRON", 210, 200);
-        ctx.restore();
+	drawDoubleText("TRON", "green", "120px serif", g_canvas.width/2, 100);
+
 		  ctx.save();
 		  ctx.font = "32px serif";
         ctx.fillText("controls:", 215, 250);
@@ -195,104 +228,31 @@ function drawintroscreen() {
         ctx.font = "24px serif";
         ctx.fillText("press ENTER to start the game ", 260, 400);
         ctx.restore();
-		 ctx.save();
-		ctx.fillStyle ="blue";
-		ctx.fillRect(340,480,110,40);
-		ctx.restore();
-		 ctx.save();
-		ctx.fillStyle ="silver";
-		ctx.fillRect(460,480,100,40);
-		ctx.restore();
-		 ctx.save();
-		ctx.fillStyle ="summer";
-		ctx.fillRect(200,480,130,40);
-		ctx.restore();
+		
+		var quarterWidth = g_canvas.width/5;
+		var halfWidth = g_canvas.width/2;
+		var width = quarterWidth-10;
 
-		 ctx.save();
-		ctx.fillStyle ="#ff00ff";
-	    ctx.fillRect(70,480,120,40);
-		ctx.fillStyle ="green";
-		ctx.font = "25px aria";
-		ctx.fillText("normal play", 200, 510);
-		ctx.restore();
-		ctx.save();
-		ctx.fillStyle ="green";
-		ctx.font = "25px aria";
-		ctx.fillText("PvP", 110, 510);
-	    ctx.restore();
-		ctx.save();
-		ctx.fillStyle ="green";
-		ctx.font = "25px aria";
-		ctx.fillText("speed run", 340, 510);
-	    ctx.restore();
-		ctx.save();
-		ctx.fillStyle ="green";
-		ctx.font = "25px aria";
-		ctx.fillText("level play", 460, 510);
-	    ctx.restore();
-		ctx.save();
-		ctx.font = "45px aria";
-        ctx.fillText("use M to change playmode", 70, 560);
-		ctx.restore();
+		// Draw different game types
+		drawTextInCenteredBox("PvP", "green", "22px aria", "#ff00ff", quarterWidth, 500, width, 40);
+		drawTextInCenteredBox("normal play", "green", "22px aria", "summer", quarterWidth*2, 500, width, 40);
+		drawTextInCenteredBox("speed run", "green", "22px aria", "blue", quarterWidth*3, 500, width, 40);
+		drawTextInCenteredBox("level play", "green", "22px aria", "silver", quarterWidth*4, 500, width, 40);
+
+		// Draw instructions how to choose game type
+		drawText("use M to change playmode", "", "45px aria", g_canvas.width/2, 550);
 
 		if(playmode==1){
-
-		ctx.save();
-		ctx.fillStyle ="#ff00ff";
-	    ctx.fillRect(250,420,120,40);
-		 ctx.restore();
-		 ctx.save();
-		ctx.fillStyle ="green";
-		ctx.font = "25px aria";
-		ctx.fillText("PvP", 290, 450);
-	    ctx.restore();
-
+			drawTextInCenteredBox("PvP", "green", "22px aria", "#ff00ff", halfWidth, 440, width, 40);
 		}
-
 		if(playmode==2){
-
-		ctx.save();
-		ctx.fillStyle ="#summer";
-	    ctx.fillRect(250,420,120,40);
-		 ctx.restore();
-		 ctx.save();
-		ctx.fillStyle ="green";
-		ctx.font = "25px aria";
-		ctx.fillText("normal play", 250, 440);
-	    ctx.restore();
-
-
-
+			drawTextInCenteredBox("normal play", "green", "22px aria", "summer", halfWidth, 440, width, 40);
 		}
-
 		if(playmode==3){
-
-		ctx.save();
-		ctx.fillStyle ="blue";
-	    ctx.fillRect(250,420,120,40);
-		 ctx.restore();
-		 ctx.save();
-		ctx.fillStyle ="green";
-		ctx.font = "25px aria";
-		ctx.fillText("speed run", 250, 440);
-	    ctx.restore();
-
-
+			drawTextInCenteredBox("speed run", "green", "22px aria", "blue", halfWidth, 440, width, 40);
 		}
-
 		if(playmode==4){
-
-		ctx.save();
-		ctx.fillStyle ="silver";
-	    ctx.fillRect(250,420,120,40);
-		 ctx.restore();
-		 ctx.save();
-		ctx.fillStyle ="green";
-		ctx.font = "25px aria";
-		ctx.fillText("level play", 250, 440);
-	    ctx.restore();
-
-
+			drawTextInCenteredBox("level play", "green", "22px aria", "silver", halfWidth, 440, width, 40);
 		}
 
 
