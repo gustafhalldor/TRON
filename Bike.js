@@ -50,7 +50,7 @@ Bike.prototype.rememberResets = function () {
 Bike.prototype.randomDirection = function(currX, currY) {
     // Shuffle directions array to get more random choices of direction
     this.directions = util.shuffle(this.directions);
-    
+
     for(var direction in this.directions) {
         var dirX = this.directions[direction].x;
         var dirY = this.directions[direction].y;
@@ -116,50 +116,56 @@ Bike.prototype.update = function (du) {
     var nextX = spatialManager.getPosInPixels(nextGX,nextGY).x;
     var nextY = spatialManager.getPosInPixels(nextGX,nextGY).y;
 
-    if (this.isColliding(nextGX,nextGY)) {
+    if (this.isColliding(nextGX,nextGY))
+    {
         this.lives -= 1;
 
-		  //  alert(this.id + " "+this.lives);
-			fx("boom");
-			var tems = "player numer "+ this.id + " lost";
-			gametextcolector.push(tems);
+  			fx("boom");
+  			var tems = "player numer "+ this.id + " lost";
+  			gametextcolector.push(tems);
 
-        if(this.lives === 0) {
+        if(this.lives === 0)
+        {
             g_startNewGame = true;
-			if(playmode!=4){
-			      round12=1;
-		        main.gameOver(this.id);
 
-				}//if this is playmode 4
-				else{
-                if(this.id!=1){	//check if player 1 lost or won
-				levelnow++;
-				if(levelnow!=(maxlevel+1)){
-				textlevel = levelnow;
-				//newTronGame(ctx) ;
-        entityManager.resetBikes();
+			      if(playmode!=4){
+			          round12=1;
+		            main.gameOver(this.id);
+	          }
 
-				}else{  //player has won the the game in gamemode 4
-				//add some code here
-				}
+            //if this is "level play" mode
+				    else
+            {
+                if(this.id!=1)
+                {	//check if player 1 lost or won
+            				levelnow++;
+  				          if(levelnow!=(maxlevel+1))
+                    {
+                        textlevel = levelnow;
+                        entityManager.resetBikes();
+  				          }
 
+                    else
+                    {  //player has won the the game in gamemode 4
+  				             //add some code here
+  				          }
+  				      }
 
-				}else
-				{
-				//player has lost in gamemode 4
-				 main.gameOver(this.id);
-				 alert(scorecalculate(levelnow));//tímabundið þanngatill verður búin til kóði til að birta
-				}
-
-
-				}
-
-
+                else
+                {
+  				            //player has lost in gamemode 4
+                      levelnow = 1;
+  				            main.gameOver(this.id);
+  				      //      alert(scorecalculate(levelnow));//tímabundið þanngatill verður búin til kóði til að birta
+  				      }
+				    }
         }
-		    else {
-			      round12++;
-            g_continueGame = true;
-            return resetGame(g_ctx);
+
+        else
+        {
+    			    round12++;
+              g_continueGame = true;
+              return resetGame(g_ctx);
         }
     };
 

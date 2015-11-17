@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta content="text/html"; charset="UTF-8">
+    <link href="styles.css" type="text/css" rel="stylesheet">
     <title>TRON</title>
   </head>
-  <body
-    style="margin: auto; width: 50%; padding: 5em;">
+  <body>
+    <div id="canvas">
+  	  <canvas id="myCanvas" width="601" height="601">
+    	  Sorry, but your browser does not support the HTML5 canvas tag.
+    	</canvas>
 
-	<canvas id="myCanvas" width="601" height="601"
-		style="border: 50px solid black; position: absolute">
+      <canvas id="background" width="701" height="50">
+      </canvas>
 
-	Sorry, but your browser does not support the HTML5 canvas tag.
-	</canvas>
-  <canvas id="background" width="701" height="50" style="position: absolute">
-
-  Sorry, but your browser does not support the HTML5 canvas tag.
-  </canvas>
+      <p><span>How the game modes work:</span>
+        <br>----------------------------------
+        <br><span>PvP</span> : Head-to-head with another player! Keys are displayed on intro screen.
+        <br><span>Normal Play</span> : You against a bot!
+        <br><span>Level Play</span> : Compete against bots and advance to other levels!
+      </p>
+    </div>
 
     <div id="output"></div>
     <script src="level.js"></script>
@@ -25,7 +30,6 @@
 
     <script src="spatialManager.js"></script>
 
-    <script src="Sprite.js"></script>
     <script src="Entity.js"></script>
     <script src="Bike.js"></script>
 
@@ -37,20 +41,25 @@
     <script src="imagesPreload.js"></script>
     <script src="main.js"></script>
     <script src="text.js"></script>
-	<script src="score.js"></script>
+	  <script src="score.js"></script>
     <script src="TRON.js"></script>
 
-//bg music
-<audio src="bg/intro.ogg" id="intro">
-<audio src="bg/bg1.ogg" id="bg1">
-<audio src="bg/bg2.mp3" id="bg2">
-<audio src="bg/bg3.ogg" id="bg3">
-<audio src="bg/bg4.ogg" id="bg4">
-<audio src="bg/bg5.ogg" id="bg5">
-<audio src="bg/bg6.ogg" id="bg6">
-<audio src="bg/bg7.ogg" id="bg7">
-//fx
-<audio src="fx/boom.ogg"  id="boom">
+
+
+    <!-- bg music -->
+    <audio src="bg/intro.ogg" id="intro">
+    <audio src="bg/bg1.ogg" id="bg1">
+    <audio src="bg/bg2.mp3" id="bg2">
+    <audio src="bg/bg3.ogg" id="bg3">
+    <audio src="bg/bg4.ogg" id="bg4">
+    <audio src="bg/bg5.ogg" id="bg5">
+    <audio src="bg/bg6.ogg" id="bg6">
+    <audio src="bg/bg7.ogg" id="bg7">
+
+    <!-- sfx -->
+    <audio src="fx/boom.ogg"  id="boom">
+
+    <p>Hallo</p>
 
   </body>
 </html>
