@@ -61,10 +61,8 @@ function processDiagnostics() {
         g_continueGame = false;
         g_gameOver = false;
         gamestart = false;
+        spatialManager.resetArray();
         entityManager.killBikes();
-        if (playmode == 4) {
-            levelnow = 1;
-        }
     }
   }
 
