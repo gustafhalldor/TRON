@@ -31,10 +31,10 @@ Bike.prototype.tail = [];
 
 // All possible directions
 Bike.prototype.directions = [
-    { x : 0, y : -1},
-    { x : 0, y : 1},
-    { x : -1, y : 0},
-    { x : 1, y : 0}
+    { x : 0, y : -1}, // UP
+    { x : 0, y : 1}, // DOWN
+    { x : -1, y : 0}, // LEFT
+    { x : 1, y : 0} // RIGHT
 ];
 
 Bike.prototype.rememberResets = function () {
@@ -46,7 +46,11 @@ Bike.prototype.rememberResets = function () {
     this.reset_gridPos = this.gridPos;
 };
 
+// Set next random direction which is available
 Bike.prototype.randomDirection = function(currX, currY) {
+    // Shuffle directions array to get more random choices of direction
+    this.directions = util.shuffle(this.directions);
+    
     for(var direction in this.directions) {
         var dirX = this.directions[direction].x;
         var dirY = this.directions[direction].y;
@@ -61,9 +65,6 @@ Bike.prototype.randomDirection = function(currX, currY) {
 Bike.prototype.updateBot = function(du, currX, currY) {
     if(!this.bot)
         return;
-
-    // Shuffle directions array to get more random choices of direction
-    this.directions = util.shuffle(this.directions);
 
     var nextGX = currX + this.xVel;
     var nextGY = currY + this.yVel;
