@@ -63,6 +63,7 @@ function processDiagnostics() {
         g_continueGame = false;
         g_gameOver = false;
         gamestart = false;
+  //      if(playmode == 4) levelnow = 1;
         spatialManager.resetArray();
         entityManager.killBikes();
     }
@@ -71,9 +72,9 @@ function processDiagnostics() {
   if (eatKey(KEY_RESET)) entityManager.resetBikes();
 
   if (eatKey(KEY_LETTERCHANCE)) scoreintputchance();
-  
+
   if (eatKey(KEY_LETTERCORFIRME)) scoreintputadd();
-  
+
   if (eatKey(KEY_STOPPAUSESC)) notshowpausescreen=!notshowpausescreen;
 
 }
@@ -86,7 +87,7 @@ var playmode =2;
 function newTronGame(ctx) {
     entityManager.deferredSetup();
     entityManager.init();
-   
+
     spatialManager.resetArray();
     util.setUpCanvas(g_ctx);
     //music play
@@ -165,7 +166,7 @@ function drawscore() {
 }
 
 // Pos : {x: X, y: Y}
-// Draw double text with 
+// Draw double text with
 function drawDoubleText(text, color, font, x, y, c_ctx) {
 	if(!c_ctx)
 		c_ctx = ctx;
@@ -233,7 +234,7 @@ function drawintroscreen() {
 	drawInstructions("Player 2", "I", "L", "K", "J", 450, 300, "#00FFFF");
 
 	drawText("press ENTER to start the game", "", "24px serif", 400, 380);
-		
+
 	var quarterWidth = g_canvas.width/5;
 	var halfWidth = g_canvas.width/2;
 	var width = quarterWidth-10;
