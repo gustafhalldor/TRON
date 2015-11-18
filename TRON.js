@@ -183,6 +183,9 @@ function drawDoubleText(text, color, font, x, y, c_ctx) {
 // Draw text with center at (x,y)
 
 
+// Draw box with center at (x,y) and text centered inside box
+
+
 function drawintroscreen() {
 	// Draw name of the game
 	drawDoubleText("TRON", "green", "120px serif", g_canvas.width/2, 100);
@@ -202,7 +205,7 @@ function drawintroscreen() {
 	var modes = [
 		{text: "PvP", fontColor: "green", backgroundColor: "#ff00ff"},
 		{text: "normal play", fontColor: "green", backgroundColor: "summer"},
-		{text: "snake style", fontColor: "green", backgroundColor: "blue"},
+		{text: "snake", fontColor: "green", backgroundColor: "blue"},
 		{text: "level play", fontColor: "green", backgroundColor: "silver"}
 	];
 
