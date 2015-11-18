@@ -128,7 +128,7 @@ Bike.prototype.update = function (du) {
 			if(playmode!=4){
 			      round12=1;
 		        main.gameOver(this.id);
-
+                
 				}//if this is playmode 4
 				else{
                 if(this.id!=1){	//check if player 1 lost or won

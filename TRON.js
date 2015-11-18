@@ -43,6 +43,8 @@ var KEY_RESET = keyCode('R');
 var KEY_CONTINUE = 32; //keycode for SPACEBAR
 var KEY_STOPPAUSESC = keyCode('U');
 var KEY_RETURN = 13;
+var KEY_LETTERCHANCE = keyCode('1');
+var KEY_LETTERCORFIRME = keyCode('2');
 
 function processDiagnostics() {
     if (eatKey(KEY_RETURN)) {
@@ -67,7 +69,11 @@ function processDiagnostics() {
 
   if (eatKey(KEY_RESET)) entityManager.resetBikes();
 
-	if (eatKey(KEY_STOPPAUSESC)) notshowpausescreen=!notshowpausescreen;
+  if (eatKey(KEY_LETTERCHANCE)) scoreintputchance();
+  
+  if (eatKey(KEY_LETTERCORFIRME)) scoreintputadd();
+  
+  if (eatKey(KEY_STOPPAUSESC)) notshowpausescreen=!notshowpausescreen;
 
 }
 
@@ -79,13 +85,14 @@ var playmode =2;
 function newTronGame(ctx) {
     entityManager.deferredSetup();
     entityManager.init();
-
+   
     spatialManager.resetArray();
     util.setUpCanvas(g_ctx);
     //music play
     bgplay();
     gamestart = !gamestart;
     g_startNewGame = false;
+	scoresave();
 };
 
 function resetGame(ctx) {

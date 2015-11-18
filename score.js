@@ -47,7 +47,7 @@ function setscorestart(name,score) {
 
 function setscore(name,score,numer) {
 
-if(numer=11){
+if(numer==11){
 return;
 }
 
@@ -55,7 +55,7 @@ var temp =JSON.parse(localStorage.getItem(("score"+numer)));
 if(temp.score <  score)
 {
 var scorenew = {name: name,score: score};
-localStorage.setItem(("score"+numer), JSON.stringify(score1));
+localStorage.setItem(("score"+numer), JSON.stringify(scorenew));
 setscore(temp.name,temp.score,(numer+1));
 }
 
