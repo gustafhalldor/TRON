@@ -70,36 +70,36 @@ var round12=1;
 function fansytext()
 {
 ctx.save();
-ctx.font = "78px serif";
+g_ctxbg.save();
+g_ctxbg.font = "78px serif";
 if(playmode==2){
-	ctx.fillStyle ="gold";
-	ctx.textAlign = "center";
-ctx.fillText("round "+round12, g_canvas.width/2, 100);
+ drawText("round "+round12, "gold", "26px serif", g_canvas2.width/2, 25, g_ctxbg);
+
 }
 
 if(playmode==1){
-	ctx.textAlign = "center";
-ctx.fillText("round "+round12, g_canvas.width/2, 100);
+   drawText("round "+round12, "gold", "26px serif", g_canvas2.width/2, 25, g_ctxbg);
 
 }
 //speedmode
 if(playmode==3){
-ctx.fillText("speed has increast", 250, 100);
+g_ctxbg.fillText("speed has increast", 250, 100);
 
 }
 
-if(playmode==4){
+if(playmode==4){/*
+    ctx.font = "78px serif";
 	ctx.fillStyle ="gold";
-ctx.fillText("level 1", 250, 100);
+ctx.fillText("level "+levelnow, 250, 100);
 	ctx.fillStyle ="silver";
-ctx.fillText("level 1", 255, 100);
+ctx.fillText("level "+levelnow, 255, 100);
 
-
+*/
 
 }
 
 
-
+    g_ctxbg.restore();
     ctx.restore();
 }
 
