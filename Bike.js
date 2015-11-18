@@ -233,7 +233,7 @@ Bike.prototype.render = function (ctx) {
     drawlives(this.lives, this.livePos, this.Color);
 
     var x, y;
-    
+/*    
     // Draws the tail
     if (this.tail.length !== 0) {
         var bx, by, ex, ey;  // Beginnings and ends of lines
@@ -263,7 +263,7 @@ Bike.prototype.render = function (ctx) {
 
         }
     }
-
+*/
     x = spatialManager.getPosInPixels(this.gridPos.x,this.gridPos.y).x;
     y = spatialManager.getPosInPixels(this.gridPos.x,this.gridPos.y).y;
     ctx.fillRect(x, y, this.bikeSize, this.bikeSize);  //Skoða halfwidth og halfheight hérna
