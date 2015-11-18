@@ -50,8 +50,6 @@ var spatialManager = {
   },
 
   isAvailable : function(x,y) {
-    // var i = this.getPosInArray(x,y).x;
-    // var j = this.getPosInArray(x,y).y;
     return 0 === this._gridArray[y][x];
   },
 
@@ -62,13 +60,14 @@ var spatialManager = {
   },
 
   getPosInPixels : function (i,j) {
- if (i === undefined || i === null || j === undefined || j === null) {
-    return {x : 0, y : 0};
-}else{
-    var x = (i - 1) / (this._gridArray[j].length - 1) * g_canvas.width; //crome var að benta á hér væri villa  
-    var y = (j - 1) / (this._gridArray.length - 1) * g_canvas.height;
-    return {x : x, y : y};
-  }
+    if (i === undefined || i === null || j === undefined || j === null) {
+      return {x : 0, y : 0};
+    }
+    else {
+      var x = (i - 1) / (this._gridArray[j].length - 1) * g_canvas.width; //crome var að benta á hér væri villa  
+      var y = (j - 1) / (this._gridArray.length - 1) * g_canvas.height;
+      return {x : x, y : y};
+    }
 
 }
 };
