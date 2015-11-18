@@ -9,6 +9,9 @@ var temptada =gametextcolector.pop();
 
 if(temptada=="end"){
 gametextcolector.push("end");
+ctx.fillStyle ="white";
+		
+		ctx.fillRect(380,470,100,20);//smá fix
 return;
 }
 else{
@@ -122,3 +125,97 @@ function drawlevel()
 {
 g_ctxbg.fillText("level : "+textlevel, 70, 30);
 }
+var chars = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","-"];
+function scoreintput()
+{
+ctx.save();
+	ctx.fillStyle ="black";
+		ctx.fillRect(200,400,200,300);
+		ctx.restore();
+ctx.save();
+
+ctx.fillStyle ="#FF00FF";
+
+   var row=0;
+   var colume=0;
+	for(var i = 0; i < 27; i++) {
+	              //500
+				ctx.fillText(chars[i],((20*row)+200) , ((20*colume)+500));
+				row++;
+				if(row==7){
+				colume++;  
+				row=0;
+				}
+		}
+
+		ctx.fillStyle ="gold";
+		
+ctx.fillText("submit score",320 , 460);
+ctx.fillText("your name",320 , 480);
+ctx.restore();
+ctx.save();
+ctx.fillStyle ="white";
+		ctx.fillRect(250,430,50,30);
+	//	ctx.fillRect(380,465,200,30);//laga þetta á morgun
+		ctx.restore();
+ctx.restore();		
+ctx.save();
+ctx.fillStyle ="black";
+ctx.fillText("A",270 , 450);
+ctx.fillStyle ="gold";
+ctx.fillText("your  score",330 , 410);
+tempscore = scorecalculate(gametextcolector.length);
+ctx.fillText(tempscore,330 , 420);
+ctx.restore();
+
+
+
+
+}
+var tempscore=0;
+var nowleater =0;
+var scorename ="";
+var temchar ="A";
+function scoreintputchance()
+{
+ctx.save();
+ctx.fillStyle ="white";
+ctx.fillRect(250,430,50,30);
+ctx.fillStyle ="black";
+temchar= chars[nowleater];
+ctx.fillText(temchar,270 , 450);
+
+ctx.restore();	
+nowleater=nowleater+1;
+if(nowleater==27)
+{
+nowleater=0;
+}
+
+}
+
+function scoreintputadd()
+{
+ctx.save();
+scorename =scorename+temchar;
+ctx.fillStyle ="white";
+ctx.fillRect(380,470,100,20);
+ctx.fillStyle ="black";
+ctx.fillText(scorename,380 , 480,100);
+ctx.restore();	
+
+
+}
+
+function scoresave()
+{
+if(scorename !="");
+{
+setscorestart(scorename,tempscore);
+scorename="";
+tempscore="";
+}
+
+
+}
+

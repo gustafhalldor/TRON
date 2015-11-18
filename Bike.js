@@ -127,6 +127,37 @@ Bike.prototype.update = function (du) {
         if(this.lives === 0)
         {
             g_startNewGame = true;
+<<<<<<< HEAD
+			if(playmode!=4){
+			      round12=1;
+		        main.gameOver(this.id);
+                
+				}//if this is playmode 4
+				else{
+                if(this.id!=1){	//check if player 1 lost or won
+				levelnow++;
+				if(levelnow!=(maxlevel+1)){
+				textlevel = levelnow;
+				//newTronGame(ctx) ;
+        entityManager.resetBikes();
+
+				}else{  //player has won the the game in gamemode 4
+				//add some code here
+				}
+
+
+				}else
+				{
+				//player has lost in gamemode 4
+				 main.gameOver(this.id);
+				 alert(scorecalculate(levelnow));//tímabundið þanngatill verður búin til kóði til að birta
+				}
+
+
+				}
+
+=======
+>>>>>>> refs/remotes/gustafhalldor/master
 
 			      if(playmode!=4){
 			          round12=1;
