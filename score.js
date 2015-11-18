@@ -60,12 +60,12 @@ setscore(temp.name,temp.score,(numer+1));
 }
 
 
-//fyrst come fyrst serve so if they have same score then they will rank lower
+//first come fyrst serve so if they have same score then they will rank lower
 }
 
 function scorecalculate(lv) {
 
-return lv * 1000;
+return lv * 1000*levelnow;
 
 }
 

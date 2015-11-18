@@ -149,7 +149,7 @@ ctx.fillStyle ="#FF00FF";
 		}
 
 		ctx.fillStyle ="gold";
-		
+ctx.fillText("to chance letter use 1 and to add use 2",205 , 590);		
 ctx.fillText("submit score",320 , 460);
 ctx.fillText("your name",320 , 480);
 ctx.restore();
