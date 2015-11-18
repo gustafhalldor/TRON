@@ -127,7 +127,7 @@ Bike.prototype.update = function (du) {
         if(this.lives === 0)
         {
             g_startNewGame = true;
-<<<<<<< HEAD
+
 			if(playmode!=4){
 			      round12=1;
 		        main.gameOver(this.id);
@@ -156,8 +156,6 @@ Bike.prototype.update = function (du) {
 
 				}
 
-=======
->>>>>>> refs/remotes/gustafhalldor/master
 
 			      if(playmode!=4){
 			          round12=1;
