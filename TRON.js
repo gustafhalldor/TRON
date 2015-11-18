@@ -181,48 +181,7 @@ function drawDoubleText(text, color, font, x, y, c_ctx) {
 }
 
 // Draw text with center at (x,y)
-function drawText(text, color, font, x, y, c_ctx) {
-	if(!c_ctx)
-		c_ctx = ctx;
-	c_ctx.save();
-	c_ctx.textAlign = "center";
-	c_ctx.textBaseline = "middle";
-	c_ctx.font = font;
-	c_ctx.fillStyle = color;
-	c_ctx.fillText(text, x, y);
-	c_ctx.restore();
-}
 
-// Draw box with center at (x,y) and text centered inside box
-function drawTextInCenteredBox(text, fontColor, fontStyle, boxColor, x, y, width, height, c_ctx) {
-	if(!c_ctx)
-		c_ctx = ctx;
-	c_ctx.save();
-	c_ctx.fillStyle = boxColor;
-	c_ctx.fillRect(x-width/2, y-height/2, width, height);
-	c_ctx.fillStyle = fontColor;
-	c_ctx.font = fontStyle;
-	c_ctx.textAlign = "center";
-	c_ctx.textBaseline = "middle";
-	c_ctx.fillText(text, x, y);
-	c_ctx.restore();
-}
-
-function drawInstructions(text, up, right, bottom, left, x, y, color, c_ctx) {
-	if(!c_ctx)
-		c_ctx = ctx;
-	c_ctx.save();
-	c_ctx.fillStyle = color;
-	c_ctx.font = "24px serif";
-	c_ctx.textAlign = "center";
-	c_ctx.textBaseline = "middle";
-	c_ctx.fillText(text, x, y-60);
-	c_ctx.fillText(up, x, y-25);
-	c_ctx.fillText(right, x+25, y);
-	c_ctx.fillText(bottom, x, y+25);
-	c_ctx.fillText(left, x-25, y);
-	c_ctx.restore();
-}
 
 function drawintroscreen() {
 	// Draw name of the game
