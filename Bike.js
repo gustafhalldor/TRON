@@ -28,13 +28,16 @@ Bike.prototype.speed = 1;
 Bike.prototype.speedBoost = 1;
 Bike.prototype.lives = 3;
 Bike.prototype.tail = [];
+Bike.prototype.oldDir = undefined;
+Bike.prototype.dir = undefined;
+Bike.prototype.resetDir = undefined;
 
 // All possible directions
 Bike.prototype.directions = [
-    { x : 0, y : -1}, // UP
-    { x : 0, y : 1}, // DOWN
-    { x : -1, y : 0}, // LEFT
-    { x : 1, y : 0} // RIGHT
+    { x : 0, y : -1, dir : "U"}, // UP
+    { x : 0, y : 1, dir : "D"}, // DOWN
+    { x : -1, y : 0, dir : "L"}, // LEFT
+    { x : 1, y : 0, dir : "R"} // RIGHT
 ];
 
 Bike.prototype.rememberResets = function () {
@@ -57,6 +60,7 @@ Bike.prototype.randomDirection = function(currX, currY) {
         if(spatialManager.isAvailable(dirX + currX, dirY + currY)) {
             this.xVel = dirX;
             this.yVel = dirY;
+            this.dir = direction.dir;
             break;
         }
     }
@@ -85,6 +89,8 @@ Bike.prototype.update = function (du) {
 
     if(g_haltBikes) return;
 
+    this.oldDir = this.dir;
+
     this.updateBot(du, this.gridPos.x, this.gridPos.y);
 
     var speed = this.speed;
@@ -92,21 +98,25 @@ Bike.prototype.update = function (du) {
     if(eatKey(this.GO_UP) && this.yVel != speed && !this.bot) {
       this.xVel = 0;
       this.yVel = -speed;
+      this.dir = "U";
     }
 
     if(eatKey(this.GO_DOWN) && this.yVel != -speed && !this.bot) {
       this.xVel = 0;
       this.yVel = speed;
+      this.dir = "D";
     }
 
     if (keys[this.GO_LEFT] && this.xVel != speed && !this.bot) {
       this.xVel = -speed;
       this.yVel = 0;
+      this.dir = "L";
     }
 
     if (keys[this.GO_RIGHT] && this.xVel != -speed && !this.bot) {
       this.xVel = speed;
       this.yVel = 0;
+      this.dir = "R";
     }
 
 
@@ -169,9 +179,9 @@ Bike.prototype.update = function (du) {
         }
     };
 
-    this.tail.push(this.gridPos);
-
+    var oldGridPos = this.gridPos;
     this.gridPos = spatialManager.getReserveGridPos(this.id,nextX,nextY);
+    this.appendTail(oldGridPos);
 
     this.x = nextX;
     this.y = nextY;
@@ -182,6 +192,8 @@ Bike.prototype.reset = function () {
     this.setPos(this.reset_x, this.reset_y);
     this.setVel(this.reset_velX, this.reset_velY);
     this.resetGridPos(this.reset_gridPos);
+    this.oldDir = this.resetDir;
+    this.dir = this.resetDir;
     this.tail = [];
 };
 
@@ -194,25 +206,64 @@ Bike.prototype.halt = function () {
     this.velY = 0;
 };
 
+Bike.prototype.appendTail = function (oldPos) {
+    var lineBX = oldPos.x,
+        lineBY = oldPos.y,
+        lineEX = this.gridPos.x,
+        lineEY = this.gridPos.y;
+
+    if (this.tail.length === 0) {
+        this.tail.push({begX : lineBX, begY : lineBY, 
+                        endX : lineEX, endY : lineEY, dir : this.oldDir});
+    } else {
+        if (this.oldDir === this.dir) {
+            this.tail[this.tail.length-1].endX = this.gridPos.x;
+            this.tail[this.tail.length-1].endY = this.gridPos.y;
+        } else {
+            this.tail.push({begX : this.gridPos.x, begY : this.gridPos.y, 
+                            endX : this.gridPos.x, endY : this.gridPos.y, 
+                            dir : this.dir});
+        }
+    }
+};
+
 Bike.prototype.render = function (ctx) {
     ctx.fillStyle = this.Color;
 
     drawlives(this.lives, this.livePos, this.Color);
 
     var x, y;
-
-    /*
+/*    
     // Draws the tail
     if (this.tail.length !== 0) {
+        var bx, by, ex, ey;  // Beginnings and ends of lines
+        var len, height;
+        var T;
         for(var i = 0; i < this.tail.length; ++i) {
-            x = spatialManager.getPosInPixels(this.tail[i].x,this.tail[i].y).x;
-            y = spatialManager.getPosInPixels(this.tail[i].x,this.tail[i].y).y;
+            T = this.tail[i];
 
-            ctx.fillRect(x, y, this.bikeSize, this.bikeSize);
+            bx = spatialManager.getPosInPixels(T.begX,T.begY).x;
+            by = spatialManager.getPosInPixels(T.begX,T.begY).y;
+
+            ex = spatialManager.getPosInPixels(T.endX,T.endY).x;
+            ey = spatialManager.getPosInPixels(T.endX,T.endY).y;
+
+            if (T.dir === "L" || T.dir === "U") {
+                bx = bx + g_bikeWidthHeight;
+                by = by + g_bikeWidthHeight;
+            } else {
+                ex = ex + g_bikeWidthHeight;
+                ey = ey + g_bikeWidthHeight;
+            }
+
+            len = ex - bx;
+            height = ey - by;
+
+            ctx.fillRect(bx, by, len, height);
+
         }
     }
-    */
-
+*/
     x = spatialManager.getPosInPixels(this.gridPos.x,this.gridPos.y).x;
     y = spatialManager.getPosInPixels(this.gridPos.x,this.gridPos.y).y;
     ctx.fillRect(x, y, this.bikeSize, this.bikeSize);  //Skoða halfwidth og halfheight hérna

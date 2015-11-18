@@ -96,7 +96,17 @@ wrappedDistSq: function(x1, y1, x2, y2, xWrap, yWrap) {
 // ==========
 
 clearCanvas: function (ctx) {
-
+/*    var prevfillStyle = ctx.fillStyle;
+    ctx.fillStyle = "#282828";
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.fillStyle = "gray";
+    for(var i = 0; i <= g_canvas.width; i++) {
+      for(var j = 0; j <= g_canvas.height; j++) {
+        if (i%25 == 0 || j%25 == 0) ctx.fillRect(i, j, 0.5, 0.5);
+      }
+    }
+    ctx.fillStyle = prevfillStyle;
+    */
 },
 
 clearBackground: function (ctx) {
