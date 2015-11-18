@@ -57,16 +57,18 @@ var level4color =
     {"cl":"#FF00FF"}];
 
 // lvl5
-var level5 = {numerofplayer: 3, other: ""};
+var level5 = {numerofplayer: 4, other: ""};
 var level5xy =
 	 [{"x": 200, "y": 250},
     {"x": 450, "y": 450},
+		{"x": 500, "y": 500},
     {"x": 250, "y": 600}];
 
 var level5color =
 	 [{"cl":"#FF69B4"},
     {"cl":"#00FFFF"},
-    {"cl":"#FF00FF"}];
+    {"cl":"#FF00FF"},
+		{"cl":"#FFFF00"}];
 
 // lvl6
 var level6 = {numerofplayer: 3, other: ""};
@@ -122,23 +124,24 @@ var level9color =
 		{"cl":"#2200FF"}];
 
 // lvl10
-var level10 = {numerofplayer: 4, other: ""};
+var level10 = {numerofplayer: 5, other: ""};
 var level10xy =
 	 [{"x": 100, "y": 150},
     {"x": 200, "y": 200},
 		{"x": 300, "y": 250},
-    {"x": 400, "y": 300}];
+    {"x": 400, "y": 300},
+		{"x": 500, "y": 350}];
 
 var level10color =
 	 [{"cl":"#FF69B4"},
     {"cl":"#00FFFF"},
     {"cl":"#FF00FF"},
-		{"cl":"#2200FF"}];
+		{"cl":"#2200FF"},
+		{"cl":"#FFFF00"}];
 
 
 function getnextlv() {
-	if(levelnow == 1)
-	{
+		if(levelnow == 1){
 		var a =[{level:level1, xy:level1xy, color:level1color}];
 		return a;}
 
@@ -176,6 +179,5 @@ function getnextlv() {
 
 		if(levelnow==10){
 		var a =[{level:level10, xy:level10xy, color:level10color}];
-		return a;
-	}
+		return a;}
 }
