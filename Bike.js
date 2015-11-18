@@ -89,11 +89,12 @@ Bike.prototype.update = function (du) {
 
     if(g_haltBikes) return;
 
-    this.oldDir = this.dir;
-
-    this.updateBot(du, this.gridPos.x, this.gridPos.y);
-
+    this.oldDir = this.dir;  // Current direction is now old direction
+    var oldGridPos;
     var speed = this.speed;
+
+    if (this.bot) oldGridPos = this.gridPos;
+    this.updateBot(du, this.gridPos.x, this.gridPos.y);
 
     if(eatKey(this.GO_UP) && this.yVel != speed && !this.bot) {
       this.xVel = 0;
@@ -126,61 +127,46 @@ Bike.prototype.update = function (du) {
     var nextX = spatialManager.getPosInPixels(nextGX,nextGY).x;
     var nextY = spatialManager.getPosInPixels(nextGX,nextGY).y;
 
-    if (this.isColliding(nextGX,nextGY))
-    {
+    if (this.isColliding(nextGX,nextGY)) {
         this.lives -= 1;
 
-  			fx("boom");
-  			var tems = "player numer "+ this.id + " lost";
-  			gametextcolector.push(tems);
+  		fx("boom");
+  		var tems = "player numer "+ this.id + " lost";
+  		gametextcolector.push(tems);
 
-        if(this.lives === 0)
-        {
+        if(this.lives === 0) {
             g_startNewGame = true;
 
-			      if(playmode!=4){
-			          round12=1;
-		            main.gameOver(this.id);
-	          }
-
-            //if this is "level play" mode
-				    else
-            {
-                if(this.id!=1)
-                {	//check if player 1 lost or won
-            				levelnow++;
-  				          if(levelnow!=(maxlevel+1))
-                    {
+			if ( playmode !=4 ) {
+                round12=1;
+		        main.gameOver(this.id);
+            } else {
+                if(this.id!=1) {
+            	//check if player 1 lost or won
+                	levelnow++;
+                    if(levelnow!=(maxlevel+1)) {
                         textlevel = levelnow;
                         entityManager.resetBikes();
-  				          }
-
-                    else
-                    {  //player has won the the game in gamemode 4
-  				             //add some code here
-  				          }
-  				      }
-
-                else
-                {
-  				            //player has lost in gamemode 4
-                      levelnow = 1;
-                      textlevel = 1;
-  				            main.gameOver(this.id);
-  				      //      alert(scorecalculate(levelnow));//tímabundið þanngatill verður búin til kóði til að birta
-  				      }
-				    }
-        }
-
-        else
-        {
-    			    round12++;
-              g_continueGame = true;
-              return resetGame(g_ctx);
+                    } else {  
+                    //player has won the the game in gamemode 4
+  				        //add some code here
+  				    }
+                } else {
+                    //player has lost in gamemode 4
+                    levelnow = 1;
+                    textlevel = 1;
+  				    main.gameOver(this.id);
+                    //alert(scorecalculate(levelnow));//tímabundið þanngatill verður búin til kóði til að birta
+                }
+            }
+        } else {
+            round12++;
+            g_continueGame = true;
+            return resetGame(g_ctx);
         }
     };
 
-    var oldGridPos = this.gridPos;
+    if (!this.bot) oldGridPos = this.gridPos;  // I'm not a bot, really!
     this.gridPos = spatialManager.getReserveGridPos(this.id,nextX,nextY);
     this.appendTail(oldGridPos);
 
