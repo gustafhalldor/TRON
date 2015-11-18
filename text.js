@@ -143,6 +143,7 @@ function drawlives(lives, pos, color)
 var textlevel="1";
 function drawlevel()
 {
+   if(playmode==4)
 	g_ctxbg.fillText("level : "+textlevel, 70, 30);
 }
 
