@@ -234,29 +234,27 @@ function drawintroscreen() {
 		var halfWidth = g_canvas.width/2;
 		var width = quarterWidth-10;
 
+		// Game modes
+		var modes = [
+			{text: "PvP", fontColor: "green", backgroundColor: "#ff00ff"},
+			{text: "normal play", fontColor: "green", backgroundColor: "summer"},
+			{text: "speed run", fontColor: "green", backgroundColor: "blue"},
+			{text: "level play", fontColor: "green", backgroundColor: "silver"}
+		];
+
 		// Draw different game types
-		drawTextInCenteredBox("PvP", "green", "22px aria", "#ff00ff", quarterWidth, 500, width, 40);
-		drawTextInCenteredBox("normal play", "green", "22px aria", "summer", quarterWidth*2, 500, width, 40);
-		drawTextInCenteredBox("speed run", "green", "22px aria", "blue", quarterWidth*3, 500, width, 40);
-		drawTextInCenteredBox("level play", "green", "22px aria", "silver", quarterWidth*4, 500, width, 40);
+		for(var i = 0; i < modes.length; i++) {
+			var mode = modes[i];
+			drawTextInCenteredBox(mode.text, mode.fontColor, "22px aria", mode.backgroundColor, quarterWidth*(i+1), 500, width, 40);
+		}
 
 		// Draw instructions how to choose game type
 		drawText("use M to change playmode", "", "45px aria", g_canvas.width/2, 550);
 
-		if(playmode==1){
-			drawTextInCenteredBox("PvP", "green", "22px aria", "#ff00ff", halfWidth, 440, width, 40);
-		}
-		if(playmode==2){
-			drawTextInCenteredBox("normal play", "green", "22px aria", "summer", halfWidth, 440, width, 40);
-		}
-		if(playmode==3){
-			drawTextInCenteredBox("speed run", "green", "22px aria", "blue", halfWidth, 440, width, 40);
-		}
-		if(playmode==4){
-			drawTextInCenteredBox("level play", "green", "22px aria", "silver", halfWidth, 440, width, 40);
-		}
-
-
+		// Draw the current chosen type
+		var currentMode = modes[playmode-1];
+		drawText("Selected: ", "#fff", "22px aria", halfWidth-50, 440);
+		drawTextInCenteredBox(currentMode.text, currentMode.fontColor, "22px aria", currentMode.backgroundColor, halfWidth+50, 440, width, 40);
 }
 
 
