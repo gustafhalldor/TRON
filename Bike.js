@@ -165,6 +165,7 @@ Bike.prototype.update = function (du) {
                 {
   				            //player has lost in gamemode 4
                       levelnow = 1;
+                      textlevel = 1;
   				            main.gameOver(this.id);
   				      //      alert(scorecalculate(levelnow));//tímabundið þanngatill verður búin til kóði til að birta
   				      }
@@ -213,15 +214,15 @@ Bike.prototype.appendTail = function (oldPos) {
         lineEY = this.gridPos.y;
 
     if (this.tail.length === 0) {
-        this.tail.push({begX : lineBX, begY : lineBY, 
+        this.tail.push({begX : lineBX, begY : lineBY,
                         endX : lineEX, endY : lineEY, dir : this.oldDir});
     } else {
         if (this.oldDir === this.dir) {
             this.tail[this.tail.length-1].endX = this.gridPos.x;
             this.tail[this.tail.length-1].endY = this.gridPos.y;
         } else {
-            this.tail.push({begX : this.gridPos.x, begY : this.gridPos.y, 
-                            endX : this.gridPos.x, endY : this.gridPos.y, 
+            this.tail.push({begX : this.gridPos.x, begY : this.gridPos.y,
+                            endX : this.gridPos.x, endY : this.gridPos.y,
                             dir : this.dir});
         }
     }
@@ -233,7 +234,7 @@ Bike.prototype.render = function (ctx) {
     drawlives(this.lives, this.livePos, this.Color);
 
     var x, y;
-    
+
     // Draws the tail
     if (this.tail.length !== 0) {
         var bx, by, ex, ey;  // Beginnings and ends of lines

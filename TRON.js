@@ -134,7 +134,7 @@ function renderSimulation(ctx) {
 
     else if(g_startNewGame == true) {
         util.clearBackground(g_ctxbg);
-        fansytext();
+        
 
         drawText("PRESS SPACEBAR TO CONTINUE TO MAIN MENU", "white", "16px serif", g_canvas2.width/2, 25, g_ctxbg);
 
@@ -147,7 +147,7 @@ function renderSimulation(ctx) {
         util.clearBackground(g_ctxbg);
         entityManager.render(ctx);
         //status update
-	    // fansytext(); will be used to anocae the level at start
+	     fansytext();//will be used to anocae the level at start
       	drawlevel();
     }
 }
@@ -183,6 +183,9 @@ function drawDoubleText(text, color, font, x, y, c_ctx) {
 // Draw text with center at (x,y)
 
 
+// Draw box with center at (x,y) and text centered inside box
+
+
 function drawintroscreen() {
 	// Draw name of the game
 	drawDoubleText("TRON", "green", "120px serif", g_canvas.width/2, 100);
@@ -202,7 +205,7 @@ function drawintroscreen() {
 	var modes = [
 		{text: "PvP", fontColor: "green", backgroundColor: "#ff00ff"},
 		{text: "normal play", fontColor: "green", backgroundColor: "summer"},
-		{text: "snake style", fontColor: "green", backgroundColor: "blue"},
+		{text: "snake", fontColor: "green", backgroundColor: "blue"},
 		{text: "level play", fontColor: "green", backgroundColor: "silver"}
 	];
 
