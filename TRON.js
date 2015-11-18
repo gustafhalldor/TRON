@@ -243,7 +243,7 @@ function drawintroscreen() {
 	var modes = [
 		{text: "PvP", fontColor: "green", backgroundColor: "#ff00ff"},
 		{text: "normal play", fontColor: "green", backgroundColor: "summer"},
-		{text: "speed run", fontColor: "green", backgroundColor: "blue"},
+		{text: "snake", fontColor: "green", backgroundColor: "blue"},
 		{text: "level play", fontColor: "green", backgroundColor: "silver"}
 	];
 

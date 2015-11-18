@@ -158,6 +158,25 @@ init: function() {
         bot: true
     });
 	}
+	if(playmode==3){
+    this.generateBike({
+        id : 1,
+        x : 200,
+        y : 250,
+        gridPos : spatialManager.getReserveGridPos(1,200,250),
+        livePos : 20,
+        score : 0,
+        xVel : 1,
+        yVel : 0,
+        Color : "#FF69B4",
+        GO_UP    : util.keyCode("W"),
+        GO_DOWN  : util.keyCode("S"),
+        GO_LEFT  : util.keyCode("A"),
+        GO_RIGHT : util.keyCode("D"),
+        bot: false
+    });
+	}
+	
 },
 
 generateBike : function(descr) {
