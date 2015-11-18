@@ -149,7 +149,7 @@ Bike.prototype.update = function (du) {
                         entityManager.resetBikes();
                     } else {  
                     //player has won the the game in gamemode 4
-  				        //add some code here
+                    //add some code here
   				    }
                 } else {
                     //player has lost in gamemode 4
