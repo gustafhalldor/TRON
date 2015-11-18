@@ -10,6 +10,15 @@
 	c_ctx.restore();
 }
 
+// Pos : {x: X, y: Y}
+// Draw double text with
+function drawDoubleText(text, backColor, frontColor, font, x, y, c_ctx) {
+	if(!c_ctx)
+		c_ctx = ctx;
+	drawText(text, backColor, font, x-2, y, c_ctx);
+	drawText(text, frontColor, font, x+2, y, c_ctx);
+}
+
 // Draw box with center at (x,y) and text centered inside box
 function drawTextInCenteredBox(text, fontColor, fontStyle, boxColor, x, y, width, height, c_ctx) {
 	if(!c_ctx)
@@ -99,16 +108,8 @@ function fansytext()
 //text to display when game over
 function gameovertext(to)
 {
-	ctx.save();
-	ctx.font = "78px serif";
-	ctx.fillStyle ="gold";
-	ctx.textAlign = "center";
-	ctx.fillText("game  over", g_canvas.width/2-2, 200);
-	ctx.fillStyle ="silver";
-	ctx.fillText("game  over", g_canvas.width/2+2, 200);
+	drawDoubleText("game  over", "gold", "silver", "78px serif", g_canvas.width/2, 200);
 
-
-	ctx.restore();
 	ctx.save();
 	ctx.fillStyle ="black";
 	ctx.fillRect(400,400,100,300);
@@ -122,14 +123,7 @@ function gameovertext(to)
 		
 		if(to ==2) templayer=1;
 		
-		ctx.save();
-		ctx.font = "78px serif";
-		ctx.fillStyle ="gold";
-		ctx.textAlign = "center";
-		ctx.fillText("player "+templayer +" has WON", g_canvas.width/2-2, 350);
-		ctx.fillStyle ="silver";
-		ctx.fillText("player "+templayer +" has WON", g_canvas.width/2+2, 350);
-    	ctx.restore();
+		drawDoubleText("player " + templayer + " has WON", "gold", "silver", "78px serif", g_canvas.width/2, 350);
 	}
 }
 
@@ -178,7 +172,7 @@ function scoreintput()
 	}
 
 	ctx.fillStyle ="gold";
-	ctx.fillText("to chance letter use 1 and to add use 2",205 , 590);		
+	ctx.fillText("to change letter use 1 and to add use 2",205 , 590);		
 	ctx.fillText("submit score",320 , 460);
 	ctx.fillText("your name",320 , 480);
 	ctx.restore();

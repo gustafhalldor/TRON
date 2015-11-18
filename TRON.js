@@ -165,21 +165,6 @@ function drawscore() {
 
 }
 
-// Pos : {x: X, y: Y}
-// Draw double text with
-function drawDoubleText(text, color, font, x, y, c_ctx) {
-	if(!c_ctx)
-		c_ctx = ctx;
-	c_ctx.save();
-	c_ctx.textAlign = "center";
-	c_ctx.textBaseline = "middle";
-	c_ctx.font = font;
-	c_ctx.fillText(text, x-3, y);
-	c_ctx.fillStyle = color;
-	c_ctx.fillText(text, x+3, y);
-	c_ctx.restore();
-}
-
 // Draw text with center at (x,y)
 
 
@@ -188,7 +173,7 @@ function drawDoubleText(text, color, font, x, y, c_ctx) {
 
 function drawintroscreen() {
 	// Draw name of the game
-	drawDoubleText("TRON", "green", "120px serif", g_canvas.width/2, 100);
+	drawDoubleText("TRON", "", "green", "120px serif", g_canvas.width/2, 100);
 
 	// Draw game instructions
 	drawText("Controls:", "", "32px serif", 400, 200)
