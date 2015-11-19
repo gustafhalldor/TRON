@@ -59,10 +59,8 @@ function processDiagnostics() {
     if (g_continueGame == true) g_continueGame = false;
     if (g_startNewGame == true) {
         util.clearBackground(g_ctxbg);
-        var prevfillStyle = g_ctx.fillStyle;
-    //    g_ctx.fillStyle = "white";
+        g_ctx.fillStyle = "white";
         util.setUpCanvas(g_ctx);
-        g_ctx.fillStyle = prevfillStyle;
         g_continueGame = false;
         g_gameOver = false;
         gamestart = false;
