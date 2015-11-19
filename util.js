@@ -100,7 +100,7 @@ clearCanvas: function (ctx) {
     ctx.fillStyle = "#282828";
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.fillStyle = prevfillStyle;
-    
+
 },
 
 clearBackground: function (ctx) {
@@ -111,8 +111,10 @@ clearBackground: function (ctx) {
 },
 
 setUpCanvas: function(ctx) {
+  var prevfillStyle = ctx.fillStyle;
   ctx.fillStyle = "#282828";
   ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  ctx.fillStyle = prevfillStyle;
 },
 
 strokeCircle: function (ctx, x, y, r) {

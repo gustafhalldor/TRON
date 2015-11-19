@@ -59,7 +59,10 @@ function processDiagnostics() {
     if (g_continueGame == true) g_continueGame = false;
     if (g_startNewGame == true) {
         util.clearBackground(g_ctxbg);
+        var prevfillStyle = g_ctx.fillStyle;
+    //    g_ctx.fillStyle = "white";
         util.setUpCanvas(g_ctx);
+        g_ctx.fillStyle = prevfillStyle;
         g_continueGame = false;
         g_gameOver = false;
         gamestart = false;
@@ -134,7 +137,7 @@ function renderSimulation(ctx) {
 
     else if(g_startNewGame == true) {
         util.clearBackground(g_ctxbg);
-        
+
 
         drawText("PRESS SPACEBAR TO CONTINUE TO MAIN MENU", "white", "16px serif", g_canvas2.width/2, 25, g_ctxbg);
 
@@ -189,7 +192,7 @@ function drawintroscreen() {
 	// Game modes
 	var modes = [
 		{text: "PvP", fontColor: "green", backgroundColor: "#ff00ff"},
-		{text: "normal play", fontColor: "green", backgroundColor: "summer"},
+		{text: "normal play", fontColor: "green", backgroundColor: "#808080"},
 		{text: "snake", fontColor: "green", backgroundColor: "blue"},
 		{text: "level play", fontColor: "green", backgroundColor: "silver"}
 	];
