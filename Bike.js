@@ -96,30 +96,44 @@ Bike.prototype.update = function (du) {
     if (this.bot) oldGridPos = this.gridPos;
     this.updateBot(du, this.gridPos.x, this.gridPos.y);
 
-    if(eatKey(this.GO_UP) && this.yVel != speed && !this.bot) {
+    var curr_yVel = this.yVel;
+    var curr_xVel = this.xVel;
+
+    // if(eatKey(this.GO_UP) && curr_yVel != speed && !this.bot) {
+    //   this.xVel = 0;
+    //   this.yVel = -speed;
+    //   this.dir = "U";
+    // }
+
+    // else if(eatKey(this.GO_DOWN) && curr_yVel != -speed && !this.bot) {
+    //   this.xVel = 0;
+    //   this.yVel = speed;
+    //   this.dir = "D";
+    // }
+
+    if(keys[this.GO_UP] && curr_yVel != speed && !this.bot) {
       this.xVel = 0;
       this.yVel = -speed;
       this.dir = "U";
     }
 
-    else if(eatKey(this.GO_DOWN) && this.yVel != -speed && !this.bot) {
+    if(keys[this.GO_DOWN] && curr_yVel != -speed && !this.bot) {
       this.xVel = 0;
       this.yVel = speed;
       this.dir = "D";
     }
 
-    else if (keys[this.GO_LEFT] && this.xVel != speed && !this.bot) {
+    if (keys[this.GO_LEFT] && curr_xVel != speed && !this.bot) {
       this.xVel = -speed;
       this.yVel = 0;
       this.dir = "L";
     }
 
-    else if (keys[this.GO_RIGHT] && this.xVel != -speed && !this.bot) {
+    if (keys[this.GO_RIGHT] && curr_xVel != -speed && !this.bot) {
       this.xVel = speed;
       this.yVel = 0;
       this.dir = "R";
     }
-
 
     var nextGX = this.gridPos.x + this.xVel;
     var nextGY = this.gridPos.y + this.yVel;
@@ -128,61 +142,48 @@ Bike.prototype.update = function (du) {
     var nextY = spatialManager.getPosInPixels(nextGX,nextGY).y;
     if (this.isColliding(nextGX,nextGY))
     {
-        console.log("xVel = " + this.xVel);
-        console.log("yVel = " + this.yVel);
-        console.log(this.tail);
         this.lives -= 1;
 
-    		fx("boom");
-    		var tems = "player numer "+ this.id + " lost";
-    		gametextcolector.push(tems);
+    	fx("boom");
+		var tems = "player numer "+ this.id + " lost";
+		gametextcolector.push(tems);
 
-        if(this.lives === 0)
-        {
+        if(this.lives === 0) {
             g_startNewGame = true;
 
-			      if ( playmode !=4 )
-            {
+			if ( playmode !=4 ) {
                 round12=1;
-		            main.gameOver(this.id);
+	            main.gameOver(this.id);
             }
-
-            else
-            {
+            else {
                 if(this.id!=1)
                 {
-                	  //check if player 1 lost or won
+                	//check if player 1 lost or won
                     levelnow++;
 
-                    if(levelnow!=(maxlevel+1))
-                    {
+                    if(levelnow!=(maxlevel+1)) {
                         textlevel = levelnow;
                         entityManager.resetBikes();
                     }
-
                     else {
                         //player has won the the game in gamemode 4
                         //add some code here
-  				          }
-
+                    }
                 }
-
-                else
-                {
+                else {
                     //player has lost in gamemode 4
                     levelnow = 1;
                     textlevel = 1;
-  				          main.gameOver(this.id);
+                    main.gameOver(this.id);
                 }
             }
         }
-
-        else
-        {
+        else {
             round12++;
             g_continueGame = true;
             return resetGame(g_ctx);
         }
+        return;
     };
 
     if (!this.bot) oldGridPos = this.gridPos;  // I'm not a bot, really!
