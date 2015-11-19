@@ -57,11 +57,12 @@ Bike.prototype.randomDirection = function(currX, currY) {
     for(var direction in this.directions) {
         var dirX = this.directions[direction].x;
         var dirY = this.directions[direction].y;
-        if(spatialManager.isAvailable(dirX + currX, dirY + currY)) {
+        if(!this.isColliding(dirX + currX, dirY + currY)) {
             this.xVel = dirX;
             this.yVel = dirY;
-            this.dir = direction.dir;
-            break;
+            this.dir = this.directions[direction].dir;
+            // this.dir = direction.dir;
+            return;
         }
     }
 },
@@ -74,7 +75,7 @@ Bike.prototype.updateBot = function(du, currX, currY) {
     var nextGY = currY + this.yVel;
 
     // If current direction is not available, find other direction
-    if(!spatialManager.isAvailable(nextGX, nextGY)) {
+    if(this.isColliding(nextGX, nextGY)) {
         this.randomDirection(currX, currY);
     }
     else {
@@ -94,6 +95,7 @@ Bike.prototype.update = function (du) {
     var speed = this.speed;
 
     if (this.bot) oldGridPos = this.gridPos;
+    if (this.bot) console.log(this.tail);
     this.updateBot(du, this.gridPos.x, this.gridPos.y);
 
     if(eatKey(this.GO_UP) && this.yVel != speed && !this.bot) {
