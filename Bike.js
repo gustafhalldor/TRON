@@ -61,7 +61,6 @@ Bike.prototype.randomDirection = function(currX, currY) {
             this.xVel = dirX;
             this.yVel = dirY;
             this.dir = this.directions[direction].dir;
-            // this.dir = direction.dir;
             return;
         }
     }
@@ -95,7 +94,6 @@ Bike.prototype.update = function (du) {
     var speed = this.speed;
 
     if (this.bot) oldGridPos = this.gridPos;
-    if (this.bot) console.log(this.tail);
     this.updateBot(du, this.gridPos.x, this.gridPos.y);
 
     if(eatKey(this.GO_UP) && this.yVel != speed && !this.bot) {
@@ -104,19 +102,19 @@ Bike.prototype.update = function (du) {
       this.dir = "U";
     }
 
-    if(eatKey(this.GO_DOWN) && this.yVel != -speed && !this.bot) {
+    else if(eatKey(this.GO_DOWN) && this.yVel != -speed && !this.bot) {
       this.xVel = 0;
       this.yVel = speed;
       this.dir = "D";
     }
 
-    if (keys[this.GO_LEFT] && this.xVel != speed && !this.bot) {
+    else if (keys[this.GO_LEFT] && this.xVel != speed && !this.bot) {
       this.xVel = -speed;
       this.yVel = 0;
       this.dir = "L";
     }
 
-    if (keys[this.GO_RIGHT] && this.xVel != -speed && !this.bot) {
+    else if (keys[this.GO_RIGHT] && this.xVel != -speed && !this.bot) {
       this.xVel = speed;
       this.yVel = 0;
       this.dir = "R";
@@ -128,9 +126,11 @@ Bike.prototype.update = function (du) {
 
     var nextX = spatialManager.getPosInPixels(nextGX,nextGY).x;
     var nextY = spatialManager.getPosInPixels(nextGX,nextGY).y;
-
     if (this.isColliding(nextGX,nextGY))
     {
+        console.log("xVel = " + this.xVel);
+        console.log("yVel = " + this.yVel);
+        console.log(this.tail);
         this.lives -= 1;
 
     		fx("boom");
