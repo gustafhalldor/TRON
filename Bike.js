@@ -99,37 +99,25 @@ Bike.prototype.update = function (du) {
     var curr_yVel = this.yVel;
     var curr_xVel = this.xVel;
 
-    // if(eatKey(this.GO_UP) && curr_yVel != speed && !this.bot) {
-    //   this.xVel = 0;
-    //   this.yVel = -speed;
-    //   this.dir = "U";
-    // }
-
-    // else if(eatKey(this.GO_DOWN) && curr_yVel != -speed && !this.bot) {
-    //   this.xVel = 0;
-    //   this.yVel = speed;
-    //   this.dir = "D";
-    // }
-
-    if(keys[this.GO_UP] && curr_yVel != speed && !this.bot) {
+    if(eatKey(this.GO_UP) && curr_yVel != speed && !this.bot) {
       this.xVel = 0;
       this.yVel = -speed;
       this.dir = "U";
     }
 
-    if(keys[this.GO_DOWN] && curr_yVel != -speed && !this.bot) {
+    if(eatKey(this.GO_DOWN) && curr_yVel != -speed && !this.bot) {
       this.xVel = 0;
       this.yVel = speed;
       this.dir = "D";
     }
 
-    if (keys[this.GO_LEFT] && curr_xVel != speed && !this.bot) {
+    if (eatKey(this.GO_LEFT) && curr_xVel != speed && !this.bot) {
       this.xVel = -speed;
       this.yVel = 0;
       this.dir = "L";
     }
 
-    if (keys[this.GO_RIGHT] && curr_xVel != -speed && !this.bot) {
+    if (eatKey(this.GO_RIGHT) && curr_xVel != -speed && !this.bot) {
       this.xVel = speed;
       this.yVel = 0;
       this.dir = "R";
