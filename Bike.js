@@ -149,7 +149,7 @@ Bike.prototype.update = function (du) {
         if(this.lives === 0) {
             g_startNewGame = true;
 
-			if ( playmode !=4 ) {
+			if ( playmode !=3 ) {
                 round12=1;
 	            main.gameOver(this.id);
             }
@@ -159,7 +159,7 @@ Bike.prototype.update = function (du) {
                 	//check if player 1 lost or won
                     levelnow++;
                     Score.newLevel();
-                    
+
                     if(levelnow!=(maxlevel+1)) {
                         textlevel = levelnow;
                         entityManager.resetBikes();
@@ -188,9 +188,9 @@ Bike.prototype.update = function (du) {
 
     if (!this.bot) oldGridPos = this.gridPos;  // I'm not a bot, really!
     this.gridPos = spatialManager.getReserveGridPos(this.id,nextX,nextY);
-    if (playmode !== 3) {
+//    if (playmode !== 3) {
         this.appendTail(oldGridPos);
-    }
+//    }
 
     this.x = nextX;
     this.y = nextY;

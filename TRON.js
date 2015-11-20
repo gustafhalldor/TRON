@@ -69,7 +69,7 @@ function processDiagnostics() {
         if (g_startNewGame == true) {
             // Save score
             Score.save(scorename);
-            
+
             util.clearBackground(g_ctxbg);
             g_ctx.fillStyle = "white";
             util.setUpCanvas(g_ctx);
@@ -103,7 +103,7 @@ function processDiagnostics() {
 
 var gamestart = false;
 //say what type of play it will be
-var playmode = 2;
+var playmode = 1;
 
 var g_playMusic = true;
 var g_musicPlaying = false;
@@ -130,7 +130,7 @@ function resetGame(ctx) {
 };
 
 function gamemodechange() {
-	playmode = playmode < 4 ? playmode+1 : 1;
+	playmode = playmode < 3 ? playmode+1 : 1;
 };
 
 
@@ -210,15 +210,14 @@ function drawintroscreen() {
 
 	drawText("press ENTER to start the game", "", "24px serif", 400, 380);
 
-	var quarterWidth = g_canvas.width/5;
+	var quarterWidth = g_canvas.width/4;
 	var halfWidth = g_canvas.width/2;
 	var width = quarterWidth-10;
 
 	// Game modes
-	var modes = [
-		{text: "PvP", fontColor: "green", backgroundColor: "#ff00ff"},
+  var modes = [
 		{text: "normal play", fontColor: "green", backgroundColor: "#808080"},
-		{text: "snake", fontColor: "green", backgroundColor: "blue"},
+		{text: "PvP", fontColor: "green", backgroundColor: "#ff00ff"},
 		{text: "level play", fontColor: "green", backgroundColor: "silver"}
 	];
 
@@ -233,7 +232,7 @@ function drawintroscreen() {
 
 	// Draw the current chosen type
 	var currentMode = modes[playmode-1];
-	drawText("Selected: ", "#fff", "22px aria", halfWidth-50, 440);
+	drawText("Selected: ", "#fff", "22px aria", halfWidth-65, 440);
 	drawTextInCenteredBox(currentMode.text, currentMode.fontColor, "22px aria", currentMode.backgroundColor, halfWidth+50, 440, width, 40);
 }
 
