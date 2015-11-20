@@ -69,7 +69,7 @@ function processDiagnostics() {
         if (g_startNewGame == true) {
             // Save score
             Score.save(scorename);
-            
+
             util.clearBackground(g_ctxbg);
             g_ctx.fillStyle = "white";
             util.setUpCanvas(g_ctx);
@@ -182,6 +182,8 @@ function renderSimulation(ctx) {
 }
 
 function drawscore() {
+
+    drawText("Highscores:", "white", "16px serif", 110, 170);
 
     var scores = Score.getAll();
     for(var i = 0; i < scores.length; i++) {
