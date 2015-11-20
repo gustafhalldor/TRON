@@ -1,4 +1,4 @@
-//level file descripe how the level is
+﻿//level file descripe how the level is
 //format is work in prosses add anything you can think of or need
 //
 var levelnow = 1; // list the curent level
@@ -86,7 +86,7 @@ var level6color =
 var level7 = {numerofplayer: 3, other: ""};
 var level7xy =
 	 [{"x": 300, "y": 300},
-    {"x": 590, "y": 5},
+    {"x": 590, "y": 1},
     {"x": 5, "y": 590}];
 
 var level7color =
@@ -98,7 +98,7 @@ var level7color =
 // lvl8
 var level8 = {numerofplayer: 4, other: ""};
 var level8xy =
-	 [{"x": 150, "y": 5},
+	 [{"x": 150, "y": 1},
     {"x": 150, "y": 200},
 		{"x": 150, "y": 400},
     {"x": 150, "y": 590}];

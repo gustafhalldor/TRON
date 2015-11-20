@@ -76,7 +76,7 @@ main._isGameOver = false;
 main.gameOver = function (a) {
     g_gameOver = true;
     g_continueGame = false;
-//	  scoreinput();
+	  scoreintput();
 	  gameovertext(a);
 };
 
@@ -122,7 +122,7 @@ main._debugRender = function (ctx) {
 };
 
 main.init = function () {
-    g_ctx.fillStyle = "white";
+
     // Only setting up the background once at the start.
     util.setUpCanvas(g_ctx);
   	//music play

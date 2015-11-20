@@ -43,8 +43,8 @@ var KEY_RESET = keyCode('R');
 var KEY_CONTINUE = 32; //keycode for SPACEBAR
 var KEY_STOPPAUSESC = keyCode('U');
 var KEY_RETURN = 13;
-var KEY_LETTERCHANGE = keyCode('1');
-var KEY_LETTERCONFIRM = keyCode('2');
+var KEY_LETTERCHANCE = keyCode('1');
+var KEY_LETTERCORFIRME = keyCode('2');
 
 function processDiagnostics() {
     if (eatKey(KEY_RETURN)) {
@@ -53,45 +53,36 @@ function processDiagnostics() {
 
 	if (eatKey(KEY_CHANGEGAMEMODE) && !gamestart) gamemodechange();
 
-    if (eatKey(KEY_HALT)) g_haltBikes = !g_haltBikes;
+  if (eatKey(KEY_HALT)) g_haltBikes = !g_haltBikes;
 
-    if (eatKey(KEY_CONTINUE)) {
-        if (g_continueGame == true) g_continueGame = false;
-        if (g_startNewGame == true) {
-            util.clearBackground(g_ctxbg);
-            g_ctx.fillStyle = "white";
-            util.setUpCanvas(g_ctx);
-            g_continueGame = false;
-            g_gameOver = false;
-            gamestart = false;
-            g_scoreInput = false;
-            scoresave();
-            nowletter = 0;
-            spatialManager.resetArray();
-            entityManager.killBikes();
-            }
+  if (eatKey(KEY_CONTINUE)) {
+    if (g_continueGame == true) g_continueGame = false;
+    if (g_startNewGame == true) {
+        util.clearBackground(g_ctxbg);
+        util.setUpCanvas(g_ctx);
+        g_continueGame = false;
+        g_gameOver = false;
+        gamestart = false;
+        scoresave();
+        spatialManager.resetArray();
+        entityManager.killBikes();
     }
+  }
 
   if (eatKey(KEY_RESET)) entityManager.resetBikes();
 
-  if (eatKey(KEY_LETTERCHANGE))
-  {
-      nowletter++;
-      if(nowletter==27)
-      {
-        nowletter=0;
-      }
-  }
+  if (eatKey(KEY_LETTERCHANCE)) scoreintputchance();
 
-  if (eatKey(KEY_LETTERCONFIRM)) scorename = scorename + temchar;
+  if (eatKey(KEY_LETTERCORFIRME)) scoreintputadd();
 
   if (eatKey(KEY_STOPPAUSESC)) notshowpausescreen=!notshowpausescreen;
 
 }
 
+//�arf svo a� f�ra �etta � r�ttan sta�
 var gamestart = false;
 //say what type of play it will be
-var playmode = 2;
+var playmode = 1;
 
 function newTronGame(ctx) {
     entityManager.deferredSetup();
@@ -103,7 +94,7 @@ function newTronGame(ctx) {
     bgplay();
     gamestart = !gamestart;
     g_startNewGame = false;
-	scoresave();
+//	scoresave();
 };
 
 function resetGame(ctx) {
@@ -114,7 +105,7 @@ function resetGame(ctx) {
 };
 
 function gamemodechange() {
-	playmode = playmode < 4 ? playmode+1 : 1;
+	playmode = playmode < 3 ? playmode+1 : 1;
 };
 
 
@@ -156,12 +147,8 @@ function renderSimulation(ctx) {
         util.clearBackground(g_ctxbg);
         entityManager.render(ctx);
         //status update
-        fansytext();//will be used to anocae the level at start
+	     fansytext();//will be used to announce the level at start
       	drawlevel();
-    }
-
-    if(g_scoreInput == true) {
-        scoreinput();
     }
 }
 
@@ -178,6 +165,21 @@ function drawscore() {
 
 }
 
+// Pos : {x: X, y: Y}
+// Draw double text with
+function drawDoubleText(text, color, font, x, y, c_ctx) {
+	if(!c_ctx)
+		c_ctx = ctx;
+	c_ctx.save();
+	c_ctx.textAlign = "center";
+	c_ctx.textBaseline = "middle";
+	c_ctx.font = font;
+	c_ctx.fillText(text, x-3, y);
+	c_ctx.fillStyle = color;
+	c_ctx.fillText(text, x+3, y);
+	c_ctx.restore();
+}
+
 // Draw text with center at (x,y)
 
 
@@ -186,7 +188,7 @@ function drawscore() {
 
 function drawintroscreen() {
 	// Draw name of the game
-	drawDoubleText("TRON", "", "green", "120px serif", g_canvas.width/2, 100);
+	drawDoubleText("TRON", "green", "120px serif", g_canvas.width/2, 100);
 
 	// Draw game instructions
 	drawText("Controls:", "", "32px serif", 400, 200)
@@ -195,15 +197,15 @@ function drawintroscreen() {
 
 	drawText("press ENTER to start the game", "", "24px serif", 400, 380);
 
-	var quarterWidth = g_canvas.width/5;
+	var quarterWidth = g_canvas.width/4;
 	var halfWidth = g_canvas.width/2;
 	var width = quarterWidth-10;
 
 	// Game modes
 	var modes = [
-		{text: "PvP", fontColor: "green", backgroundColor: "#ff00ff"},
-		{text: "normal play", fontColor: "green", backgroundColor: "#808080"},
-		{text: "snake", fontColor: "green", backgroundColor: "blue"},
+		{text: "normal play", fontColor: "green", backgroundColor: "summer"},
+    {text: "PvP", fontColor: "green", backgroundColor: "#ff00ff"},
+//		{text: "snake", fontColor: "green", backgroundColor: "blue"},
 		{text: "level play", fontColor: "green", backgroundColor: "silver"}
 	];
 
@@ -218,7 +220,7 @@ function drawintroscreen() {
 
 	// Draw the current chosen type
 	var currentMode = modes[playmode-1];
-	drawText("Selected: ", "#fff", "22px aria", halfWidth-50, 440);
+	drawText("Selected: ", "#fff", "22px aria", halfWidth-65, 440);
 	drawTextInCenteredBox(currentMode.text, currentMode.fontColor, "22px aria", currentMode.backgroundColor, halfWidth+50, 440, width, 40);
 }
 

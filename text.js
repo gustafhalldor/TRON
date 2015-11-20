@@ -10,15 +10,6 @@
 	c_ctx.restore();
 }
 
-// Pos : {x: X, y: Y}
-// Draw double text with
-function drawDoubleText(text, backColor, frontColor, font, x, y, c_ctx) {
-	if(!c_ctx)
-		c_ctx = ctx;
-	drawText(text, backColor, font, x-2, y, c_ctx);
-	drawText(text, frontColor, font, x+2, y, c_ctx);
-}
-
 // Draw box with center at (x,y) and text centered inside box
 function drawTextInCenteredBox(text, fontColor, fontStyle, boxColor, x, y, width, height, c_ctx) {
 	if(!c_ctx)
@@ -58,7 +49,7 @@ function textlines(x,y)
 	if(temptada=="end") {
 		gametextcolector.push("end");
 		ctx.fillStyle ="white";
-
+		
 		ctx.fillRect(380,470,100,20);//smá fix
 		return;
 	}
@@ -108,22 +99,37 @@ function fansytext()
 //text to display when game over
 function gameovertext(to)
 {
-	drawDoubleText("game  over", "gold", "silver", "78px serif", g_canvas.width/2, 200);
+	ctx.save();
+	ctx.font = "78px serif";
+	ctx.fillStyle ="gold";
+	ctx.textAlign = "center";
+	ctx.fillText("game  over", g_canvas.width/2-2, 200);
+	ctx.fillStyle ="silver";
+	ctx.fillText("game  over", g_canvas.width/2+2, 200);
 
+
+	ctx.restore();
 	ctx.save();
 	ctx.fillStyle ="black";
 	ctx.fillRect(400,400,100,300);
 	ctx.restore();
 	textlines(400,410);
-
+		
 	if(playmode==2 ||playmode==1 ) {
 		var templayer =0;
-
+	
 		if(to ==1) templayer=2;
-
+		
 		if(to ==2) templayer=1;
-
-		drawDoubleText("player " + templayer + " has WON", "gold", "silver", "78px serif", g_canvas.width/2, 350);
+		
+		ctx.save();
+		ctx.font = "78px serif";
+		ctx.fillStyle ="gold";
+		ctx.textAlign = "center";
+		ctx.fillText("player "+templayer +" has WON", g_canvas.width/2-2, 350);
+		ctx.fillStyle ="silver";
+		ctx.fillText("player "+templayer +" has WON", g_canvas.width/2+2, 350);
+    	ctx.restore();
 	}
 }
 
@@ -148,7 +154,7 @@ function drawlevel()
 }
 
 var chars = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","-"];
-function scoreinput()
+function scoreintput()
 {
 	ctx.save();
 	ctx.fillStyle ="black";
@@ -166,13 +172,13 @@ function scoreinput()
 		row++;
 
 		if(row==7) {
-			colume++;
+			colume++;  
 			row=0;
 		}
 	}
 
 	ctx.fillStyle ="gold";
-	ctx.fillText("to change letter use 1 and to add use 2",205 , 590);
+	ctx.fillText("to chance letter use 1 and to add use 2",205 , 590);		
 	ctx.fillText("submit score",320 , 460);
 	ctx.fillText("your name",320 , 480);
 	ctx.restore();
@@ -181,7 +187,7 @@ function scoreinput()
 	ctx.fillRect(250,430,50,30);
 	//	ctx.fillRect(380,465,200,30);//laga þetta á morgun
 	ctx.restore();
-	ctx.restore();
+	ctx.restore();		
 	ctx.save();
 	ctx.fillStyle ="black";
 	ctx.fillText("A",270 , 450);
@@ -190,41 +196,37 @@ function scoreinput()
 	tempscore = scorecalculate(gametextcolector.length);
 	ctx.fillText(tempscore,330 , 420);
 	ctx.restore();
-
-	scoreinputchange();
-	scoreinputadd();
 }
 
-var tempscore = 0;
-var nowletter = 0;
-var scorename = "";
-var temchar = "A";
-function scoreinputchange()
+var tempscore=0;
+var nowleater =0;
+var scorename ="";
+var temchar ="A";
+function scoreintputchance()
 {
 	ctx.save();
 	ctx.fillStyle ="white";
 	ctx.fillRect(250,430,50,30);
 	ctx.fillStyle ="black";
-	temchar= chars[nowletter];
+	temchar= chars[nowleater];
 	ctx.fillText(temchar,270 , 450);
-	ctx.restore();
-/*	nowleater=nowleater+1;
+	ctx.restore();	
+	nowleater=nowleater+1;
 	if(nowleater==27)
 	{
 		nowleater=0;
-	}
-*/
+	}	
 }
 
-function scoreinputadd()
+function scoreintputadd()
 {
 	ctx.save();
-//	scorename =scorename+temchar;
+	scorename =scorename+temchar;
 	ctx.fillStyle ="white";
 	ctx.fillRect(380,470,100,20);
 	ctx.fillStyle ="black";
 	ctx.fillText(scorename,380 , 480,100);
-	ctx.restore();
+	ctx.restore();	
 }
 
 function scoresave()
@@ -236,3 +238,4 @@ function scoresave()
 		tempscore="";
 	}
 }
+
