@@ -60,8 +60,8 @@ var Score = {
 	},
 
 	// Is score a highscore
-	_isHighscore : function(score) { 
-		return this._getSize() < this._numberOfScores || score < this._getLowest(); 
+	_isHighscore : function() { 
+		return this._getSize() < this._numberOfScores || this._score > this._getLowest(); 
 	},
 
 	// Get array index for new score
