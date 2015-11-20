@@ -58,7 +58,7 @@ function textlines(x,y)
 	if(temptada=="end") {
 		gametextcolector.push("end");
 		ctx.fillStyle ="white";
-		
+
 		ctx.fillRect(380,470,100,20);//smá fix
 		return;
 	}
@@ -115,14 +115,14 @@ function gameovertext(to)
 	ctx.fillRect(400,400,100,300);
 	ctx.restore();
 	textlines(400,410);
-		
+
 	if(playmode==2 ||playmode==1 ) {
 		var templayer =0;
-	
+
 		if(to ==1) templayer=2;
-		
+
 		if(to ==2) templayer=1;
-		
+
 		drawDoubleText("player " + templayer + " has WON", "gold", "silver", "78px serif", g_canvas.width/2, 350);
 	}
 }
@@ -148,7 +148,7 @@ function drawlevel()
 }
 
 var chars = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","-"];
-function scoreintput()
+function scoreinput()
 {
 	ctx.save();
 	ctx.fillStyle ="black";
@@ -166,13 +166,13 @@ function scoreintput()
 		row++;
 
 		if(row==7) {
-			colume++;  
+			colume++;
 			row=0;
 		}
 	}
 
 	ctx.fillStyle ="gold";
-	ctx.fillText("to change letter use 1 and to add use 2",205 , 590);		
+	ctx.fillText("to change letter use 1 and to add use 2",205 , 590);
 	ctx.fillText("submit score",320 , 460);
 	ctx.fillText("your name",320 , 480);
 	ctx.restore();
@@ -181,7 +181,7 @@ function scoreintput()
 	ctx.fillRect(250,430,50,30);
 	//	ctx.fillRect(380,465,200,30);//laga þetta á morgun
 	ctx.restore();
-	ctx.restore();		
+	ctx.restore();
 	ctx.save();
 	ctx.fillStyle ="black";
 	ctx.fillText("A",270 , 450);
@@ -196,7 +196,7 @@ var tempscore=0;
 var nowleater =0;
 var scorename ="";
 var temchar ="A";
-function scoreintputchance()
+function scoreinputchange()
 {
 	ctx.save();
 	ctx.fillStyle ="white";
@@ -204,15 +204,15 @@ function scoreintputchance()
 	ctx.fillStyle ="black";
 	temchar= chars[nowleater];
 	ctx.fillText(temchar,270 , 450);
-	ctx.restore();	
+	ctx.restore();
 	nowleater=nowleater+1;
 	if(nowleater==27)
 	{
 		nowleater=0;
-	}	
+	}
 }
 
-function scoreintputadd()
+function scoreinputadd()
 {
 	ctx.save();
 	scorename =scorename+temchar;
@@ -220,7 +220,7 @@ function scoreintputadd()
 	ctx.fillRect(380,470,100,20);
 	ctx.fillStyle ="black";
 	ctx.fillText(scorename,380 , 480,100);
-	ctx.restore();	
+	ctx.restore();
 }
 
 function scoresave()
@@ -232,4 +232,3 @@ function scoresave()
 		tempscore="";
 	}
 }
-

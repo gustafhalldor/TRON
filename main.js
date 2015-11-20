@@ -76,7 +76,7 @@ main._isGameOver = false;
 main.gameOver = function (a) {
     g_gameOver = true;
     g_continueGame = false;
-	  scoreintput();
+//	  scoreinput();
 	  gameovertext(a);
 };
 

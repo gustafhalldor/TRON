@@ -43,8 +43,8 @@ var KEY_RESET = keyCode('R');
 var KEY_CONTINUE = 32; //keycode for SPACEBAR
 var KEY_STOPPAUSESC = keyCode('U');
 var KEY_RETURN = 13;
-var KEY_LETTERCHANCE = keyCode('1');
-var KEY_LETTERCORFIRME = keyCode('2');
+var KEY_LETTERCHANGE = keyCode('1');
+var KEY_LETTERCONFIRM = keyCode('2');
 
 function processDiagnostics() {
     if (eatKey(KEY_RETURN)) {
@@ -64,7 +64,7 @@ function processDiagnostics() {
         g_continueGame = false;
         g_gameOver = false;
         gamestart = false;
-  //      if(playmode == 4) levelnow = 1;
+        g_scoreInput = false;
         spatialManager.resetArray();
         entityManager.killBikes();
     }
@@ -72,9 +72,9 @@ function processDiagnostics() {
 
   if (eatKey(KEY_RESET)) entityManager.resetBikes();
 
-  if (eatKey(KEY_LETTERCHANCE)) scoreintputchance();
+  if (eatKey(KEY_LETTERCHANGE)) scoreinputchange();
 
-  if (eatKey(KEY_LETTERCORFIRME)) scoreintputadd();
+  if (eatKey(KEY_LETTERCONFIRM)) scoreinputadd();
 
   if (eatKey(KEY_STOPPAUSESC)) notshowpausescreen=!notshowpausescreen;
 
@@ -150,6 +150,10 @@ function renderSimulation(ctx) {
         //status update
 	     fansytext();//will be used to anocae the level at start
       	drawlevel();
+    }
+
+    if(g_scoreInput == true) {
+        scoreinput();
     }
 }
 

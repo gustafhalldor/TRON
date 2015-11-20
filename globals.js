@@ -24,6 +24,7 @@ var g_haltBikes = false;
 var g_continueGame = false;
 var g_startNewGame = false;
 var g_gameOver = false;
+var g_scoreInput = false;
 
 // The "nominal interval" is the one that all of our time-based units are
 // calibrated to e.g. a velocity unit is "pixels per nominal interval"
