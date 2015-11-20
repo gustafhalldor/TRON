@@ -51,7 +51,7 @@ deferredSetup : function () {
 
 init: function() {
 
-    if(playmode === 4)
+    if(playmode === 3)
     {
         var genbott = false;
 
@@ -89,7 +89,7 @@ init: function() {
         }
     }
 
-	if(playmode === 1){
+	if(playmode === 2){
         this.generateBike({
             id : 1,
             x : 200,
@@ -134,7 +134,7 @@ init: function() {
 
 	}
 
-	if(playmode === 2){
+	if(playmode === 1){
         this.generateBike({
             id : 1,
             x : 200,
@@ -177,7 +177,7 @@ init: function() {
             bot: true
         });
 	}
-	if(playmode === 3){
+/*	if(playmode === 3){
         this.generateBike({
             id : 1,
             x : 200,
@@ -200,7 +200,7 @@ init: function() {
             gridPos : spatialManager.getReserveRandAvailablePos(20)
         });
 	}
-	
+*/
 },
 
 generateBike : function(descr) {
@@ -235,7 +235,7 @@ update: function(du) {
 
         while (i < aCategory.length) {
 
-            if (aCategory[i].isABike && playmode === 3) {
+            if (aCategory[i].isABike) {
                 var bike = aCategory[i];
                 spatialManager.freePos(bike.gridPos.x,bike.gridPos.y);
             }

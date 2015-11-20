@@ -25,24 +25,19 @@ function handleMouse(evt) {
 //    var button = evt.buttons === undefined ? evt.which : evt.buttons;
 //    if (!button) return;
 
-    // Mouse clicking PvP
-    if(g_mouseX > 98 && g_mouseX < 192 && g_mouseY > 454 && g_mouseY < 489) {
+    // Mouse clicking normal play
+    if(g_mouseX > 112 && g_mouseX < 231 && g_mouseY > 454 && g_mouseY < 489) {
         playmode = 1;
     }
 
-    // Mouse clicking normal play
-    if(g_mouseX > 202 && g_mouseX < 295 && g_mouseY > 454 && g_mouseY < 489) {
+    // Mouse clicking PvP
+    if(g_mouseX > 239 && g_mouseX < 359 && g_mouseY > 454 && g_mouseY < 489) {
         playmode = 2;
     }
 
-    // Mouse clicking Snake
-    if(g_mouseX > 304 && g_mouseX < 399 && g_mouseY > 454 && g_mouseY < 489) {
-        playmode = 3;
-    }
-
     // Mouse clicking level play
-    if(g_mouseX > 407 && g_mouseX < 502 && g_mouseY > 454 && g_mouseY < 489) {
-        playmode = 4;
+    if(g_mouseX > 369 && g_mouseX < 488 && g_mouseY > 454 && g_mouseY < 489) {
+        playmode = 3;
     }
 }
 
