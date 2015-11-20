@@ -25,6 +25,7 @@ var entityManager = {
 // "PRIVATE" DATA
 
 _bikes  : [],
+_powerups : [],
 
 // "PRIVATE" METHODS
 
@@ -45,158 +46,161 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._bikes];
+    this._categories = [this._bikes,this._powerups];
 },
-//fj�ldi hj�la � leika er ekki nota�i � neit � augnablikinu
-//var numberofplayer :1,
+
 init: function() {
 
-//�g munn l�klegast einfalda �etta og b�a til functon til a� b�a til eftir skilir�um en �etta dugar tilbirja me�
-  if(playmode==3)
-  {
-      var genbott =false;
+    if(playmode === 4)
+    {
+        var genbott = false;
 
-      var nextlv = getnextlv();
-      var i=0;
+        var nextlv = getnextlv();
+        var i=0;
 
-      while(i!=nextlv[0].level.numerofplayer)
-      {
-          i++;
-          if(i==2)
-          {
-            genbott=true;
-          }
+        while(i!=nextlv[0].level.numerofplayer)
+        {
+            i++;
+            if(i === 2)
+            {
+                genbott=true;
+            }
 
-          this.generateBike({
-              id : i,
-              x : nextlv[0].xy[(i-1)].x,
-              y : nextlv[0].xy[(i-1)].y,
-              gridPos : spatialManager.getReserveGridPos(1,nextlv[0].xy[(i-1)].x,nextlv[0].xy[(i-1)].y),
-              score : 0,
-              xVel : 1,
-              yVel : 0,
-              oldDir : "R",
-              dir : "R",
-              resetDir : "R",
-              tail : [],
-      		    livePos : 15*i,
-              Color :  nextlv[0].color[(i-1)].cl,
-              GO_UP    : util.keyCode("W"),
-              GO_DOWN  : util.keyCode("S"),
-              GO_LEFT  : util.keyCode("A"),
-              GO_RIGHT : util.keyCode("D"),
-              bot: genbott
-          });
-      }
-  }
+            this.generateBike({
+                id : i,
+                x : nextlv[0].xy[(i-1)].x,
+                y : nextlv[0].xy[(i-1)].y,
+                gridPos : spatialManager.getReserveGridPos(1,nextlv[0].xy[(i-1)].x,nextlv[0].xy[(i-1)].y),
+                score : 0,
+                xVel : 1,
+                yVel : 0,
+                oldDir : "R",
+                dir : "R",
+                resetDir : "R",
+                tail : [],
+          		livePos : 15*i,
+                Color :  nextlv[0].color[(i-1)].cl,
+                GO_UP    : util.keyCode("W"),
+                GO_DOWN  : util.keyCode("S"),
+                GO_LEFT  : util.keyCode("A"),
+                GO_RIGHT : util.keyCode("D"),
+                bot: genbott
+            });
+        }
+    }
 
-	if(playmode==2){
-    this.generateBike({
-        id : 1,
-        x : 200,
-        y : 250,
-        gridPos : spatialManager.getReserveGridPos(1,200,250),
-        livePos : 20,
-        score : 0,
-        xVel : 1,
-        yVel : 0,
-        oldDir : "R",
-        dir : "R",
-        resetDir : "R",
-        tail : [],
-        Color : "#FF69B4",
-        GO_UP    : util.keyCode("W"),
-        GO_DOWN  : util.keyCode("S"),
-        GO_LEFT  : util.keyCode("A"),
-        GO_RIGHT : util.keyCode("D"),
-        bot: false
-    });
+	if(playmode === 1){
+        this.generateBike({
+            id : 1,
+            x : 200,
+            y : 250,
+            gridPos : spatialManager.getReserveGridPos(1,200,250),
+            livePos : 20,
+            score : 0,
+            xVel : 1,
+            yVel : 0,
+            oldDir : "R",
+            dir : "R",
+            resetDir : "R",
+            tail : [],
+            Color : "#FF69B4",
+            GO_UP    : util.keyCode("W"),
+            GO_DOWN  : util.keyCode("S"),
+            GO_LEFT  : util.keyCode("A"),
+            GO_RIGHT : util.keyCode("D"),
+            bot: false
+        });
 
-    this.generateBike({
-        id : 2,
-        x : 400,
-        y : 250,
-        gridPos : spatialManager.getReserveGridPos(2,400,250),
-        livePos : 40,
-        score : 0,
-        xVel : -1,
-        yVel : 0,
-        oldDir : "L",
-        dir : "L",
-        resetDir : "L",
-        tail : [],
-        Color : "#00FFFF",
-        GO_UP    : util.keyCode("I"),
-        GO_DOWN  : util.keyCode("K"),
-        GO_LEFT  : util.keyCode("J"),
-        GO_RIGHT : util.keyCode("L"),
-        bot: false
-    });
+        this.generateBike({
+            id : 2,
+            x : 400,
+            y : 250,
+            gridPos : spatialManager.getReserveGridPos(2,400,250),
+            livePos : 40,
+            score : 0,
+            xVel : -1,
+            yVel : 0,
+            oldDir : "L",
+            dir : "L",
+            resetDir : "L",
+            tail : [],
+            Color : "#00FFFF",
+            GO_UP    : util.keyCode("I"),
+            GO_DOWN  : util.keyCode("K"),
+            GO_LEFT  : util.keyCode("J"),
+            GO_RIGHT : util.keyCode("L"),
+            bot: false
+        });
 
 	}
 
-	if(playmode==1){
-    this.generateBike({
-        id : 1,
-        x : 200,
-        y : 250,
-        gridPos : spatialManager.getReserveGridPos(1,200,250),
-        livePos : 20,
-        score : 0,
-        xVel : 1,
-        yVel : 0,
-        oldDir : "R",
-        dir : "R",
-        resetDir : "R",
-        tail : [],
-        Color : "#FF69B4",
-        GO_UP    : util.keyCode("W"),
-        GO_DOWN  : util.keyCode("S"),
-        GO_LEFT  : util.keyCode("A"),
-        GO_RIGHT : util.keyCode("D"),
-        bot: false
-    });
+	if(playmode === 2){
+        this.generateBike({
+            id : 1,
+            x : 200,
+            y : 250,
+            gridPos : spatialManager.getReserveGridPos(1,200,250),
+            livePos : 20,
+            score : 0,
+            xVel : 1,
+            yVel : 0,
+            oldDir : "R",
+            dir : "R",
+            resetDir : "R",
+            tail : [],
+            Color : "#FF69B4",
+            GO_UP    : util.keyCode("W"),
+            GO_DOWN  : util.keyCode("S"),
+            GO_LEFT  : util.keyCode("A"),
+            GO_RIGHT : util.keyCode("D"),
+            bot: false
+        });
 
-    this.generateBike({
-        id : 2,
-        x : 400,
-        y : 250,
-        gridPos : spatialManager.getReserveGridPos(2,400,250),
-        livePos : 40,
-        score : 0,
-        xVel : -1,
-        yVel : 0,
-        oldDir : "L",
-        dir : "L",
-        resetDir : "L",
-        tail : [],
-        Color : "#00FFFF",
-        GO_UP    : util.keyCode("I"),
-        GO_DOWN  : util.keyCode("K"),
-        GO_LEFT  : util.keyCode("J"),
-        GO_RIGHT : util.keyCode("L"),
-        bot: true
-    });
+        this.generateBike({
+            id : 2,
+            x : 400,
+            y : 250,
+            gridPos : spatialManager.getReserveGridPos(2,400,250),
+            livePos : 40,
+            score : 0,
+            xVel : -1,
+            yVel : 0,
+            oldDir : "L",
+            dir : "L",
+            resetDir : "L",
+            tail : [],
+            Color : "#00FFFF",
+            GO_UP    : util.keyCode("I"),
+            GO_DOWN  : util.keyCode("K"),
+            GO_LEFT  : util.keyCode("J"),
+            GO_RIGHT : util.keyCode("L"),
+            bot: true
+        });
 	}
-	if(playmode==3){
-    this.generateBike({
-        id : 1,
-        x : 200,
-        y : 250,
-        gridPos : spatialManager.getReserveGridPos(1,200,250),
-        livePos : 20,
-        score : 0,
-        xVel : 1,
-        yVel : 0,
-        Color : "#FF69B4",
-        GO_UP    : util.keyCode("W"),
-        GO_DOWN  : util.keyCode("S"),
-        GO_LEFT  : util.keyCode("A"),
-        GO_RIGHT : util.keyCode("D"),
-        bot: false
-    });
-	}
+	if(playmode === 3){
+        this.generateBike({
+            id : 1,
+            x : 200,
+            y : 250,
+            gridPos : spatialManager.getReserveGridPos(1,200,250),
+            livePos : 20,
+            score : 0,
+            xVel : 1,
+            yVel : 0,
+            Color : "#FF69B4",
+            GO_UP    : util.keyCode("W"),
+            GO_DOWN  : util.keyCode("S"),
+            GO_LEFT  : util.keyCode("A"),
+            GO_RIGHT : util.keyCode("D"),
+            bot: false
+        });
 
+        this.generatePowerup({
+            id : 20,
+            gridPos : spatialManager.getReserveRandAvailablePos(20)
+        });
+	}
+	
 },
 
 generateBike : function(descr) {
@@ -215,9 +219,8 @@ haltBikes : function() {
     this._forEachOf(this._bikes, Bike.prototype.halt);
 },
 
-generateGrid : function(descr) {
-    this._grid = new Grid(descr);
-    this._grid.resetArray(g_bikeWidthHeight);
+generatePowerup : function(descr) {
+    this._powerups.push(new Powerup(descr));
 },
 
 killBikes : function() {
@@ -232,6 +235,10 @@ update: function(du) {
 
         while (i < aCategory.length) {
 
+            if (aCategory[i].isABike && playmode === 3) {
+                var bike = aCategory[i];
+                spatialManager.freePos(bike.gridPos.x,bike.gridPos.y);
+            }
             var status = aCategory[i].update(du);
 
             if (status === this.KILL_ME_NOW) {
@@ -257,6 +264,3 @@ render: function(ctx) {
 }
 
 };
-
-// Some deferred setup which needs the object to have been created first
-//entityManager.deferredSetup();

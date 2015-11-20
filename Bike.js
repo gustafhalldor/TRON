@@ -31,6 +31,7 @@ Bike.prototype.tail = [];
 Bike.prototype.oldDir = undefined;
 Bike.prototype.dir = undefined;
 Bike.prototype.resetDir = undefined;
+Bike.prototype.isABike = true;
 
 // All possible directions
 Bike.prototype.directions = [
@@ -57,11 +58,11 @@ Bike.prototype.randomDirection = function(currX, currY) {
     for(var direction in this.directions) {
         var dirX = this.directions[direction].x;
         var dirY = this.directions[direction].y;
-        if(spatialManager.isAvailable(dirX + currX, dirY + currY)) {
+        if(!this.isColliding(dirX + currX, dirY + currY)) {
             this.xVel = dirX;
             this.yVel = dirY;
-            this.dir = direction.dir;
-            break;
+            this.dir = this.directions[direction].dir;
+            return;
         }
     }
 },
@@ -74,7 +75,7 @@ Bike.prototype.updateBot = function(du, currX, currY) {
     var nextGY = currY + this.yVel;
 
     // If current direction is not available, find other direction
-    if(!spatialManager.isAvailable(nextGX, nextGY)) {
+    if(this.isColliding(nextGX, nextGY)) {
         this.randomDirection(currX, currY);
     }
     else {
@@ -89,11 +90,17 @@ Bike.prototype.update = function (du) {
 
     if(g_haltBikes) return;
 
-    this.oldDir = this.dir;
+    if (this.tail === [] && playmode !== 3) {
+        this.appendTail(this.gridPos);
+        spatialManager.getReserveGridPos(this.id,this.x,this.y);
+    }
 
-    this.updateBot(du, this.gridPos.x, this.gridPos.y);
-
+    this.oldDir = this.dir;  // Current direction is now old direction
+    var oldGridPos;
     var speed = this.speed;
+
+    if (this.bot) oldGridPos = this.gridPos;
+    this.updateBot(du, this.gridPos.x, this.gridPos.y);
 
     var curr_yVel = this.yVel;
     var curr_xVel = this.xVel;
@@ -122,7 +129,6 @@ Bike.prototype.update = function (du) {
       this.dir = "R";
     }
 
-
     var nextGX = this.gridPos.x + this.xVel;
     var nextGY = this.gridPos.y + this.yVel;
 
@@ -133,59 +139,59 @@ Bike.prototype.update = function (du) {
     {
         this.lives -= 1;
 
-  			fx("boom");
-  			var tems = "player numer "+ this.id + " lost";
-  			gametextcolector.push(tems);
+        if(this.id === 1)
+            Score.decrementLifes();
 
-        if(this.lives === 0)
-        {
+    	fx("boom");
+		var tems = "player numer "+ this.id + " lost";
+		gametextcolector.push(tems);
+
+        if(this.lives === 0) {
             g_startNewGame = true;
 
-			      if(playmode!=4){
-			          round12=1;
-		            main.gameOver(this.id);
-	          }
-
-            //if this is "level play" mode
-				    else
-            {
+			if ( playmode !=4 ) {
+                round12=1;
+	            main.gameOver(this.id);
+            }
+            else {
                 if(this.id!=1)
-                {	//check if player 1 lost or won
-            				levelnow++;
-  				          if(levelnow!=(maxlevel+1))
-                    {
+                {
+                	//check if player 1 lost or won
+                    levelnow++;
+                    console.log("NEW LEVEL");
+                    Score.newLevel();
+                    
+                    if(levelnow!=(maxlevel+1)) {
                         textlevel = levelnow;
                         entityManager.resetBikes();
-  				          }
-
-                    else
-                    {  //player has won the the game in gamemode 4
-  				             //add some code here
-  				          }
-  				      }
-
-                else
-                {
-  				            //player has lost in gamemode 4
-                      levelnow = 1;
-                      textlevel = 1;
-  				            main.gameOver(this.id);
-  				      }
-				    }
+                    }
+                    else {
+                        //player has won the the game in gamemode 4
+                        //add some code here
+                    }
+                }
+                else {
+                    //player has lost in gamemode 4
+                    levelnow = 1;
+                    textlevel = 1;
+                    main.gameOver(this.id);
+                    g_scoreInput = true;
+                }
+            }
         }
-
-        else
-        {
-    			    round12++;
-              g_continueGame = true;
-              return resetGame(g_ctx);
+        else {
+            round12++;
+            g_continueGame = true;
+            return resetGame(g_ctx);
         }
         return;
     };
 
-    var oldGridPos = this.gridPos;
+    if (!this.bot) oldGridPos = this.gridPos;  // I'm not a bot, really!
     this.gridPos = spatialManager.getReserveGridPos(this.id,nextX,nextY);
-    this.appendTail(oldGridPos);
+    if (playmode !== 3) {
+        this.appendTail(oldGridPos);
+    }
 
     this.x = nextX;
     this.y = nextY;
@@ -237,7 +243,7 @@ Bike.prototype.render = function (ctx) {
     drawlives(this.lives, this.livePos, this.Color);
 
     var x, y;
-/*
+
     // Draws the tail
     if (this.tail.length !== 0) {
         var bx, by, ex, ey;  // Beginnings and ends of lines
@@ -267,10 +273,10 @@ Bike.prototype.render = function (ctx) {
 
         }
     }
-*/
+
     x = spatialManager.getPosInPixels(this.gridPos.x,this.gridPos.y).x;
     y = spatialManager.getPosInPixels(this.gridPos.x,this.gridPos.y).y;
-    ctx.fillRect(x, y, this.bikeSize, this.bikeSize);  //Skoða halfwidth og halfheight hérna
+    ctx.fillRect(x, y, this.bikeSize, this.bikeSize);
 };
 
 Bike.prototype.isColliding = function(nextX,nextY) {
