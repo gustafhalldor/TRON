@@ -28,6 +28,10 @@ else{
     document.getElementById(bgnowplaying).play();
 }	
   }
+
+function pauseMusic() {
+    document.getElementById(bgnowplaying).pause();
+}
   
   //
    function fx (fxefect) {

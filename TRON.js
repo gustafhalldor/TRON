@@ -34,6 +34,13 @@ function updateSimulation(du) {
     if(gamestart == true && g_gameOver == false && g_continueGame == false && g_startNewGame == false){
         entityManager.update(du);
     }
+
+    if(g_playMusic && !g_musicPlaying) {
+        bgplay();
+        g_musicPlaying = true;
+    } else if (!g_playMusic) {
+        pauseMusic();
+    }
 }
 
 // GAME-SPECIFIC DIAGNOSTICS AND USEFUL KEYS
@@ -45,6 +52,7 @@ var KEY_STOPPAUSESC = keyCode('U');
 var KEY_RETURN = 13;
 var KEY_LETTERCHANGE = keyCode('1');
 var KEY_LETTERCONFIRM = keyCode('2');
+var KEY_PAUSEMUSIC = keyCode('L');
 
 function processDiagnostics() {
     if (eatKey(KEY_RETURN)) {
@@ -54,6 +62,7 @@ function processDiagnostics() {
 	if (eatKey(KEY_CHANGEGAMEMODE) && !gamestart) gamemodechange();
 
     if (eatKey(KEY_HALT)) g_haltBikes = !g_haltBikes;
+    if(eatKey(KEY_PAUSEMUSIC)) g_playMusic = !g_playMusic;
 
     if (eatKey(KEY_CONTINUE)) {
         if (g_continueGame == true) g_continueGame = false;
@@ -96,6 +105,9 @@ var gamestart = false;
 //say what type of play it will be
 var playmode = 2;
 
+var g_playMusic = true;
+var g_musicPlaying = false;
+
 function newTronGame(ctx) {
     entityManager.deferredSetup();
     entityManager.init();
@@ -104,6 +116,7 @@ function newTronGame(ctx) {
     util.setUpCanvas(g_ctx);
     //music play
     bgplay();
+    g_musicPlaying = true;
     gamestart = !gamestart;
     g_startNewGame = false;
 	scoresave();
