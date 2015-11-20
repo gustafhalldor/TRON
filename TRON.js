@@ -53,22 +53,22 @@ function processDiagnostics() {
 
 	if (eatKey(KEY_CHANGEGAMEMODE)) gamemodechange();
 
-  if (eatKey(KEY_HALT)) g_haltBikes = !g_haltBikes;
+    if (eatKey(KEY_HALT)) g_haltBikes = !g_haltBikes;
 
-  if (eatKey(KEY_CONTINUE)) {
-    if (g_continueGame == true) g_continueGame = false;
-    if (g_startNewGame == true) {
-        util.clearBackground(g_ctxbg);
-        g_ctx.fillStyle = "white";
-        util.setUpCanvas(g_ctx);
-        g_continueGame = false;
-        g_gameOver = false;
-        gamestart = false;
-        g_scoreInput = false;
-        spatialManager.resetArray();
-        entityManager.killBikes();
+    if (eatKey(KEY_CONTINUE)) {
+        if (g_continueGame == true) g_continueGame = false;
+        if (g_startNewGame == true) {
+            util.clearBackground(g_ctxbg);
+            g_ctx.fillStyle = "white";
+            util.setUpCanvas(g_ctx);
+            g_continueGame = false;
+            g_gameOver = false;
+            gamestart = false;
+            g_scoreInput = false;
+            spatialManager.resetArray();
+            entityManager.killBikes();
+            }
     }
-  }
 
   if (eatKey(KEY_RESET)) entityManager.resetBikes();
 
@@ -80,10 +80,9 @@ function processDiagnostics() {
 
 }
 
-//�arf svo a� f�ra �etta � r�ttan sta�
 var gamestart = false;
 //say what type of play it will be
-var playmode =2;
+var playmode = 2;
 
 function newTronGame(ctx) {
     entityManager.deferredSetup();
@@ -148,7 +147,7 @@ function renderSimulation(ctx) {
         util.clearBackground(g_ctxbg);
         entityManager.render(ctx);
         //status update
-	     fansytext();//will be used to anocae the level at start
+        fansytext();//will be used to anocae the level at start
       	drawlevel();
     }
 

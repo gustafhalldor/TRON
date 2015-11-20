@@ -31,6 +31,7 @@ Bike.prototype.tail = [];
 Bike.prototype.oldDir = undefined;
 Bike.prototype.dir = undefined;
 Bike.prototype.resetDir = undefined;
+Bike.prototype.isABike = true;
 
 // All possible directions
 Bike.prototype.directions = [
@@ -89,6 +90,11 @@ Bike.prototype.update = function (du) {
 
     if(g_haltBikes) return;
 
+    if (this.tail === [] && playmode !== 3) {
+        this.appendTail(this.gridPos);
+        spatialManager.getReserveGridPos(this.id,this.x,this.y);
+    }
+
     this.oldDir = this.dir;  // Current direction is now old direction
     var oldGridPos;
     var speed = this.speed;
@@ -140,6 +146,7 @@ Bike.prototype.update = function (du) {
 
     var nextX = spatialManager.getPosInPixels(nextGX,nextGY).x;
     var nextY = spatialManager.getPosInPixels(nextGX,nextGY).y;
+
     if (this.isColliding(nextGX,nextGY))
     {
         this.lives -= 1;
@@ -188,9 +195,10 @@ Bike.prototype.update = function (du) {
     };
 
     if (!this.bot) oldGridPos = this.gridPos;  // I'm not a bot, really!
-
     this.gridPos = spatialManager.getReserveGridPos(this.id,nextX,nextY);
-    this.appendTail(oldGridPos);
+    if (playmode !== 3) {
+        this.appendTail(oldGridPos);
+    }
 
     this.x = nextX;
     this.y = nextY;
