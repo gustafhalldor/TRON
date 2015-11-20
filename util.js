@@ -45,6 +45,10 @@ randRange: function(min, max) {
     return (min + Math.random() * (max - min));
 },
 
+randRangeInt: function(min,max) {
+    return (Math.floor(min + Math.random() * (max - min)));
+},
+
 shuffle: function(arr) {
     var length = arr.length;
     var temp, index;

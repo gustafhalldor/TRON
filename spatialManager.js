@@ -52,8 +52,18 @@ var spatialManager = {
         this._gridArray[j][i] = 0;
     },
 
-    isAvailable : function(x,y) {
-        return 0 === this._gridArray[y][x];
+    isAvailable : function(i,j) {
+        return 0 === this._gridArray[j][i];
+    },
+
+    getReserveRandAvailablePos : function(id) {
+        while(true) {
+            var x = util.randRangeInt(1,this._columns);
+            var y = util.randRangeInt(1,this._rows);
+            if(this.isAvailable(x,y)) break;
+        };
+        this._gridArray[y][x] = id;
+        return { x : x, y : y};
     },
 
     getPosInArray : function(x,y) {

@@ -16,8 +16,6 @@ function Powerup(descr) {
 
     // Common inherited setup logic from Entity
     this.setup(descr);
-
-    this.rememberResets();
 };
 
 Powerup.prototype = new Entity();
@@ -26,7 +24,7 @@ Powerup.prototype.size = g_bikeWidthHeight;
 Powerup.prototype.gridPos = null;
 Powerup.prototype.id = "powerup";
 Powerup.prototype.color = "#008000";
-Powerup.prototype.lifespan = 3000 / NOMINAL_UPDATE_INTERVAL;
+Powerup.prototype.lifespan = 10000 / NOMINAL_UPDATE_INTERVAL;
 
 Powerup.prototype.update = function(du) {
 	this.lifespan -= du;
@@ -37,8 +35,8 @@ Powerup.prototype.render = function(ctx) {
 	if(this.gridPos === null || this.gridPos === undefined) {
 		return;
 	}
-	var x = this.gridPos.x;
-	var y = this.gridPos.y;
+	var x = spatialManager.getPosInPixels(this.gridPos.x,this.gridPos.y).x;
+	var y = spatialManager.getPosInPixels(this.gridPos.x,this.gridPos.y).y;
 	ctx.fillStyle = this.color;
 	ctx.fillRect(x,y,this.size,this.size);
-}
+};

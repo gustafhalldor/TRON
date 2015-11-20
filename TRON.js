@@ -51,7 +51,7 @@ function processDiagnostics() {
 	    if (gamestart == false) {newTronGame();}
 	}
 
-	if (eatKey(KEY_CHANGEGAMEMODE)) gamemodechange();
+	if (eatKey(KEY_CHANGEGAMEMODE) && !gamestart) gamemodechange();
 
     if (eatKey(KEY_HALT)) g_haltBikes = !g_haltBikes;
 

@@ -195,7 +195,10 @@ init: function() {
             bot: false
         });
 
-
+        this.generatePowerup({
+            id : 20,
+            gridPos : spatialManager.getReserveRandAvailablePos(20)
+        });
 	}
 	
 },
@@ -216,7 +219,7 @@ haltBikes : function() {
     this._forEachOf(this._bikes, Bike.prototype.halt);
 },
 
-generatePowerups : function(descr) {
+generatePowerup : function(descr) {
     this._powerups.push(new Powerup(descr));
 },
 
