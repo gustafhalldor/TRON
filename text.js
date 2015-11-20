@@ -187,8 +187,8 @@ function scoreinput()
 	ctx.fillText("A",270 , 450);
 	ctx.fillStyle ="gold";
 	ctx.fillText("your  score",330 , 410);
-	tempscore = scorecalculate(gametextcolector.length);
-	ctx.fillText(tempscore,330 , 420);
+	
+	ctx.fillText(Score.getScore(),330 , 420);
 	ctx.restore();
 
 	scoreinputchange();

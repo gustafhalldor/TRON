@@ -31,6 +31,7 @@ var Score = {
 
 	_reset : function() {
 		this._score = 0;
+		this._lifesLeft = 3;
 		this._topScores = JSON.parse(localStorage.getItem(this._localStorageIndex));
 	},
 
@@ -52,6 +53,10 @@ var Score = {
 
 	_getSize : function() {
 		return this._topScores.length;
+	},
+
+	getScore : function() {
+		return this._score;
 	},
 
 	// Is score a highscore
@@ -87,6 +92,7 @@ var Score = {
 
 	// Save current score to localStorage
 	save : function(name) {
+		console.log("Save");
 		if(this._lifesLeft !== 0) {
 			return;
 		}

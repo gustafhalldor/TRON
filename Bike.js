@@ -158,7 +158,6 @@ Bike.prototype.update = function (du) {
                 {
                 	//check if player 1 lost or won
                     levelnow++;
-                    console.log("NEW LEVEL");
                     Score.newLevel();
                     
                     if(levelnow!=(maxlevel+1)) {
