@@ -65,6 +65,8 @@ function processDiagnostics() {
             g_gameOver = false;
             gamestart = false;
             g_scoreInput = false;
+            scoresave();
+            nowletter = 0;
             spatialManager.resetArray();
             entityManager.killBikes();
             }
@@ -72,9 +74,16 @@ function processDiagnostics() {
 
   if (eatKey(KEY_RESET)) entityManager.resetBikes();
 
-  if (eatKey(KEY_LETTERCHANGE)) scoreinputchange();
+  if (eatKey(KEY_LETTERCHANGE))
+  {
+      nowletter++;
+      if(nowletter==27)
+      {
+        nowletter=0;
+      }
+  }
 
-  if (eatKey(KEY_LETTERCONFIRM)) scoreinputadd();
+  if (eatKey(KEY_LETTERCONFIRM)) scorename = scorename + temchar;
 
   if (eatKey(KEY_STOPPAUSESC)) notshowpausescreen=!notshowpausescreen;
 
@@ -205,7 +214,7 @@ function drawintroscreen() {
 	}
 
 	// Draw instructions how to choose game type
-	drawText("use M to change playmode", "", "45px aria", g_canvas.width/2, 550);
+	drawText("use M, or mouse, to change playmode", "", "36px aria", g_canvas.width/2, 550);
 
 	// Draw the current chosen type
 	var currentMode = modes[playmode-1];

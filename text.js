@@ -190,32 +190,36 @@ function scoreinput()
 	tempscore = scorecalculate(gametextcolector.length);
 	ctx.fillText(tempscore,330 , 420);
 	ctx.restore();
+
+	scoreinputchange();
+	scoreinputadd();
 }
 
-var tempscore=0;
-var nowleater =0;
-var scorename ="";
-var temchar ="A";
+var tempscore = 0;
+var nowletter = 0;
+var scorename = "";
+var temchar = "A";
 function scoreinputchange()
 {
 	ctx.save();
 	ctx.fillStyle ="white";
 	ctx.fillRect(250,430,50,30);
 	ctx.fillStyle ="black";
-	temchar= chars[nowleater];
+	temchar= chars[nowletter];
 	ctx.fillText(temchar,270 , 450);
 	ctx.restore();
-	nowleater=nowleater+1;
+/*	nowleater=nowleater+1;
 	if(nowleater==27)
 	{
 		nowleater=0;
 	}
+*/
 }
 
 function scoreinputadd()
 {
 	ctx.save();
-	scorename =scorename+temchar;
+//	scorename =scorename+temchar;
 	ctx.fillStyle ="white";
 	ctx.fillRect(380,470,100,20);
 	ctx.fillStyle ="black";
