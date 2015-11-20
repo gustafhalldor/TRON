@@ -52,7 +52,7 @@ var KEY_STOPPAUSESC = keyCode('U');
 var KEY_RETURN = 13;
 var KEY_LETTERCHANGE = keyCode('1');
 var KEY_LETTERCONFIRM = keyCode('2');
-var KEY_PAUSEMUSIC = keyCode('L');
+var KEY_PAUSEMUSIC = keyCode('T');
 
 function processDiagnostics() {
     if (eatKey(KEY_RETURN)) {
