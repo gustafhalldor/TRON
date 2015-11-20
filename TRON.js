@@ -169,15 +169,14 @@ function renderSimulation(ctx) {
 }
 
 function drawscore() {
-	var a=1;
-	var l;
-	while(a  < 11){
-		l= scoreload(a);
-		ctx.fillText(a+".", 50, (a*20)+200);
-		ctx.fillText(l.name, 100, (a*20)+200,40);
-		ctx.fillText(l.score, 150, (a*20)+200);
-		a++;
-	}
+
+    var scores = Score.getAll();
+    for(var i = 0; i < scores.length; i++) {
+        var score = scores[i];
+        ctx.fillText(i+1 + ".", 50, (i*20) + 200);
+        ctx.fillText(score.name, 100, (i*20) + 200);
+        ctx.fillText(score.score, 150, (i*20) + 200);
+    }
 
 }
 
