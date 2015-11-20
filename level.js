@@ -1,4 +1,4 @@
-﻿//level file descripe how the level is
+//level file descripe how the level is
 //format is work in prosses add anything you can think of or need
 //
 var levelnow = 1; // list the curent level
@@ -37,7 +37,7 @@ var level3 = {numerofplayer: 3, other: ""};
 var level3xy =
 	 [{"x": 50, "y": 250},
     {"x": 450, "y": 250},
-    {"x": 1, "y": 1}];
+    {"x": 5, "y": 5}];
 
 var level3color =
 	 [{"cl":"#FF69B4"},
@@ -49,7 +49,7 @@ var level4 = {numerofplayer: 3, other: ""};
 var level4xy =
 	 [{"x": 100, "y": 250},
     {"x": 450, "y": 550},
-    {"x": 250, "y": 1}];
+    {"x": 250, "y": 5}];
 
 var level4color =
 	 [{"cl":"#FF69B4"},
@@ -86,8 +86,8 @@ var level6color =
 var level7 = {numerofplayer: 3, other: ""};
 var level7xy =
 	 [{"x": 300, "y": 300},
-    {"x": 590, "y": 1},
-    {"x": 1, "y": 590}];
+    {"x": 590, "y": 5},
+    {"x": 5, "y": 590}];
 
 var level7color =
 	 [{"cl":"#FF69B4"},
@@ -98,7 +98,7 @@ var level7color =
 // lvl8
 var level8 = {numerofplayer: 4, other: ""};
 var level8xy =
-	 [{"x": 150, "y": 1},
+	 [{"x": 150, "y": 5},
     {"x": 150, "y": 200},
 		{"x": 150, "y": 400},
     {"x": 150, "y": 590}];
@@ -112,7 +112,7 @@ var level8color =
 // lvl9
 var level9 = {numerofplayer: 4, other: ""};
 var level9xy =
-	 [{"x": 450, "y": 1},
+	 [{"x": 450, "y": 5},
     {"x": 450, "y": 200},
 		{"x": 450, "y": 400},
 	  {"x": 450, "y": 590}];
